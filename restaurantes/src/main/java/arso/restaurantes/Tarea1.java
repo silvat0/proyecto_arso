@@ -80,37 +80,62 @@ public class Tarea1 {
 
 			JsonArray resumen = resume.getJsonArray("http://dbpedia.org/ontology/abstract");
 
-			System.out.println("Resumen : ");
-			for (JsonObject d : resumen.getValuesAs(JsonObject.class)) {
-				System.out.println(d.getString("value"));
+			if (resumen == null) {
+				System.out.println("No existe un resumen para este lugar");
 			}
+			else {
+				System.out.println("Resumen : ");
+				for (JsonObject d : resumen.getValuesAs(JsonObject.class)) {
+					System.out.println(d.getString("value"));
+				}
+			}
+			
 
 			System.out.println();
 
 			JsonArray categorias = resume.getJsonArray("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
-
-			System.out.println("Categorías : ");
-			for (JsonObject d : categorias.getValuesAs(JsonObject.class)) {
-				System.out.println(d.getString("value"));
+			
+			
+			if (categorias == null) {
+				System.out.println("No existen categorias para este lugar");
 			}
+			else {
+				System.out.println("Categorías : ");
+				for (JsonObject d : categorias.getValuesAs(JsonObject.class)) {
+					System.out.println(d.getString("value"));
+				}
+			}
+			
 
 			System.out.println();
 
 			JsonArray enlacesExternos = resume.getJsonArray("http://dbpedia.org/ontology/wikiPageExternalLink");
-
-			System.out.println("Enlaces externos : ");
-			for (JsonObject d : enlacesExternos.getValuesAs(JsonObject.class)) {
-				System.out.println(d.getString("value"));
+			
+			if (enlacesExternos == null) {
+				System.out.println("No existen enlaces externos para este lugar");
 			}
+			else {
+				System.out.println("Enlaces externos : ");
+				for (JsonObject d : enlacesExternos.getValuesAs(JsonObject.class)) {
+					System.out.println(d.getString("value"));
+				}
+			}
+			
 
 			System.out.println();
 
 			JsonArray imagenWikimedia = resume.getJsonArray("http://es.dbpedia.org/property/imagen");
-
-			System.out.println("Imagen en Wikimedia : ");
-			for (JsonObject d : imagenWikimedia.getValuesAs(JsonObject.class)) {
-				System.out.println(d.getString("value"));
+			
+			if(imagenWikimedia == null) {
+				System.out.println("No existen imagenes para este lugar");
 			}
+			else {
+				System.out.println("Imagen en Wikimedia : ");
+				for (JsonObject d : imagenWikimedia.getValuesAs(JsonObject.class)) {
+					System.out.println(d.getString("value"));
+				}
+			}
+			
 
 			System.out.println("------------------------------\n");
 
