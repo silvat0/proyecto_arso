@@ -36,8 +36,8 @@ public class Tarea1 {
 
 		// 3. Analizar el documento
 		// documento es la raiz
-		Document documento = analizador.parse(
-				"http://api.geonames.org/findNearbyWikipedia?postalcode=" + codigoPostal + "&country=ES&lang=es&username=arso");
+		Document documento = analizador.parse("http://api.geonames.org/findNearbyWikipedia?postalcode=" + codigoPostal
+				+ "&country=ES&lang=es&username=arso");
 
 		// Obtenemos todos los elementos del fichero .xml con el tag name "entry"
 		NodeList lugares = documento.getElementsByTagName("entry");
@@ -59,30 +59,60 @@ public class Tarea1 {
 
 			String nombreWiki = wikipedia.getTextContent();
 
-			//System.out.println(nombreLugar);
+			// System.out.println(nombreLugar);
 
 			String[] urlWikipedia = nombreWiki.split("/");
-			//System.out.println(urlWikipedia);
+			// System.out.println(urlWikipedia);
 			String nombreToDBPedia = urlWikipedia[urlWikipedia.length - 1];
-			System.out.println(nombreToDBPedia);
+			// System.out.println(nombreToDBPedia);
 			// Aqui termino la obtención del nombre de la URL de wikipedia
 
-			//Usar reader de json --> Json.createReader(url).readObject
+			// Usar reader de json --> Json.createReader(url).readObject
 			String url = "https://es.dbpedia.org/data/" + nombreToDBPedia + ".json";
 			BufferedReader lector = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
 			JsonReader jsonReader = Json.createReader(lector);
 			JsonObject obj = jsonReader.readObject();
-			
+
 			String result = java.net.URLDecoder.decode(nombreToDBPedia, StandardCharsets.UTF_8.name());
-            System.out.println(result);
-			
+			System.out.println(result);
+
 			JsonObject resume = obj.getJsonObject("http://es.dbpedia.org/resource/" + result);
-			
-			JsonArray aux = resume.getJsonArray("http://dbpedia.org/ontology/abstract");
-			
-			for(JsonObject d : aux.getValuesAs(JsonObject.class)) {
+
+			JsonArray resumen = resume.getJsonArray("http://dbpedia.org/ontology/abstract");
+
+			System.out.println("Resumen : ");
+			for (JsonObject d : resumen.getValuesAs(JsonObject.class)) {
 				System.out.println(d.getString("value"));
 			}
+
+			System.out.println();
+
+			JsonArray categorias = resume.getJsonArray("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+
+			System.out.println("Categorías : ");
+			for (JsonObject d : categorias.getValuesAs(JsonObject.class)) {
+				System.out.println(d.getString("value"));
+			}
+
+			System.out.println();
+
+			JsonArray enlacesExternos = resume.getJsonArray("http://dbpedia.org/ontology/wikiPageExternalLink");
+
+			System.out.println("Enlaces externos : ");
+			for (JsonObject d : enlacesExternos.getValuesAs(JsonObject.class)) {
+				System.out.println(d.getString("value"));
+			}
+
+			System.out.println();
+
+			JsonArray imagenWikimedia = resume.getJsonArray("http://es.dbpedia.org/property/imagen");
+
+			System.out.println("Imagen en Wikimedia : ");
+			for (JsonObject d : imagenWikimedia.getValuesAs(JsonObject.class)) {
+				System.out.println(d.getString("value"));
+			}
+
+			System.out.println("------------------------------\n");
 
 		}
 	}
