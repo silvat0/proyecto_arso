@@ -16,6 +16,7 @@ import org.w3c.dom.NodeList;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 import org.json.simple.JSONObject;
@@ -56,7 +57,6 @@ public class Tarea1 {
 			// sustituir los espacios por "_"
 			Element wikipedia = (Element) lugar.getElementsByTagName("wikipediaUrl").item(0);
 
-			String nombreLugar = nombre.getTextContent();
 			String nombreWiki = wikipedia.getTextContent();
 
 			//System.out.println(nombreLugar);
@@ -73,40 +73,16 @@ public class Tarea1 {
 			JsonReader jsonReader = Json.createReader(lector);
 			JsonObject obj = jsonReader.readObject();
 			
+			String result = java.net.URLDecoder.decode(nombreToDBPedia, StandardCharsets.UTF_8.name());
+            System.out.println(result);
 			
-			JsonObject resume = obj.getJsonObject("http://es.dbpedia.org/resource/" + nombreToDBPedia);
+			JsonObject resume = obj.getJsonObject("http://es.dbpedia.org/resource/" + result);
 			
 			JsonArray aux = resume.getJsonArray("http://dbpedia.org/ontology/abstract");
 			
 			for(JsonObject d : aux.getValuesAs(JsonObject.class)) {
 				System.out.println(d.getString("value"));
 			}
-
-			/*String respuesta = "";
-			String linea;
-			while ((linea = lector.readLine()) != null) {
-				respuesta += linea;
-			}
-			lector.close();
-
-			// Convertir el contenido en formato JSON a un objeto Java
-			JSONParser parser = new JSONParser();
-			Object objeto = parser.parse(respuesta);
-			JSONObject objetoJson = (JSONObject) objeto;
-
-			/*JSONArray array = (JSONArray) objetoJson.get("http://dbpedia.org/ontology/abstract");
-
-			if (array != null) {
-
-				for (int j = 0; j < array.size(); j++) {
-					JSONObject prueba = (JSONObject) array.get(j);
-
-					String nombrePlato = (String) prueba.get("type");
-					System.out.println("Type : " + nombrePlato);
-				}
-			}
-			*/
-			//System.out.println(objetoJson.toJSONString());*/
 
 		}
 	}
