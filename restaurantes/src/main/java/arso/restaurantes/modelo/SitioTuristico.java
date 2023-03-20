@@ -4,18 +4,18 @@ import java.util.LinkedList;
 
 public class SitioTuristico {
 
-		private String propiedad;
+		private String resumen;
 		private LinkedList<String> categorias;
 		private LinkedList<String> enlaces;
-		private String imagen;
+		private LinkedList<String> imagen;
 		
 		//Getters y setters.
 		
-		public String getPropiedad() {
-			return propiedad;
+		public String getResumen() {
+			return resumen;
 		}
-		public void setPropiedad(String propiedad) {
-			this.propiedad = propiedad;
+		public void setResumen(String resumen) {
+			this.resumen = resumen;
 		}
 		public LinkedList<String> getCategorias() {
 			return categorias;
@@ -29,10 +29,10 @@ public class SitioTuristico {
 		public void setEnlaces(LinkedList<String> enlaces) {
 			this.enlaces = enlaces;
 		}
-		public String getImagen() {
+		public LinkedList<String> getImagen() {
 			return imagen;
 		}
-		public void setImagen(String imagen) {
+		public void setImagen(LinkedList<String> imagen) {
 			this.imagen = imagen;
 		}
 		
@@ -40,7 +40,7 @@ public class SitioTuristico {
 		
 		@Override
 		public String toString() {
-			return "SitioTuristico [Propiedad = " + propiedad + ", Categorias = " + categorias + ", Enlaces = " + enlaces
+			return "SitioTuristico [Propiedad = " + resumen + ", Categorias = " + categorias + ", Enlaces = " + enlaces
 					+ ", Imagen = " + imagen + "]";
 		}
 		

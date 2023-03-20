@@ -16,6 +16,8 @@ public class Programa {
 		        .build();
 		MongoClient mongoClient = MongoClients.create(settings);
 		MongoDatabase database = mongoClient.getDatabase("test");
+		
+		System.out.println("fin. ");
 
 	}
 

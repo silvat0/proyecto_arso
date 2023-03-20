@@ -1,4 +1,4 @@
-package arso.restaurantes;
+package arso.restaurantes.servicios;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -14,16 +14,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import arso.restaurantes.modelo.SitioTuristico;
+
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class Tarea1 {
+public class SitiosTuristicos {
 	public static void main(String[] args) throws Exception {
 
 		// Parametro del código postal
@@ -79,6 +82,8 @@ public class Tarea1 {
 			JsonObject resume = obj.getJsonObject("http://es.dbpedia.org/resource/" + result);
 
 			JsonArray resumen = resume.getJsonArray("http://dbpedia.org/ontology/abstract");
+			
+			SitioTuristico sitio = new SitioTuristico();
 
 			if (resumen == null) {
 				System.out.println("No existe un resumen para este lugar");
@@ -86,7 +91,8 @@ public class Tarea1 {
 			else {
 				System.out.println("Resumen : ");
 				for (JsonObject d : resumen.getValuesAs(JsonObject.class)) {
-					System.out.println(d.getString("value"));
+					sitio.setResumen(d.getString("value"));
+					//System.out.println(d.getString("value"));
 				}
 			}
 			
@@ -101,9 +107,13 @@ public class Tarea1 {
 			}
 			else {
 				System.out.println("Categorías : ");
+				LinkedList<String> cat = new LinkedList<>();
 				for (JsonObject d : categorias.getValuesAs(JsonObject.class)) {
-					System.out.println(d.getString("value"));
+					cat.add(d.getString("value"));
+					//System.out.println(d.getString("value"));
 				}
+				
+				sitio.setCategorias(cat);
 			}
 			
 
@@ -116,9 +126,13 @@ public class Tarea1 {
 			}
 			else {
 				System.out.println("Enlaces externos : ");
+				LinkedList<String> enlaces = new LinkedList<>();
 				for (JsonObject d : enlacesExternos.getValuesAs(JsonObject.class)) {
-					System.out.println(d.getString("value"));
+					enlaces.add(d.getString("value"));
+					//System.out.println(d.getString("value"));
 				}
+				
+				sitio.setEnlaces(enlaces);
 			}
 			
 
@@ -130,14 +144,18 @@ public class Tarea1 {
 				System.out.println("No existen imagenes para este lugar");
 			}
 			else {
+				LinkedList<String> imagenes = new LinkedList<>();
 				System.out.println("Imagen en Wikimedia : ");
 				for (JsonObject d : imagenWikimedia.getValuesAs(JsonObject.class)) {
-					System.out.println(d.getString("value"));
+					imagenes.add(d.getString("value"));
+					//System.out.println(d.getString("value"));
 				}
+				
+				sitio.setImagen(imagenes);
 			}
 			
 
-			System.out.println("------------------------------\n");
+			System.out.println(sitio);
 
 		}
 	}
