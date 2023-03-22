@@ -1,54 +1,88 @@
 package arso.restaurantes.servicios;
 
+import java.util.List;
+
+import arso.repositorio.EntidadNoEncontrada;
+import arso.repositorio.FactoriaRepositorios;
+import arso.repositorio.Repositorio;
+import arso.repositorio.RepositorioException;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
+import arso.restaurantes.modelo.SitioTuristico;
+import bookle.modelo.Actividad;
 
-public class ServicioRestaurante implements IServicioRestaurante { 
-	
-	// FACTORIA DE REPOSITORIOS
+public class ServicioRestaurante implements IServicioRestaurante {
+
+	private Repositorio<Restaurante, String> repositorio = FactoriaRepositorios.getRepositorio(Restaurante.class);
 
 	@Override
-	public int create(Restaurante restaurente) {
-		// TODO Auto-generated method stub
-		return 0;
+	public String create(Restaurante restaurente) throws RepositorioException {
+		return repositorio.add(restaurente);
 	}
 
 	@Override
-	public void update(Restaurante restaurante) {
-		// TODO Auto-generated method stub
-		
+	public void update(Restaurante restaurante) throws RepositorioException, EntidadNoEncontrada {
+		repositorio.update(restaurante);
 	}
 
 	@Override
-	public void addPlato(int idRestaurante, Plato plato) {
-		// TODO Auto-generated method stub
-		
+	public void addPlato(String idRestaurante, Plato plato) throws RepositorioException, EntidadNoEncontrada {
+		Restaurante restaurante = repositorio.getById(idRestaurante);
+
+		restaurante.addPlato(plato);
+
+		update(restaurante);
 	}
 
 	@Override
-	public void removePlato(int idRestaurante, String plato) {
-		// TODO Auto-generated method stub
-		
+	public void removePlato(String idRestaurante, String plato) throws RepositorioException, EntidadNoEncontrada {
+		Restaurante restaurante = repositorio.getById(idRestaurante);
+
+		restaurante.removePlato(plato);
+
+		update(restaurante);
 	}
 
 	@Override
-	public void updatePlato(int idRestaurante, Plato plato) {
-		// TODO Auto-generated method stub
-		
+	public void updatePlato(String idRestaurante, Plato plato) throws RepositorioException, EntidadNoEncontrada {
+		Restaurante restaurante = repositorio.getById(idRestaurante);
+
+		restaurante.updatePlato(plato);
+
+		update(restaurante);
+
 	}
 
 	@Override
-	public Restaurante getRestaurante(int idRestaurante) {
+	public Restaurante getRestaurante(String idRestaurante) throws RepositorioException, EntidadNoEncontrada {
+		return repositorio.getById(idRestaurante);
+	}
+
+	@Override
+	public void removeRestaurante(String idRestaurante) throws RepositorioException, EntidadNoEncontrada {
+		Restaurante restaurante = repositorio.getById(idRestaurante);
+
+		repositorio.delete(restaurante);
+	}
+
+	@Override
+	public List<SitioTuristico> getSitiosTuristidos(String idRestaurante)
+			throws RepositorioException, EntidadNoEncontrada {
+		Restaurante restaurante = repositorio.getById(idRestaurante);
+
+		return restaurante.getSitiosTuristicos();
+	}
+
+	@Override
+	public void establecerSitiosTuristicos(String idRestaurante, List<SitioTuristico> sitiosTuristicos) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<RestauranteResumen> getListadoRestaurantes() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public void removeRestaurante(int idRestaurante) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	
 }
