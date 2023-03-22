@@ -2,7 +2,9 @@ package arso.restaurantes.modelo;
 
 import java.util.LinkedList;
 
-public class Restaurante {
+import arso.repositorio.Identificable;
+
+public class Restaurante implements Identificable{
 
 	private String id;
 	private String nombre;

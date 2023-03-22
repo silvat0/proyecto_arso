@@ -1,5 +1,6 @@
 package arso.restaurantes.servicios;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import arso.repositorio.EntidadNoEncontrada;
@@ -9,7 +10,6 @@ import arso.repositorio.RepositorioException;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;
-import bookle.modelo.Actividad;
 
 public class ServicioRestaurante implements IServicioRestaurante {
 
@@ -74,15 +74,35 @@ public class ServicioRestaurante implements IServicioRestaurante {
 	}
 
 	@Override
-	public void establecerSitiosTuristicos(String idRestaurante, List<SitioTuristico> sitiosTuristicos) {
-		// TODO Auto-generated method stub
+	public void establecerSitiosTuristicos(String idRestaurante, List<SitioTuristico> sitiosTuristicos) throws RepositorioException, EntidadNoEncontrada {
+		Restaurante restaurante = repositorio.getById(idRestaurante);
+
+		restaurante.setSitiosTuristicos((LinkedList<SitioTuristico>) sitiosTuristicos);
+
+		update(restaurante);
 
 	}
 
 	@Override
-	public List<RestauranteResumen> getListadoRestaurantes() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RestauranteResumen> getListadoRestaurantes() throws RepositorioException {
+		
+		LinkedList<RestauranteResumen> resultado = new LinkedList<>();
+		
+		for(String id : repositorio.getIds()) {
+			try {
+				Restaurante restaurante = getRestaurante(id);
+				RestauranteResumen resumen = new RestauranteResumen();
+				resumen.setId(restaurante.getId());
+				resumen.setCoordenadas(restaurante.getCoordenadas());
+				resumen.setNombre(restaurante.getNombre());
+				resultado.add(resumen);
+				
+			} catch  (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return resultado;
 	}
 
 }

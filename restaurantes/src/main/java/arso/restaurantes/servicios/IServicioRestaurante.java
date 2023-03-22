@@ -20,7 +20,7 @@ public interface IServicioRestaurante {
 	List<SitioTuristico> getSitiosTuristidos(String idRestaurante) throws RepositorioException, EntidadNoEncontrada;
 	
 	// Establecer sitios turísticos destacados
-	void establecerSitiosTuristicos(String idRestaurante, List<SitioTuristico> sitiosTuristicos);
+	void establecerSitiosTuristicos(String idRestaurante, List<SitioTuristico> sitiosTuristicos) throws RepositorioException, EntidadNoEncontrada;
 	
 	// Añadir plato a un restaurante
 	void addPlato(String idRestaurante, Plato plato) throws RepositorioException, EntidadNoEncontrada;
@@ -38,7 +38,7 @@ public interface IServicioRestaurante {
 	void removeRestaurante(String idRestaurante) throws RepositorioException, EntidadNoEncontrada;
 	
 	// Listado de restaurantes
-	List<RestauranteResumen> getListadoRestaurantes();
+	List<RestauranteResumen> getListadoRestaurantes() throws RepositorioException;
 	
 	
 	
