@@ -1,16 +1,16 @@
 package arso.restaurantes.repositorio.test;
 
-import arso.repositorio.EntidadNoEncontrada;
-import arso.repositorio.FactoriaRepositorios;
-import arso.repositorio.Repositorio;
-import arso.repositorio.RepositorioException;
+import arso.repositorio.memoria.EntidadNoEncontrada;
+import arso.repositorio.memoria.FactoriaRepositorios;
+import arso.repositorio.memoria.IRepositorioMemoria;
+import arso.repositorio.memoria.RepositorioException;
 import arso.restaurantes.modelo.Restaurante;
 
 public class PruebasUnitarias {
 
 	public static void main(String[] args) throws RepositorioException, EntidadNoEncontrada {
 		
-		Repositorio<Restaurante, String> repositorio = FactoriaRepositorios.getRepositorio(Restaurante.class);
+		IRepositorioMemoria<Restaurante, String> repositorio = FactoriaRepositorios.getRepositorio(Restaurante.class);
 		
 		//ServicioRestaurante servicio = new ServicioRestaurante();
 		

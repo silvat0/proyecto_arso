@@ -2,8 +2,8 @@ package arso.restaurantes.servicios;
 
 import java.util.List;
 
-import arso.repositorio.EntidadNoEncontrada;
-import arso.repositorio.RepositorioException;
+import arso.repositorio.memoria.EntidadNoEncontrada;
+import arso.repositorio.memoria.RepositorioException;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;

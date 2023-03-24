@@ -3,17 +3,17 @@ package arso.restaurantes.servicios;
 import java.util.LinkedList;
 import java.util.List;
 
-import arso.repositorio.EntidadNoEncontrada;
-import arso.repositorio.FactoriaRepositorios;
-import arso.repositorio.Repositorio;
-import arso.repositorio.RepositorioException;
+import arso.repositorio.memoria.EntidadNoEncontrada;
+import arso.repositorio.memoria.FactoriaRepositorios;
+import arso.repositorio.memoria.IRepositorioMemoria;
+import arso.repositorio.memoria.RepositorioException;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;
 
 public class ServicioRestaurante implements IServicioRestaurante {
 
-	private Repositorio<Restaurante, String> repositorio = FactoriaRepositorios.getRepositorio(Restaurante.class);
+	private IRepositorioMemoria<Restaurante, String> repositorio = FactoriaRepositorios.getRepositorio(Restaurante.class);
 
 	@Override
 	public String create(Restaurante restaurente) throws RepositorioException {

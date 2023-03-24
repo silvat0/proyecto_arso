@@ -1,42 +1,22 @@
-package arso.repositorio;
+package arso.repositorio.memoria;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.bson.Document;
-
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-
-import arso.restaurantes.modelo.Restaurante;
 import arso.utils.Utils;
 
-//Clase donde se implementan los metodos de la interfaz repositorio.
 
 public class RepositorioMemoria<T extends Identificable> implements RepositorioString<T> {
 
 	private HashMap<String, T> entidades = new HashMap<>();
-	
-	ConnectionString connectionString = new ConnectionString("mongodb+srv://arso:arso@cluch.2l0gzgu.mongodb.net/?retryWrites=true&w=majority");
-	MongoClientSettings settings = MongoClientSettings.builder()
-	        .applyConnectionString(connectionString)
-	        .build();
-	MongoClient mongoClient = MongoClients.create(settings);
-	MongoDatabase database = mongoClient.getDatabase("test");
-	
-	MongoCollection<Document> coleccion = database.getCollection("Restaurante");
 	
 	@Override
 	public String add(T entity) throws RepositorioException {
 		
 		String id = Utils.createId();
 		entity.setId(id);
-		coleccion.insertOne((Document) entity);	
+		this.entidades.put(id, entity);		
 		
 		return id;
 	}
@@ -78,6 +58,6 @@ public class RepositorioMemoria<T extends Identificable> implements RepositorioS
 	public List<String> getIds() throws RepositorioException {
 		
 		return new ArrayList<>(this.entidades.keySet());
-	}	
-	
+	}
+
 }
