@@ -5,11 +5,11 @@ public class Plato {
 	private String descripcion;
 	private double precio;
 
-	public Plato(String nombre, String descripcion, double precio) {
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.precio = precio;
-	}
+//	public Plato(String nombre, String descripcion, double precio) {
+//		this.nombre = nombre;
+//		this.descripcion = descripcion;
+//		this.precio = precio;
+//	}
 
 	public String getNombre() {
 		return nombre;

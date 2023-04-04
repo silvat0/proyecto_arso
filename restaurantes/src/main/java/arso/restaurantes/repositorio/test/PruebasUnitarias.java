@@ -4,25 +4,54 @@ import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.repositorio.memoria.FactoriaRepositorios;
 import arso.repositorio.memoria.IRepositorioMemoria;
 import arso.repositorio.memoria.RepositorioException;
+import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
+import arso.restaurantes.servicios.ServicioRestaurante;
 
 public class PruebasUnitarias {
 
 	public static void main(String[] args) throws RepositorioException, EntidadNoEncontrada {
 		
-		IRepositorioMemoria<Restaurante, String> repositorio = FactoriaRepositorios.getRepositorio(Restaurante.class);
+		//IRepositorioMemoria<Restaurante, String> repositorio = FactoriaRepositorios.getRepositorio(Restaurante.class);
 		
-		//ServicioRestaurante servicio = new ServicioRestaurante();
+		ServicioRestaurante servicio = new ServicioRestaurante();
 		
 		Restaurante restaurante = new Restaurante();
 		restaurante.setNombre("Prueba");
 		restaurante.setCoordenadas("Coordenadas de prueba");
 		
+		Plato plato = new Plato();
+		plato.setNombre("prueba");
+		plato.setDescripcion("plato de prueba");
+		plato.setPrecio(20.0);
 		
-		String id = repositorio.add(restaurante);
+		Plato plato2 = new Plato();
+		plato2.setNombre("prueba2");
+		plato2.setDescripcion("plato2 de prueba");
+		plato2.setPrecio(10.0);
 		
-		Restaurante restaurante2 = repositorio.getById(id);
+		
+		String id = servicio.create(restaurante);
+		
+		servicio.addPlato(id, plato);
+		
+		Restaurante restaurante2 = servicio.getRestaurante(id);
 		System.out.println(restaurante2);
+		
+		servicio.addPlato(id, plato);
+		
+		Restaurante restaurante3 = servicio.getRestaurante(id);
+		System.out.println(restaurante3);
+		
+		servicio.addPlato(id, plato2);
+		
+		Restaurante restaurante4 = servicio.getRestaurante(id);
+		System.out.println(restaurante4);
+		
+		servicio.removePlato(id, "prueba2");
+		
+		Restaurante restaurante5 = servicio.getRestaurante(id);
+		System.out.println(restaurante5);
 		
 
 	}
