@@ -1,4 +1,4 @@
-package arso.repositorio.memoria;
+package arso.repositorio.mongo;
 
 import java.util.List;
 
@@ -12,10 +12,10 @@ public interface IRepositorioMongo {
 
 	void delete(Restaurante restaurante) throws RepositorioException, EntidadNoEncontrada;
 
-	String getById(String id) throws RepositorioException, EntidadNoEncontrada;
+	Restaurante getById(String id) throws RepositorioException, EntidadNoEncontrada;
 
 	List<Restaurante> getAll() throws RepositorioException;
 
-	List<Restaurante> getIds() throws RepositorioException;
+	List<String> getIds() throws RepositorioException;
 
 }
