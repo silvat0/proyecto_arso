@@ -13,7 +13,7 @@ import arso.repositorio.memoria.RepositorioException;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.servicios.ServicioRestaurante;
 
-class ServicioRestauranteTest {
+public class ServicioRestauranteTest {
 	
 	ServicioRestaurante servicio;
 	
@@ -25,21 +25,12 @@ class ServicioRestauranteTest {
 	
 	
 	@Test
-	public void testDarAltRestaurante() throws RepositorioException{
+	public void testDarAltaRestaurante() throws RepositorioException{
 		Restaurante restaurante = new Restaurante();
 		restaurante.setNombre("Restaurante Emboka");
 		restaurante.setCoordenadas("JUAN DE BORBON, 29, 30007 Murcia");
 		
 		assertNotNull(servicio.create(restaurante));
-	}
-	
-	@Test
-	public void testP(){
-		Restaurante restaurante = new Restaurante();
-		restaurante.setNombre("Restaurante Emboka");
-		restaurante.setCoordenadas("JUAN DE BORBON, 29, 30007 Murcia");
-		
-		assertEquals(2, 3, 0);
 	}
 	
 
