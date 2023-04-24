@@ -8,7 +8,7 @@ import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.servicios.ServicioRestaurante;
 
-public class PruebasUnitarias {
+public class PruebaServicioRestaurante {
 
 	public static void main(String[] args) throws RepositorioException, EntidadNoEncontrada {
 		
