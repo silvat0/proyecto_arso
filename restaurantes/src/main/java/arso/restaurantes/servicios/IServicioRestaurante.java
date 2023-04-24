@@ -14,7 +14,7 @@ public interface IServicioRestaurante {
 	String create(Restaurante restaurente) throws RepositorioException;
 	
 	// Metodo para actulizar un restaurante
-	void update(String restaurante, String nombre, String coordenadas) throws RepositorioException, EntidadNoEncontrada;
+	void update(Restaurante restaurante) throws RepositorioException, EntidadNoEncontrada;
 	
 	// Obtener sitios turísticos próximos de un restaurante
 	List<SitioTuristico> getSitiosTuristidos(String idRestaurante) throws RepositorioException, EntidadNoEncontrada;
