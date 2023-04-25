@@ -24,7 +24,6 @@ import arso.restaurantes.servicios.FactoriaServicios;
 import arso.restaurantes.servicios.IServicioRestaurante;
 import arso.restaurantes.servicios.RestauranteResumen;
 import io.swagger.annotations.Api;
-import restaurantes.rest.Listado.ResumenExtendido;
 
 @Api
 @Path("restaurantes")
@@ -131,9 +130,9 @@ public class RestauranteControladorRest {
 	
 	// (9)
 	
-	@POST
+	@PUT
 	@Path("/{id}/SitiosTuristicos")
-	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON })
 	public Response establecerSitiosTuristicos( @PathParam("id") String id, List<SitioTuristico> sitiosTuristicos) throws Exception {
 		
 		servicio.establecerSitiosTuristicos(id, sitiosTuristicos);
@@ -148,7 +147,7 @@ public class RestauranteControladorRest {
 
 		List<RestauranteResumen> resultado = servicio.getListadoRestaurantes();
 
-		LinkedList<ResumenExtendido> extendido = new LinkedList<Listado.ResumenExtendido>();
+		LinkedList<ResumenExtendido> extendido = new LinkedList<ResumenExtendido>();
 
 		for (RestauranteResumen restauranteResumen : resultado) {
 
@@ -163,14 +162,9 @@ public class RestauranteControladorRest {
 
 			extendido.add(resumenExtendido);
 
-		}
+		}	
 
-
-		Listado listado = new Listado();
-
-		listado.setRestaurante(extendido);
-
-		return Response.ok(listado).build();
+		return Response.ok(extendido).build();
 
 	}
 	
