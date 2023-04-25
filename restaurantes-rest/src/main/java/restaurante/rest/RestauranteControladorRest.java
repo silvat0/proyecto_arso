@@ -1,13 +1,14 @@
 package restaurante.rest;
 
 import java.net.URI;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.PUT;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -15,15 +16,15 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.core.Response.Status;
 
-import arso.restaurantes.servicios.FactoriaServicios;
-import arso.restaurantes.servicios.IServicioRestaurante;
+import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;
+import arso.restaurantes.servicios.FactoriaServicios;
+import arso.restaurantes.servicios.IServicioRestaurante;
 import arso.restaurantes.servicios.RestauranteResumen;
-import arso.restaurantes.modelo.Plato;
 import io.swagger.annotations.Api;
+import restaurante.rest.Listado.ResumenExtendido;
 
 @Api
 @Path("restaurantes")
@@ -60,7 +61,7 @@ public class RestauranteControladorRest {
 	}
 	
 	@POST
-	@Path("/{id}")
+	@Path("/{id}/Platos")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addPlato(@PathParam("id") String idRestaurante, Plato plato) throws Exception{
 		
@@ -70,7 +71,7 @@ public class RestauranteControladorRest {
 	}
 	
 	@DELETE
-	@Path("/{id}")
+	@Path("/{id}/Platos/{nombre}")
 	public Response removePlato(@PathParam("id") String idRestaurante, @PathParam("nombre") String nombrePlato) throws Exception {
 		
 		servicio.removePlato(idRestaurante, nombrePlato);
@@ -79,10 +80,16 @@ public class RestauranteControladorRest {
 	}
 	
 	@PUT
-	@Path("/{id}")
+	@Path("/{id}/Platos/{nombre}")
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response updatePlato(@PathParam("id") String idRestaurante, Plato plato) throws Exception {
+	public Response updatePlato(@PathParam("id") String idRestaurante, @PathParam("nombre") String nombrePlato, Plato plato) throws Exception {
 		
+		if (!nombrePlato.equals(plato.getNombre()))
+			throw new IllegalArgumentException("El nombre del plato no coincide: " + nombrePlato);
+
+		servicio.updatePlato(idRestaurante, plato);
+
+		return Response.status(Response.Status.NO_CONTENT).build();
 	}
 	
 	
@@ -124,8 +131,49 @@ public class RestauranteControladorRest {
 	
 	// (9)
 	
+	@POST
+	@Path("/{id}/SitiosTuristicos")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response establecerSitiosTuristicos( @PathParam("id") String id, List<SitioTuristico> sitiosTuristicos) throws Exception {
+		
+		servicio.establecerSitiosTuristicos(id, sitiosTuristicos);
+		
+		return Response.status(Response.Status.NO_CONTENT).build();
+	}
 	
-	// (10)
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getListadoRestaurantes() throws Exception {
+
+		List<RestauranteResumen> resultado = servicio.getListadoRestaurantes();
+
+		LinkedList<ResumenExtendido> extendido = new LinkedList<Listado.ResumenExtendido>();
+
+		for (RestauranteResumen restauranteResumen : resultado) {
+
+			ResumenExtendido resumenExtendido = new ResumenExtendido();
+
+			resumenExtendido.setResumen(restauranteResumen);
+
+			String id = restauranteResumen.getId();
+			URI nuevaURL = uriInfo.getAbsolutePathBuilder().path(id).build();
+
+			resumenExtendido.setUrl(nuevaURL.toString());
+
+			extendido.add(resumenExtendido);
+
+		}
+
+
+		Listado listado = new Listado();
+
+		listado.setRestaurante(extendido);
+
+		return Response.ok(listado).build();
+
+	}
+	
 	
 	
 }
