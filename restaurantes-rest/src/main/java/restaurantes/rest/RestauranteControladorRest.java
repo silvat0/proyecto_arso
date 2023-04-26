@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -24,6 +25,10 @@ import arso.restaurantes.servicios.FactoriaServicios;
 import arso.restaurantes.servicios.IServicioRestaurante;
 import arso.restaurantes.servicios.RestauranteResumen;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
 
 @Api
 @Path("restaurantes")
@@ -34,9 +39,13 @@ public class RestauranteControladorRest {
 	@Context
 	private UriInfo uriInfo;
 	
+	// (1)
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response create(Restaurante restaurente) throws Exception {
+	@ApiOperation(value = "Crea un restaurante", notes = "Retorna un 201 created si se ha podido crear el objeto restaurante")
+	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_CREATED, message = "") })
+	public Response create(@ApiParam(value = "restaurante que se quiere crear", required = true) Restaurante restaurente) throws Exception {
 
 		String id = servicio.create(restaurente);
 		
@@ -45,10 +54,18 @@ public class RestauranteControladorRest {
 		return Response.created(nuevaURL).build();
 	}
 	
+	// (2)
+	
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(@PathParam("id") String id1, String id2, String nombre, String coordenadas) throws Exception {
+	@ApiOperation(value = "Actualiza un restaurante", notes = "Retorna un 204 no content indicando que todo ha ido bien")
+	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = ""),
+			@ApiResponse(code = HttpServletResponse.SC_BAD_REQUEST, message = "El identificador no coincide") })
+	public Response update(@ApiParam(value = "id del restaurante", required = true) @PathParam("id") String id1, 
+							@ApiParam(value = "id del restaurante", required = true) String id2, 
+							@ApiParam(value = "nombre del restaurante", required = true) String nombre, 
+							@ApiParam(value = "coordenadas del restaurante", required = true) String coordenadas) throws Exception {
 
 		if (!id1.equals(id2))
 			throw new IllegalArgumentException("El identificador no coincide: " + id1);
@@ -59,11 +76,17 @@ public class RestauranteControladorRest {
 
 	}
 	
+	// (3)
+	
 	@POST
 	@Path("/{id}/Platos")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addPlato(@PathParam("id") String idRestaurante, Plato plato) throws Exception{
-		
+	@ApiOperation(value = "Añade un plato a un restaurante", notes = "Retorna un 204 no content indicando que todo ha ido bien")
+	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = ""),
+			@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "El id no existe en el repositorio") })
+	public Response addPlato(@ApiParam(value = "id del restaurante", required = true) @PathParam("id") String idRestaurante, 
+							 @ApiParam(value = "plato a añadir", required = true) Plato plato) throws Exception{
+
 		servicio.addPlato(idRestaurante, plato);
 		
 		return Response.status(Response.Status.NO_CONTENT).build();
