@@ -44,7 +44,7 @@ public class RestauranteControladorRest {
 	
 	// (1) **
 	
-	// curl -i -X POST -H "Content-type: application/json" --data "nombre=pieroti&coordenadas=-5541784, 54484544" http://localhost:8080/api/restaurantes/
+	// curl -i -X POST -H "Content-type: application/json" --data "{\"nombre\":\"pizza\",  \"coordenadas\":\"-5541784, 54484544\"}" http://localhost:8080/api/restaurantes/
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -61,7 +61,7 @@ public class RestauranteControladorRest {
 	
 	// (2) **
 	
-	// curl -i -X PUT -H "Content-type: application/json" --data "id=643ac9d3ed48b8c9aa007a7d&nombre=pierotiUpdate&coordenadas=-5541784, 54484544Update" http://localhost:8080/api/restaurantes/643ac9d3ed48b8c9aa007a7d
+	// curl -i -X PUT -H "Content-type: application/json" --data "{\"id\":\"643ac9d3ed48b8c9aa007a7d\",\"nombre\":\"Burguer\",\"coordenadas\":\"-5541784, 54484544\"}" http://localhost:8080/api/restaurantes/643ac9d3ed48b8c9aa007a7d
 
 	@PUT
 	@Path("/{id}")
@@ -83,7 +83,7 @@ public class RestauranteControladorRest {
 	
 	// (3) **
 	
-	// curl -i -X POST -H "Content-type: application/json" --data "nombre=ensalada&descripcion=lechuga y tomate&precio=10" http://localhost:8080/api/restaurantes/643ac9d3ed48b8c9aa007a7d/platos
+	// curl -i -X POST -H "Content-type: application/json" --data "{\"nombre\":\"roll\",\"descripcion\":\"shushi variado\",\"precio\": 14}" http://localhost:8080/api/restaurantes/643ac9d3ed48b8c9aa007a7d/platos
 
 	@POST
 	@Path("/{id}/platos")
@@ -129,7 +129,7 @@ public class RestauranteControladorRest {
 
 	// (5) **
 
-	// curl -i -X PUT -H "Content-type: application/json" --data "nombre=ensaladaUpdate&descripcion=lechuga y tomateUpdate&precio=10Update" http://localhost:8080/api/restaurantes/643ac9d3ed48b8c9aa007a7d/platos/ensalada
+	// curl -i -X PUT -H "Content-type: application/json" --data "{\"nombre\":\"Burguer\",\"descripcion\":\"Burguer con patatas\",\"precio\": 14}" http://localhost:8080/api/restaurantes/643ac9d3ed48b8c9aa007a7d/platos/ensalada
 	
 	@PUT
 	@Path("/{id}/platos/{nombre}")
@@ -203,7 +203,7 @@ public class RestauranteControladorRest {
 	
 	// (9) 
 
-	// curl -i -X PUT -H "Content-type: application/json" --data "!lista de sitios turisticos!" http://localhost:8080/api/restaurantes/643ac9d3ed48b8c9aa007a7d/sitiosTuristicos
+	// curl -i -X PUT -H "Content-type: application/json" --data "[{"resumen": "La catedral de Murcia","categorias": ["Categoria1","Categoria2"],"enlaces": ["http;//hfhwvhwjvwv"],"imagen": ["imagen1.png"]}]" http://localhost:8080/api/restaurantes/643ac9d3ed48b8c9aa007a7d/sitiosTuristicos
 	
 	@PUT
 	@Path("/{id}/sitiosTuristicos")
