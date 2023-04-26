@@ -2,11 +2,15 @@ package arso.opiniones.modelo;
 
 import java.util.LinkedList;
 
-public class Opinion {
+import arso.repositorio.memoria.Identificable;
+
+public class Opinion implements Identificable{
 	
 	private String id;
 	private String recurso;
 	private LinkedList<Valoracion> valoraciones = new LinkedList<>();
+	
+	// Getters y setters.
 	
 	public String getId() {
 		return id;
@@ -46,6 +50,30 @@ public class Opinion {
 		
 		return suma/getNumValoraciones();
 	}
+	
+	public void addValoracion(Valoracion valoracion) {
+		boolean band = false;
+		for(Valoracion v : valoraciones) {
+			if(v.getCorreo().equals(valoracion.getCorreo())) {
+				band = true;
+				valoraciones.remove(v);
+				valoraciones.add(valoracion);
+			}
+		}
+		
+		if(band == false) {
+			valoraciones.add(valoracion);
+		}
+	}
+
+	// Metodo toString
+	
+	@Override
+	public String toString() {
+		return "Opinion [id=" + id + ", recurso=" + recurso + ", valoraciones=" + valoraciones + "]";
+	}
+	
+	
 	
 	
 }

@@ -41,5 +41,13 @@ public class Valoracion {
 		this.comentario = comentario;
 	}
 	
+	// Metodo toString
+
+	@Override
+	public String toString() {
+		return "Valoracion [correo=" + correo + ", fecha=" + fecha + ", calificacion=" + calificacion + ", comentario="
+				+ comentario + "]";
+	}
+	
 	
 }

@@ -1,0 +1,21 @@
+package arso.opiniones.servicios;
+
+import arso.opiniones.modelo.Opinion;
+import arso.opiniones.modelo.Valoracion;
+import arso.repositorio.memoria.EntidadNoEncontrada;
+import arso.repositorio.memoria.RepositorioException;
+
+public interface IServicioOpiniones {
+
+	// Metodo para crear una opinion
+	String create(Opinion restaurente) throws RepositorioException;
+	
+	// Añadir una valoración sobre un recurso
+	void addValoracion(String idOpinion, Valoracion valoracion) throws RepositorioException, EntidadNoEncontrada;
+	
+	// Recuperar la opinión de un recurso.
+	Opinion getOpinion(String idOpinion) throws RepositorioException, EntidadNoEncontrada;
+	
+	// Eliminar una opinión del servicio
+	void removeOpinion(String idOpinion) throws RepositorioException, EntidadNoEncontrada;
+}

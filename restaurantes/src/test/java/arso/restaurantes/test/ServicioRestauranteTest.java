@@ -24,7 +24,6 @@ public class ServicioRestauranteTest {
 	}
 	
 	
-	
 	@Test
 	public void testCreateRestaurante() throws RepositorioException{
 		Restaurante restaurante = new Restaurante();
