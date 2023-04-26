@@ -1,8 +1,9 @@
-	package arso.restaurantes.servicios;
+package arso.restaurantes.servicios;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import arso.repositorio.memoria.EntidadEncontrada;
 import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.repositorio.memoria.FactoriaRepositorios;
 import arso.repositorio.memoria.IRepositorioMemoria;
@@ -28,17 +29,17 @@ public class ServicioRestaurante implements IServicioRestaurante {
 	}
 
 	@Override
-	public void addPlato(String idRestaurante, Plato plato) throws RepositorioException, EntidadNoEncontrada {
+	public boolean addPlato(String idRestaurante, Plato plato) throws RepositorioException, EntidadNoEncontrada, EntidadEncontrada {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 
-		restaurante.addPlato(plato);
+		return restaurante.addPlato(plato);
 	}
 
 	@Override
-	public void removePlato(String idRestaurante, String plato) throws RepositorioException, EntidadNoEncontrada {
+	public boolean removePlato(String idRestaurante, String plato) throws RepositorioException, EntidadNoEncontrada {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 
-		restaurante.removePlato(plato);
+		return restaurante.removePlato(plato);
 	}
 
 	@Override

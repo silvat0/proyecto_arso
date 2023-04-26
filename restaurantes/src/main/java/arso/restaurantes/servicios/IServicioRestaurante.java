@@ -2,6 +2,7 @@ package arso.restaurantes.servicios;
 
 import java.util.List;
 
+import arso.repositorio.memoria.EntidadEncontrada;
 import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.repositorio.memoria.RepositorioException;
 import arso.restaurantes.modelo.Plato;
@@ -23,10 +24,10 @@ public interface IServicioRestaurante {
 	void establecerSitiosTuristicos(String idRestaurante, List<SitioTuristico> sitiosTuristicos) throws RepositorioException, EntidadNoEncontrada;
 	
 	// Añadir plato a un restaurante
-	void addPlato(String idRestaurante, Plato plato) throws RepositorioException, EntidadNoEncontrada;
+	boolean addPlato(String idRestaurante, Plato plato) throws RepositorioException, EntidadNoEncontrada, EntidadEncontrada;
 	
 	// Borrar plato de un restaurante
-	void removePlato(String idRestaurante, String plato) throws RepositorioException, EntidadNoEncontrada;
+	boolean removePlato(String idRestaurante, String plato) throws RepositorioException, EntidadNoEncontrada;
 	
 	// Actualizar un plato del restaurante 
 	void updatePlato(String idRestaurante, Plato plato) throws RepositorioException, EntidadNoEncontrada;

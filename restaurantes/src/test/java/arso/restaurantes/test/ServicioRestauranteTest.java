@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import arso.repositorio.memoria.EntidadEncontrada;
 import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.repositorio.memoria.RepositorioException;
 import arso.restaurantes.modelo.Plato;
@@ -55,7 +56,7 @@ public class ServicioRestauranteTest {
 //	}
 	
 	@Test
-	public void tesAddPlato() throws RepositorioException, EntidadNoEncontrada{
+	public void tesAddPlato() throws RepositorioException, EntidadNoEncontrada, EntidadEncontrada{
 		Restaurante restaurante = new Restaurante();
 		restaurante.setNombre("Restaurante Emboka");
 		restaurante.setCoordenadas("JUAN DE BORBON, 29, 30007 Murcia");
@@ -76,7 +77,7 @@ public class ServicioRestauranteTest {
 	}
 	
 	@Test
-	public void tesRemovePlato() throws RepositorioException, EntidadNoEncontrada{
+	public void tesRemovePlato() throws RepositorioException, EntidadNoEncontrada, EntidadEncontrada{
 		Restaurante restaurante = new Restaurante();
 		restaurante.setNombre("Restaurante Emboka");
 		restaurante.setCoordenadas("JUAN DE BORBON, 29, 30007 Murcia");
@@ -98,7 +99,7 @@ public class ServicioRestauranteTest {
 	}
 	
 	@Test
-	public void testUpdatePlato() throws RepositorioException, EntidadNoEncontrada{
+	public void testUpdatePlato() throws RepositorioException, EntidadNoEncontrada, EntidadEncontrada{
 		Restaurante restaurante = new Restaurante();
 		restaurante.setNombre("Restaurante Emboka");
 		restaurante.setCoordenadas("JUAN DE BORBON, 29, 30007 Murcia");
@@ -162,6 +163,11 @@ public class ServicioRestauranteTest {
 		servicio.create(restaurante2);
 		assertNotNull(servicio.getListadoRestaurantes());
 	}
+	
+	@Test(expected = EntidadNoEncontrada.class)
+    public void testEntidadNoEncontrada() throws RepositorioException, EntidadNoEncontrada{
+        servicio.getRestaurante("id");
+    }
 	
 	
 
