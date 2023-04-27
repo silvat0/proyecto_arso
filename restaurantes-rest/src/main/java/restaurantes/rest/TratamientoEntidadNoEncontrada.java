@@ -4,7 +4,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import arso.repositorio.EntidadNoEncontrada;
+import arso.repositorio.memoria.EntidadNoEncontrada;
 
 @Provider
 public class TratamientoEntidadNoEncontrada implements ExceptionMapper<EntidadNoEncontrada> {

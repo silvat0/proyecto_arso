@@ -1,4 +1,4 @@
-package arso.repositorio;
+package arso.repositorio.mongo;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,54 +14,53 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 
+
 import arso.restaurantes.modelo.Restaurante;
 import arso.utils.Utils;
 
-public class RepositorioMongo<T extends Identificable> implements RepositorioString<T> {
+public class RepositorioMongo implements IRepositorioMongo{
 	
 	
 	
-	ConnectionString connectionString = new ConnectionString("mongodb+srv://arso:Arso2023@cluch.2l0gzgu.mongodb.net/?retryWrites=true&w=majority");
-	//ConnectionString connectionString = new ConnectionString("mongodb+srv://raul:arso@cluster0.n9oo3nv.mongodb.net/?retryWrites=true&w=majority");
+	ConnectionString connectionString = new ConnectionString("mongodb+srv://arso:<password>@cluch.2l0gzgu.mongodb.net/?retryWrites=true&w=majority");
 	MongoClientSettings settings = MongoClientSettings.builder()
 	        .applyConnectionString(connectionString)
 	        .build();
 	MongoClient mongoClient = MongoClients.create(settings);
 	MongoDatabase database = mongoClient.getDatabase("test");
-	
 	MongoCollection<Restaurante> coleccion = database.getCollection("restaurantes", Restaurante.class);
 	
 	
-	
 	@Override
-	public String add(T entity) throws RepositorioException{
+	public String add(Restaurante restaurante) throws RepositorioException {
 		
 		String id = Utils.createId();
-		entity.setId(id);
-		coleccion.insertOne((Restaurante) entity);
+		restaurante.setId(id);
+		coleccion.insertOne(restaurante);
+		
 		
 		return id;
 	}
 
 	@Override
-	public void update(T entity) throws RepositorioException, EntidadNoEncontrada {
+	public void update(Restaurante restaurante) throws RepositorioException, EntidadNoEncontrada {
 		
-		Bson query = Filters.eq("id", entity.getId());
+		Bson query = Filters.eq("id", restaurante.getId());
 		
 		if (query == null) {
-			throw new EntidadNoEncontrada(entity.getId() + " no existe en el repositorio");
+			throw new EntidadNoEncontrada(restaurante.getId() + " no existe en el repositorio");
 		}
 		
-		coleccion.findOneAndReplace(query, (Restaurante) entity);
+		coleccion.findOneAndReplace(query, restaurante);
 	
 	}
 
 	@Override
-	public void delete(T entity) throws RepositorioException, EntidadNoEncontrada {
-		Bson query = Filters.eq("id", entity.getId());
+	public void delete(Restaurante restaurante) throws RepositorioException, EntidadNoEncontrada {
+		Bson query = Filters.eq("id", restaurante.getId());
 
 		if (query == null) {
-			throw new EntidadNoEncontrada(entity.getId() + " no existe en el repositorio");
+			throw new EntidadNoEncontrada(restaurante.getId() + " no existe en el repositorio");
 		}
 		
 		coleccion.deleteOne(query);
@@ -69,7 +68,7 @@ public class RepositorioMongo<T extends Identificable> implements RepositorioStr
 	}
 
 	@Override
-	public T getById(String id) throws RepositorioException, EntidadNoEncontrada {
+	public Restaurante getById(String id) throws RepositorioException, EntidadNoEncontrada {
 		
 		Bson query = Filters.eq("id", id);
 		
@@ -83,12 +82,12 @@ public class RepositorioMongo<T extends Identificable> implements RepositorioStr
 			restaurante = r;
 		}
 		
-		return (T) restaurante;
+		return restaurante;
 		
 	}
 
 	@Override
-	public List<T> getAll() throws RepositorioException {
+	public List<Restaurante> getAll() throws RepositorioException {
 		
 		List<Restaurante> restaurantes = new LinkedList<>();
 		
@@ -98,7 +97,7 @@ public class RepositorioMongo<T extends Identificable> implements RepositorioStr
 			restaurantes.add(r);
 		}
 		
-		return (List<T>) restaurantes;
+		return restaurantes;
 		
 	}
 
@@ -117,8 +116,6 @@ public class RepositorioMongo<T extends Identificable> implements RepositorioStr
 
 
 	}
-
-
 	
 	
 

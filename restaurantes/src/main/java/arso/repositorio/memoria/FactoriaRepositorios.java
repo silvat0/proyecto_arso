@@ -1,4 +1,4 @@
-package arso.repositorio;
+package arso.repositorio.memoria;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,7 @@ private static final String PROPERTIES = "repositorios.properties";
 	private static Map<Class<?>, Object> repositorios = new HashMap<>();
 	
 	@SuppressWarnings("unchecked")
-	public static <T, K, R extends IRepositorio<T, K>> R getRepositorio(Class<?> entidad) {
+	public static <T, K, R extends IRepositorioMemoria<T, K>> R getRepositorio(Class<?> entidad) {
 				
 			
 			try {

@@ -18,8 +18,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import arso.repositorio.EntidadEncontrada;
-import arso.repositorio.EntidadNoEncontrada;
+
+import arso.repositorio.memoria.EntidadNoEncontrada;
+import arso.repositorio.memoria.EntidadEncontrada;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;

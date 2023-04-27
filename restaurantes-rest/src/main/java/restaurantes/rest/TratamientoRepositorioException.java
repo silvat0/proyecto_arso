@@ -4,7 +4,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import arso.repositorio.RepositorioException;
+import arso.repositorio.memoria.RepositorioException;
 
 @Provider
 public class TratamientoRepositorioException implements ExceptionMapper<RepositorioException> {

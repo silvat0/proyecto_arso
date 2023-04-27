@@ -1,10 +1,10 @@
-package arso.repositorio;
+package arso.repositorio.memoria;
 
 import java.util.List;
 
 //Metodos basicos para interactuar con la base de datos.
 
-public interface IRepositorio<T, K> {
+public interface IRepositorioMemoria<T, K> {
 
 	K add(T entity) throws RepositorioException;
 

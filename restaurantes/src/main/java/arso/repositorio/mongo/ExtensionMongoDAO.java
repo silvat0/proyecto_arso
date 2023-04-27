@@ -1,4 +1,4 @@
-package arso.repositorio;
+package arso.repositorio.mongo;
 
 import org.bson.codecs.configuration.CodecRegistry;
 
@@ -19,8 +19,7 @@ public abstract class ExtensionMongoDAO <T>{
 	    
 	    public ExtensionMongoDAO() {
 	        
-	    	ConnectionString connectionString = new ConnectionString("mongodb+srv://arso:<password>@cluch.2l0gzgu.mongodb.net/?retryWrites=true&w=majority");
-	    	//ConnectionString connectionString = new ConnectionString("mongodb+srv://raul:<password>@cluster0.n9oo3nv.mongodb.net/?retryWrites=true&w=majority");
+	    	ConnectionString connectionString = new ConnectionString("mongodb+srv://arso:arso@cluch.2l0gzgu.mongodb.net/?retryWrites=true&w=majority");
 	    	MongoClientSettings settings = MongoClientSettings.builder()
 	    	        .applyConnectionString(connectionString)
 	    	        .build();

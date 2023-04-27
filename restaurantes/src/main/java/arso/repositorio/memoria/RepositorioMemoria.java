@@ -1,4 +1,4 @@
-package arso.repositorio;
+package arso.repositorio.memoria;
 
 import java.util.ArrayList;
 import java.util.HashMap;

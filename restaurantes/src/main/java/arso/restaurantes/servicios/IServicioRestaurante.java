@@ -2,9 +2,9 @@ package arso.restaurantes.servicios;
 
 import java.util.List;
 
-import arso.repositorio.EntidadEncontrada;
-import arso.repositorio.EntidadNoEncontrada;
-import arso.repositorio.RepositorioException;
+import arso.repositorio.memoria.EntidadEncontrada;
+import arso.repositorio.memoria.EntidadNoEncontrada;
+import arso.repositorio.memoria.RepositorioException;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;
@@ -16,6 +16,7 @@ public interface IServicioRestaurante {
 	
 	// Metodo para actulizar un restaurante
 	void update(String restaurante, String nombre, String coordenadas) throws RepositorioException, EntidadNoEncontrada;
+	
 	// Obtener sitios turísticos próximos de un restaurante
 	List<SitioTuristico> getSitiosTuristidos(String idRestaurante) throws RepositorioException, EntidadNoEncontrada;
 	
@@ -24,6 +25,7 @@ public interface IServicioRestaurante {
 	
 	// Añadir plato a un restaurante
 	boolean addPlato(String idRestaurante, Plato plato) throws RepositorioException, EntidadNoEncontrada, EntidadEncontrada;
+	
 	// Borrar plato de un restaurante
 	boolean removePlato(String idRestaurante, String plato) throws RepositorioException, EntidadNoEncontrada;
 	
