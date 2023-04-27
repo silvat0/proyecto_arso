@@ -1,9 +1,9 @@
 package restaurantes.test;
 
+import arso.repositorio.RepositorioException;
+import arso.repositorio.RepositorioMemoria;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
-import arso.repositorio.memoria.RepositorioMemoria;
-import arso.repositorio.memoria.RepositorioException;
 
 
 public class RepositorioTest extends RepositorioMemoria<Restaurante> {
