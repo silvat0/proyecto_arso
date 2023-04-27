@@ -231,7 +231,7 @@ public class RestauranteControladorRest {
 
 		List<RestauranteResumen> resultado = servicio.getListadoRestaurantes();
 
-		LinkedList<ResumenExtendido> extendido = new LinkedList<ResumenExtendido>();
+		List<ResumenExtendido> extendido = new LinkedList<ResumenExtendido>();
 
 		for (RestauranteResumen restauranteResumen : resultado) {
 
