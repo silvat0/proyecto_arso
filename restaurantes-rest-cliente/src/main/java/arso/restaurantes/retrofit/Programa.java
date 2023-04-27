@@ -8,6 +8,7 @@ import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;
 import retrofit2.Retrofit;
 import retrofit2.Response;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 import retrofit2.converter.jaxb.JaxbConverterFactory;
 
 public class Programa {
@@ -15,7 +16,7 @@ public class Programa {
 	public static void main(String[] args) throws Exception {
 	
 		Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost:8080/api/")
-				.addConverterFactory(JaxbConverterFactory.create()).build();
+				.addConverterFactory(JacksonConverterFactory.create()).build();
 		
 		RestauranteRestCliente service = retrofit.create(RestauranteRestCliente.class);
 		
@@ -70,13 +71,26 @@ public class Programa {
 		
 		String url1 = resultado.headers().get("Location");
 		
-		//String id1 = url1.substring(url1.lastIndexOf("/") + 1);
+		String id1 = url1.substring(url1.lastIndexOf("/") + 1);
+		
+		
+		System.out.println("Restaurante creado: " + url1);
+		System.out.println("Id: " + id1);
 		
 		
 		// Recuperación
-		//Restaurante restaurante2 = service.getRestaurante(id1).execute().body();
+		Restaurante restaurante2 = service.getRestaurante(id1).execute().body();
 		
-		//System.out.println("Restaurante: " + restaurante2.getNombre() + " - " + restaurante2.getCoordenadas());
+		System.out.println("Restaurante: " + restaurante2.getNombre() + " - " + restaurante2.getCoordenadas());
+		
+		
+		// Actualización
+		
+		restaurante2.setNombre("Nueva Pieroti");
+		
+		service.update(id1, restaurante2);
+		
+		System.out.println("Restaurante actualizado");
 		
 	}
 
