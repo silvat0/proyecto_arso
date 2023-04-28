@@ -9,7 +9,6 @@ import arso.restaurantes.modelo.SitioTuristico;
 import retrofit2.Retrofit;
 import retrofit2.Response;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-import retrofit2.converter.jaxb.JaxbConverterFactory;
 
 public class Programa {
 	
@@ -67,6 +66,8 @@ public class Programa {
 		restaurante.setSitiosTuristicos(sitios);
 		
 		
+		// (1) --> Creacion de un restaurante.
+		
 		Response<Void> resultado = service.create(restaurante).execute();
 		
 		String url1 = resultado.headers().get("Location");
@@ -77,20 +78,129 @@ public class Programa {
 		System.out.println("Restaurante creado: " + url1);
 		System.out.println("Id: " + id1);
 		
-		
-		// Recuperación
 		Restaurante restaurante2 = service.getRestaurante(id1).execute().body();
 		
-		System.out.println("Restaurante: " + restaurante2.getNombre() + " - " + restaurante2.getCoordenadas());
+		System.out.println("Restaurante: " + restaurante2.getNombre() + " - " + restaurante2.getCoordenadas() + "\n");
 		
 		
-		// Actualización
+		
+		// (2) --> Actualización del restaurante creado
 		
 		restaurante2.setNombre("Nueva Pieroti");
 		
-		service.update(id1, restaurante2);
+		Response<Void> respuesta = service.update(id1, restaurante2).execute();
 		
 		System.out.println("Restaurante actualizado");
+		
+		// Recuperamos el nuevo restaurante
+		
+		Restaurante restaurante3 = service.getRestaurante(id1).execute().body();
+
+		System.out.println("Restaurante actualizado: " + restaurante3.getNombre() + " - " + restaurante3.getCoordenadas());
+		
+		System.out.println("Codigo de respuesta: " + respuesta.code() + "\n");
+		
+		
+		// (2) --> Actualizar un restaurante con identificador erroneo
+		
+		restaurante3.setNombre("Burguer");
+		
+		Response<Void> respuesta2 = service.update("sdfsdf5sd4fs5d4f", restaurante3).execute();	
+		
+		System.out.println("Restaurante no actualizado por mal id");
+		
+		// Recuperamos el restaurante
+		
+		Restaurante restaurante4 = service.getRestaurante(id1).execute().body();
+		
+		System.out.println("Restaurante no actualizado: " + restaurante4.getNombre() + " - " + restaurante4.getCoordenadas());
+		
+		System.out.println("Codigo de respuesta: " + respuesta2.code() + "\n");
+		
+		
+		
+		// (3) --> Añadir un plato 
+		
+		// Creamos plato
+		
+		Plato newPlato = new Plato();
+		newPlato.setNombre("Pizza carbonara");
+		newPlato.setDescripcion("Pizza mediana con nata y bacon");
+		newPlato.setPrecio(8.0);
+		
+		Response<Void> respuesta3 = service.addPlato(id1, newPlato).execute();
+		
+		System.out.println("Añadimos un tercer plato al restaurante");
+		
+		// Recuperamos los platos del restaurante
+		
+		Restaurante restaurante5 = service.getRestaurante(id1).execute().body();
+		
+		LinkedList<Plato> platos1 = restaurante5.getPlatos();
+		
+		for (Plato p : platos1) 
+			System.out.println("Plato: " + p.getNombre() + " - " + p.getDescripcion());
+		
+		System.out.println("Codigo de respuesta: " + respuesta3.code() + "\n" );
+		
+		
+		// (3) --> Añadir un plato con un nombre que ya existe
+		
+		Response<Void> respuesta4 = service.addPlato(id1, newPlato).execute();
+		
+		System.out.println("Añadimos plato cuyo nombre ya existe");
+		
+		// Recuperamos los platos del restaurante
+
+		Restaurante restaurante6 = service.getRestaurante(id1).execute().body();
+
+		LinkedList<Plato> platos2 = restaurante6.getPlatos();
+
+		for (Plato p : platos2)
+			System.out.println("Plato: " + p.getNombre() + " - " + p.getDescripcion());
+
+		System.out.println("Codigo de respuesta: " + respuesta4.code() + "\n");
+		
+		
+		// (3) --> Añadir un plato cuyo id del restaurante no existe.
+		
+		Plato platoRest = new Plato();
+		newPlato.setNombre("Pizza barbacoa");
+		newPlato.setDescripcion("Pizza mediana con carne picada y queso");
+		newPlato.setPrecio(8.0);
+		
+		Response<Void> respuesta5 = service.addPlato("sdbfsagfaf45", platoRest).execute();
+		
+		System.out.println("Añadimos plato cuyo id del restaurante no existe");
+		
+		// Recuperamos los platos del restaurante
+
+		Restaurante restaurante7 = service.getRestaurante(id1).execute().body();
+
+		LinkedList<Plato> platos3 = restaurante7.getPlatos();
+
+		for (Plato p : platos3)
+			System.out.println("Plato: " + p.getNombre() + " - " + p.getDescripcion());
+
+		System.out.println("Codigo de respuesta: " + respuesta5.code() + "\n");
+		
+		
+		// (4) --> Eliminar un plato
+		
+		Response<Void> respuesta6 = service.removePlato(id1, newPlato.getNombre()).execute();
+		
+		System.out.println("Eliminamos un plato");
+		
+		// Recupetamos los platos del restaurante
+		
+		Restaurante restaurante8 = service.getRestaurante(id1).execute().body();
+
+		LinkedList<Plato> platos4 = restaurante6.getPlatos();
+
+		for (Plato p : platos4)
+			System.out.println("Plato: " + p.getNombre() + " - " + p.getDescripcion());
+
+		System.out.println("Codigo de respuesta: " + respuesta6.code() + "\n");
 		
 	}
 
