@@ -165,9 +165,9 @@ public class Programa {
 		// (3) --> Añadir un plato cuyo id del restaurante no existe.
 		
 		Plato platoRest = new Plato();
-		newPlato.setNombre("Pizza barbacoa");
-		newPlato.setDescripcion("Pizza mediana con carne picada y queso");
-		newPlato.setPrecio(8.0);
+		platoRest.setNombre("Pizza barbacoa");
+		platoRest.setDescripcion("Pizza mediana con carne picada y queso");
+		platoRest.setPrecio(8.0);
 		
 		Response<Void> respuesta5 = service.addPlato("sdbfsagfaf45", platoRest).execute();
 		
@@ -195,12 +195,110 @@ public class Programa {
 		
 		Restaurante restaurante8 = service.getRestaurante(id1).execute().body();
 
-		LinkedList<Plato> platos4 = restaurante6.getPlatos();
+		LinkedList<Plato> platos4 = restaurante8.getPlatos();
 
 		for (Plato p : platos4)
 			System.out.println("Plato: " + p.getNombre() + " - " + p.getDescripcion());
 
 		System.out.println("Codigo de respuesta: " + respuesta6.code() + "\n");
+		
+		
+		// (4) --> Eliminar un plato cuyo id del restaurante no existe
+		
+		Response<Void> respuesta7 = service.removePlato("sdlgsdfas4fads", plato1.getNombre()).execute();
+		
+		System.out.println("Eliminamos un plato cuyo id de resturante no existe");
+		
+		// Recuperamos los platos
+		
+		Restaurante restaurante9 = service.getRestaurante(id1).execute().body();
+
+		LinkedList<Plato> platos5 = restaurante9.getPlatos();
+
+		for (Plato p : platos5)
+			System.out.println("Plato: " + p.getNombre() + " - " + p.getDescripcion());
+
+		System.out.println("Codigo de respuesta: " + respuesta7.code() + "\n");
+		
+		
+		// (4) --> Eliminamos un plato el cual no existe
+		
+		Response<Void> respuesta8 = service.removePlato(id1, "pizza nueva").execute();
+		
+		System.out.println("Eliminamos un plato cuyo id de plato no existe");
+		
+		// Recuperamos los platos
+		
+		Restaurante restaurante10 = service.getRestaurante(id1).execute().body();
+
+		LinkedList<Plato> platos6 = restaurante10.getPlatos();
+
+		for (Plato p : platos6)
+			System.out.println("Plato: " + p.getNombre() + " - " + p.getDescripcion());
+
+		System.out.println("Codigo de respuesta: " + respuesta8.code() + "\n");
+		
+		
+		// (5) --> Actualizar un plato
+		
+		plato1.setPrecio(12);
+		plato1.setDescripcion("Pizza mediana con peperoni y queso, ahora con mas peperoni");
+		
+		Response<Void> respuesta9 = service.updatePlato(id1, plato1.getNombre(), plato1).execute();
+		
+		System.out.println("Actualiza un plato");
+		
+		// Recuperamos los platos
+		
+		Restaurante restaurante11 = service.getRestaurante(id1).execute().body();
+
+		LinkedList<Plato> platos7 = restaurante11.getPlatos();
+
+		for (Plato p : platos7)
+			System.out.println("Plato: " + p.getNombre() + " - " + p.getDescripcion());
+
+		System.out.println("Codigo de respuesta: " + respuesta9.code() + "\n");
+		
+		
+		// (5) --> Actualizar un plato con id de restaurante no existente
+		
+		plato2.setDescripcion("Pizza mediana con tomate y queso, ahora con doble de queso");
+		
+		Response<Void> respuesta10 = service.updatePlato("sadjfbafdff5f", plato2.getNombre(), plato2).execute();
+		
+		System.out.println("Actualiza un plato con id de restaurante no existente");
+		
+		// Recuperamos los platos
+		
+		Restaurante restaurante12 = service.getRestaurante(id1).execute().body();
+
+		LinkedList<Plato> platos8 = restaurante12.getPlatos();
+
+		for (Plato p : platos8)
+			System.out.println("Plato: " + p.getNombre() + " - " + p.getDescripcion());
+
+		System.out.println("Codigo de respuesta: " + respuesta10.code() + "\n");
+		
+		
+		// (5) Actualizar plato con nombre diferente
+		
+		Response<Void> respuesta11 = service.updatePlato(id1, "Nueva Pizza", plato2).execute();
+		
+		System.out.println("Actualiza un plato con nombre distinto");
+		
+		// Recuperamos los platos
+
+		Restaurante restaurante13 = service.getRestaurante(id1).execute().body();
+
+		LinkedList<Plato> platos9 = restaurante13.getPlatos();
+
+		for (Plato p : platos9)
+			System.out.println("Plato: " + p.getNombre() + " - " + p.getDescripcion());
+
+		System.out.println("Codigo de respuesta: " + respuesta11.code() + "\n");
+		
+		
+		// (6) --> Obtener un restaurante
 		
 	}
 

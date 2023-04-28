@@ -142,6 +142,8 @@ public class RestauranteControladorRest {
 								@ApiParam(value = "nombre del plato", required = true) @PathParam("nombre") String nombrePlato, 
 								@ApiParam(value = "Plato a actualizar", required = true) Plato plato) throws Exception {
 		
+		
+		// TODO 
 		if (!nombrePlato.equals(plato.getNombre()))
 			throw new IllegalArgumentException("El nombre del plato no coincide: " + nombrePlato);
 
