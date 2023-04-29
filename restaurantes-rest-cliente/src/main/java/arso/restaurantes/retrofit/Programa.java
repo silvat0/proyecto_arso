@@ -396,7 +396,39 @@ public class Programa {
 		
 		Response<List<SitioTuristico>> respuesta17 = service.getSitiosTuristicos("sdffsfdfsd556").execute();
 		
-		System.out.println("Obtener los sitios");
+		System.out.println("Obtener los sitios con id de restaurante no existente");
+		
+		// Recuperas los sitios y ver que no salgan
+		
+		List<SitioTuristico> sitios2 = service.getSitiosTuristicos("sdffsfdfsd556").execute().body();
+		
+		if (sitios2 == null) 
+			System.out.println("No hay sitios porque no existe el resturante");
+		
+		System.out.println("Codigo de respuesta: " + respuesta17.code() + "\n");
+		
+		// (9) --> Establecer sitios turisticos
+		
+		
+		
+		// (10) --> Recuperar todos los restaurantes
+		
+		// Creamos otro restaurante
+		
+		service.create(restaurante).execute();
+		
+		Response<List<ResumenExtendido>> respuesta21 = service.getListadoRestaurantes().execute();
+		
+		System.out.println("Obtener todos los restaurantes");
+		
+		// Recuperamos.
+		
+		List<ResumenExtendido> resta = service.getListadoRestaurantes().execute().body();
+		
+		for(ResumenExtendido r : resta)
+			System.out.println("Restaurante: " + r.getResumen().getNombre());
+		
+		System.out.println("Codigo de respuesta: " + respuesta21.code() + "\n");
 		
 	}
 	
