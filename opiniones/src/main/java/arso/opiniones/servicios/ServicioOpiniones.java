@@ -1,5 +1,8 @@
 package arso.opiniones.servicios;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import arso.opiniones.modelo.Opinion;
 import arso.opiniones.modelo.Valoracion;
 import arso.repositorio.memoria.EntidadNoEncontrada;
@@ -33,4 +36,27 @@ public class ServicioOpiniones implements IServicioOpiniones {
 		
 		repositorio.delete(opinion);
 	}
+	
+	@Override
+	public List<OpinionResumen> getListadoOpiniones() throws RepositorioException {
+		
+		LinkedList<OpinionResumen> resultado = new LinkedList<>();
+		
+		for(String id : repositorio.getIds()) {
+			try {
+				Opinion opinion = getOpinion(id);
+				OpinionResumen resumen = new OpinionResumen();
+				resumen.setId(opinion.getId());
+				resumen.setRecurso(opinion.getRecurso());
+				resultado.add(resumen);
+				
+			} catch  (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return resultado;
+	}
+	
+	
 }

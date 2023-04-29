@@ -1,5 +1,7 @@
 package arso.opiniones.servicios;
 
+import java.util.List;
+
 import arso.opiniones.modelo.Opinion;
 import arso.opiniones.modelo.Valoracion;
 import arso.repositorio.memoria.EntidadNoEncontrada;
@@ -18,4 +20,7 @@ public interface IServicioOpiniones {
 	
 	// Eliminar una opinión del servicio
 	void removeOpinion(String idOpinion) throws RepositorioException, EntidadNoEncontrada;
+
+	// Dar un listado con un resumen de las opiniones
+	List<OpinionResumen> getListadoOpiniones() throws RepositorioException;
 }

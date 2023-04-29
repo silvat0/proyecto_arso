@@ -1,6 +1,8 @@
 package opiniones.rest;
 
 import java.net.URI;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -19,6 +21,7 @@ import arso.opiniones.modelo.Opinion;
 import arso.opiniones.modelo.Valoracion;
 import arso.opiniones.servicios.FactoriaServicios;
 import arso.opiniones.servicios.IServicioOpiniones;
+import arso.opiniones.servicios.OpinionResumen;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -36,7 +39,7 @@ public class OpinionesControladorRest {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Crea una opinion", notes = "Retorna el codigo 201 indicando que ha creado el recurso")
+	@ApiOperation(value = "Crea una opinión", notes = "Retorna el codigo 201 indicando que ha creado el recurso")
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_CREATED, message = "")})
 	public Response create(@ApiParam(value = "Opinión a crear", required = true) Opinion opinion) throws Exception {
 
@@ -83,6 +86,35 @@ public class OpinionesControladorRest {
 		servicio.removeOpinion(id);
 		
 		return Response.status(Response.Status.NO_CONTENT).build();
+	}
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	@ApiOperation(value = "Obtener las opiniones", notes = "Retorna la lista de todas las opiniones", response = Opinion.class)
+	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_OK, message = "") })
+	public Response getListadoOpiniones() throws Exception {
+
+		List<OpinionResumen> resultado = servicio.getListadoOpiniones();
+
+		List<ResumenExtendido> extendido = new LinkedList<ResumenExtendido>();
+
+		for (OpinionResumen restauranteResumen : resultado) {
+
+			ResumenExtendido resumenExtendido = new ResumenExtendido();
+
+			resumenExtendido.setResumen(restauranteResumen);
+
+			String id = restauranteResumen.getId();
+			URI nuevaURL = uriInfo.getAbsolutePathBuilder().path(id).build();
+
+			resumenExtendido.setUrl(nuevaURL.toString());
+
+			extendido.add(resumenExtendido);
+
+		}	
+
+		return Response.ok(extendido).build();
+
 	}
 	
 	
