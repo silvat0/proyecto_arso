@@ -2,6 +2,7 @@ package arso.restaurantes.retrofit;
 
 
 import java.util.LinkedList;
+import java.util.List;
 
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
@@ -300,6 +301,104 @@ public class Programa {
 		
 		// (6) --> Obtener un restaurante
 		
+		Response<Restaurante> respuesta12 = service.getRestaurante(id1).execute();
+		
+		System.out.println("Obtener un restaurante por su id");
+		
+		// Recuperamos el restaurante y la respuesta
+		
+		Restaurante restaurante14 = service.getRestaurante(id1).execute().body();
+		
+		System.out.println("Restaurante: " + restaurante14.getNombre() + " - " + restaurante14.getCoordenadas());
+
+		System.out.println("Codigo de respuesta: " + respuesta12.code() + "\n");
+		
+		
+		// (6) --> Obtener un restaurante con id no existente
+		
+		Response<Restaurante> respuesta13 = service.getRestaurante("sdfafafsd445").execute();
+		
+		System.out.println("Obtener un restaurante con id no existente");
+		
+		// Recuperamos el restaurante y la respuesta
+		
+		Restaurante restaurante15 = service.getRestaurante(id1).execute().body();
+
+		System.out.println("Restaurante: " + restaurante15.getNombre() + " - " + restaurante15.getCoordenadas());
+
+		System.out.println("Codigo de respuesta: " + respuesta13.code() + "\n");
+		
+		
+		// (7) --> Eliminar un restaurante
+		
+		Response<Void> respuesta14 = service.removeRestaurante(id1).execute();
+		
+		System.out.println("Eliminamos un restaurante por su id");
+		
+		// Recuperamos 
+		
+		Restaurante restaurante16 = service.getRestaurante(id1).execute().body();
+
+		if (restaurante16 == null) {
+			System.out.println("El restaurante se ha eliminado");
+		}
+
+		System.out.println("Codigo de respuesta: " + respuesta14.code() + "\n");
+		
+		
+		// -------------- Creamos otro restaurante para seguir con los ejemplos que nos quedan --------------------
+		
+		Restaurante rest= new Restaurante();
+		restaurante.setNombre("Burguer");
+		restaurante.setCoordenadas("-5478141, 6548425");
+		restaurante.setPlatos(platos);
+		restaurante.setSitiosTuristicos(sitios);
+		
+		Response<Void> resul = service.create(rest).execute();
+
+		String url2 = resul.headers().get("Location");
+
+		String id2 = url2.substring(url2.lastIndexOf("/") + 1);
+		
+		
+		
+		// (7) --> Eliminar un restaurante con id no existente
+		
+		Response<Void> respuesta15 = service.removeRestaurante("sdffsdfsdf544sd").execute();
+
+		System.out.println("Eliminamos un restaurante con un id no existente");
+
+		// Recuperamos
+
+		System.out.println("Codigo de respuesta: " + respuesta15.code() + "\n");
+		
+		
+		// (8) --> Obtener los sitios turisticos de un restaurante.
+		
+		Response<List<SitioTuristico>> respuesta16 = service.getSitiosTuristicos(id2).execute();
+		
+		System.out.println("Obtener los sitios");
+		
+		// Recuperamos la respuesta.
+		
+		
+		List<SitioTuristico> sitios1 = service.getSitiosTuristicos(id2).execute().body();
+		
+		// TODO no muestra el restaurante.
+		
+		for(SitioTuristico st : sitios1) 
+			System.out.println("Sitio: " + st.getResumen());
+	
+		System.out.println("Codigo de respuesta: " + respuesta16.code() + "\n");
+		
+		
+		// (8) --> Obtener los sitios de un restaurante con id mal
+		
+		Response<List<SitioTuristico>> respuesta17 = service.getSitiosTuristicos("sdffsfdfsd556").execute();
+		
+		System.out.println("Obtener los sitios");
+		
 	}
+	
 
 }

@@ -62,7 +62,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 	}
 
 	@Override
-	public List<SitioTuristico> getSitiosTuristidos(String idRestaurante)
+	public List<SitioTuristico> getSitiosTuristicos(String idRestaurante)
 			throws RepositorioException, EntidadNoEncontrada {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 

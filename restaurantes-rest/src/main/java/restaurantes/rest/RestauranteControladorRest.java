@@ -143,7 +143,7 @@ public class RestauranteControladorRest {
 								@ApiParam(value = "Plato a actualizar", required = true) Plato plato) throws Exception {
 		
 		
-		// TODO 
+		// TODO se compara con ese nombre o con lo que hay en la lista de platos.
 		if (!nombrePlato.equals(plato.getNombre()))
 			throw new IllegalArgumentException("El nombre del plato no coincide: " + nombrePlato);
 
@@ -198,8 +198,8 @@ public class RestauranteControladorRest {
 			@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "Restaurante no encontrado") })
 	public Response getSitiosTuristicos(@ApiParam(value = "id del restaurante", required = true) @PathParam("id") String id ) throws Exception {
 		
-		List<SitioTuristico> sitios = servicio.getSitiosTuristidos(id);
-		return Response.ok(sitios).build();
+		List<SitioTuristico> sitios = servicio.getSitiosTuristicos(id);
+		return Response.status(Response.Status.OK).entity(sitios).build();
 	}
 	
 	
