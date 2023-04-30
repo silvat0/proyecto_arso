@@ -73,14 +73,18 @@ public class Restaurante implements Identificable{
 	}
 	
 	public boolean removePlato(String plato) {
-		for(Plato p : platos) {
+		
+		return platos.removeIf(p -> p.getNombre().equals(plato));
+		
+		
+		/*for(Plato p : platos) {
 			if(p.getNombre().equals(plato)) {
 				platos.remove(p);
 				return true;
 			}
 		}
 		
-		return false;
+		return false;*/
 	}
 	
 	public void updatePlato(Plato plato) {
