@@ -8,21 +8,26 @@ type Valoracion {
 	correo: String!
 	fecha: String! # formato yyyy/MM/dd
 	calificacion: Float!
-	comentario: String!
+	comentario: String
 }
 
-type OpinionResumen {
+input OpinionInput {
 	id: String!
 	recurso: String!
+	valoraciones: [Valoracion]!
+
 }
+
 
 type Query {
-	getOpinion(idOpinion: String!): Opinion
-	getListadoOpiniones(): [OpinionResumen]
+	getOpinion(idOpinion: String!): Opinion!
 }
 
+
+
+
 type Mutation {
-	create(opinion: Opinion!): String
+	create(opinion: OpinionInput!): String!
 }
 
 schema {
