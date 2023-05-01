@@ -38,6 +38,8 @@ namespace Opiniones.Servicio
             Opinion opinion = repositorio.GetById(idOpinion);
 
             opinion.Valoraciones.Add(valoracion);
+
+            repositorio.Update(opinion);
         }
 
         public string Create(Opinion opinion)

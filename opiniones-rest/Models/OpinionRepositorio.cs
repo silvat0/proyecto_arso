@@ -11,8 +11,8 @@ namespace Opiniones.Repositorio
 
         public RepositorioOpinionesMongoDB() 
         {
-            var client = new MongoClient("uri");
-            var database = client.GetDatabase("arso");
+            var client = new MongoClient("mongodb://localhost:27017/ProyectoArso");
+            var database = client.GetDatabase("ProyectoArso");
 
             opiniones = database.GetCollection<Opinion>("opinion.net");
         }
