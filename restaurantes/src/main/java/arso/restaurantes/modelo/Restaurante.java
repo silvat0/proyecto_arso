@@ -11,7 +11,6 @@ public class Restaurante implements Identificable{
 	private String coordenadas;
 	private LinkedList<SitioTuristico> sitiosTuristicos = new LinkedList<>();
 	private LinkedList<Plato> platos = new LinkedList<>();
-	private String idGestor;
 
 	// Getters y setters.
 
@@ -55,16 +54,8 @@ public class Restaurante implements Identificable{
 		this.platos = platos;
 	}
 	
-	public String getIdGestor() {
-		return idGestor;
-	}
-
-	public void setIdGestor(String idGestor) {
-		this.idGestor = idGestor;
-	}
-	
 	// Metodos 
-
+	
 	public boolean addPlato(Plato plato) {
 		if(platos.contains(plato)) {
 			return false;
