@@ -60,6 +60,9 @@ public class RestauranteControladorRest {
 
 		String id = servicio.create(restaurente);
 		
+		// Saber que devuelve el metodo para introducirlo en la entidad de restaurante que se crea
+		System.out.println(this.securityContext.getUserPrincipal().getName());
+		
 		URI nuevaURL = uriInfo.getAbsolutePathBuilder().path(id).build();
 
 		return Response.created(nuevaURL).build();
@@ -81,6 +84,9 @@ public class RestauranteControladorRest {
 
 		if (!id1.equals(restaurante.getId()))
 			throw new IllegalArgumentException("El identificador no coincide: " + id1);
+		
+		// if(this.securityContext.getUserPrincipal().getName() != servicio.getRestaurante(id1).getIdGestor())
+			// Lanzar error de gestor ? 
 
 		servicio.update(restaurante.getId(), restaurante.getNombre(), restaurante.getCoordenadas());
 		
