@@ -11,9 +11,9 @@ public class Mutation implements GraphQLRootResolver {
 	
 	private IServicioOpiniones servicio = FactoriaServicios.getServicio(IServicioOpiniones.class);
 	
-	public String create(Opinion opinion) throws RepositorioException {
-		
-		return servicio.create(opinion);
-	}
+//	public String create(Opinion opinion) throws RepositorioException {
+//		
+//		return servicio.create(opinion);
+//	}
 
 }

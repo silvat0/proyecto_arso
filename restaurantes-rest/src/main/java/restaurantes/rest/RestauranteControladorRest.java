@@ -17,10 +17,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.SecurityContext;
 
-
-import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.repositorio.memoria.EntidadEncontrada;
+import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;
@@ -30,14 +30,19 @@ import arso.restaurantes.servicios.RestauranteResumen;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import restaurantes.rest.seguridad.AvailableRoles;
+import restaurantes.rest.seguridad.Secured;
 
 @Api
 @Path("restaurantes")
 public class RestauranteControladorRest {
 	
 	private IServicioRestaurante servicio = FactoriaServicios.getServicio(IServicioRestaurante.class);
+	
+	@Context
+	private SecurityContext securityContext;
 	
 	@Context
 	private UriInfo uriInfo;
@@ -48,6 +53,7 @@ public class RestauranteControladorRest {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Secured(AvailableRoles.GESTOR)
 	@ApiOperation(value = "Crea un restaurante", notes = "Retorna el codigo 201 indicando que ha creado el recurso")
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_CREATED, message = "")})
 	public Response create(@ApiParam(value = "Restaurante a crear", required = true) Restaurante restaurente) throws Exception {
@@ -65,6 +71,7 @@ public class RestauranteControladorRest {
 
 	@PUT
 	@Path("/{id}")
+	@Secured(AvailableRoles.GESTOR)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Actualiza un restaurante", notes = "Retorna el codigo 204 si todo ha ido bien")
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = ""),
@@ -76,6 +83,8 @@ public class RestauranteControladorRest {
 			throw new IllegalArgumentException("El identificador no coincide: " + id1);
 
 		servicio.update(restaurante.getId(), restaurante.getNombre(), restaurante.getCoordenadas());
+		
+		this.securityContext.getUserPrincipal().getName();
 
 		return Response.status(Response.Status.NO_CONTENT).build();
 
@@ -87,6 +96,7 @@ public class RestauranteControladorRest {
 
 	@POST
 	@Path("/{id}/platos")
+	@Secured(AvailableRoles.GESTOR)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Añade un plato", notes = "Retorna el codigo 204 si todo ha ido bien")
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = ""),
@@ -112,6 +122,7 @@ public class RestauranteControladorRest {
 	
 	@DELETE
 	@Path("/{id}/platos/{nombre}")
+	@Secured(AvailableRoles.GESTOR)
 	@ApiOperation(value = "Elimina un plato", notes = "Retorna el codigo 204 si todo ha ido bien")
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = ""),
 			@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "idRestaurante no encontrado"),
@@ -134,6 +145,7 @@ public class RestauranteControladorRest {
 	@PUT
 	@Path("/{id}/platos/{nombre}")
 	@Consumes({MediaType.APPLICATION_JSON})
+	@Secured(AvailableRoles.GESTOR)
 	@ApiOperation(value = "Actualiza un plato", notes = "Retorna el codigo 204 si todo ha ido bien")
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = ""),
 			@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "idRestaurante no encontrado"),
@@ -175,6 +187,7 @@ public class RestauranteControladorRest {
 	
 	@DELETE
 	@Path("/{id}")
+	@Secured(AvailableRoles.GESTOR)
 	@ApiOperation(value = "Eliminar un restaurante", notes = "Retorna el codigo 204 si todo ha ido bien")
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = ""),
 			@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "Restaurante no encontrado") })
@@ -210,6 +223,7 @@ public class RestauranteControladorRest {
 	@PUT
 	@Path("/{id}/sitiosTuristicos")
 	@Consumes({ MediaType.APPLICATION_JSON })
+	@Secured(AvailableRoles.GESTOR)
 	@ApiOperation(value = "Establecer sitios turisticos", notes = "Retorna el codigo 204 si todo ha ido bien")
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = ""),
 			@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "Restaurante no encontrado") })

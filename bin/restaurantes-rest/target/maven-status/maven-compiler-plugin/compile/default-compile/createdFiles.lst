@@ -1,0 +1,6 @@
+restaurantes\rest\RestauranteControladorRest.class
+restaurantes\rest\TratamientoEntidadNoEncontrada.class
+restaurantes\rest\TratamientoIllegalArgumentException.class
+restaurantes\rest\TratamientoRepositorioException.class
+restaurantes\rest\Listado.class
+restaurantes\rest\Listado$ResumenExtendido.class

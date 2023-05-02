@@ -27,7 +27,7 @@ type Query {
 
 
 type Mutation {
-	create(opinion: OpinionInput!): String!
+	
 }
 
 schema {
