@@ -57,8 +57,32 @@ public class Programa {
 		enlaces.add(enl2);
 		sitio1.setEnlaces(enlaces);
 		
+		SitioTuristico sitio2 = new SitioTuristico();
+		sitio1.setResumen("Catedral de Albacete");
+		String cat3 = "categoria1";
+		String cat4 = "categoria2";
+		LinkedList<String> categorias1 = new LinkedList<>();
+		categorias.add(cat3);
+		categorias.add(cat4);
+		sitio1.setCategorias(categorias1);
+		String im3 = "imagen1.png";
+		String im4 = "imagen2.png";
+		LinkedList<String> imagenes1 = new LinkedList<>();
+		imagenes.add(im3);
+		imagenes.add(im4);
+		sitio1.setImagen(imagenes1);
+		String enl3 = "enlace1";
+		String enl4 = "enlace2";
+		LinkedList<String> enlaces1 = new LinkedList<>();
+		enlaces.add(enl3);
+		enlaces.add(enl4);
+		sitio1.setEnlaces(enlaces1);
+		
 		LinkedList<SitioTuristico> sitios = new LinkedList<>();
 		sitios.add(sitio1);
+		
+		LinkedList<SitioTuristico> sitios5 = new LinkedList<>();
+		sitios5.add(sitio2);
 		
 		Restaurante restaurante = new Restaurante();
 		restaurante.setNombre("Pieroti");
@@ -375,7 +399,7 @@ public class Programa {
 		
 		// (8) --> Obtener los sitios turisticos de un restaurante.
 		
-		Response<List<SitioTuristico>> respuesta16 = service.getSitiosTuristicos(id2).execute();
+		Response<LinkedList<SitioTuristico>> respuesta16 = service.getSitiosTuristicos(id2).execute();
 		
 		System.out.println("Obtener los sitios");
 		
@@ -383,8 +407,6 @@ public class Programa {
 		
 		
 		List<SitioTuristico> sitios1 = service.getSitiosTuristicos(id2).execute().body();
-		
-		// TODO no muestra el restaurante.
 		
 		for(SitioTuristico st : sitios1) 
 			System.out.println("Sitio: " + st.getResumen());
@@ -394,7 +416,7 @@ public class Programa {
 		
 		// (8) --> Obtener los sitios de un restaurante con id mal
 		
-		Response<List<SitioTuristico>> respuesta17 = service.getSitiosTuristicos("sdffsfdfsd556").execute();
+		Response<LinkedList<SitioTuristico>> respuesta17 = service.getSitiosTuristicos("sdffsfdfsd556").execute();
 		
 		System.out.println("Obtener los sitios con id de restaurante no existente");
 		
@@ -409,7 +431,30 @@ public class Programa {
 		
 		// (9) --> Establecer sitios turisticos
 		
+		Response<Void> respuesta18 = service.establecerSitiosTuristicos(id2, sitios).execute();
 		
+		System.out.println("Establecer los sitios turisticos de un restaurante");
+		
+		// Recuperar los sitios turisticos
+		
+		List<SitioTuristico> sitios3 = service.getSitiosTuristicos(id2).execute().body();
+		
+
+		for(SitioTuristico st : sitios3) 
+			System.out.println("Sitio: " + st.getResumen());
+	
+		System.out.println("Codigo de respuesta: " + respuesta18.code() + "\n");
+		
+		
+		// (9) --> Establecer sitio turistico con id del restaurante mal
+		
+		Response<Void> respuesta19 = service.establecerSitiosTuristicos("sdhfus", sitios5).execute();
+		
+		System.out.println("Establecer los sitios turisticos de un restaurante con id mal");
+		
+		// Recuperar los sitios turisticos
+	
+		System.out.println("Codigo de respuesta: " + respuesta19.code() + "\n");
 		
 		// (10) --> Recuperar todos los restaurantes
 		

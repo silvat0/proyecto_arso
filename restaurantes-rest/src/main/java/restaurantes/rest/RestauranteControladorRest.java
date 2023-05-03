@@ -242,7 +242,7 @@ public class RestauranteControladorRest {
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = ""),
 			@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "Restaurante no encontrado") })
 	public Response establecerSitiosTuristicos(@ApiParam(value = "id del restaurante", required = true) @PathParam("id") String id, 
-												@ApiParam(value = "Lista de sitios turisticos", required = true) List<SitioTuristico> sitiosTuristicos) throws Exception {
+												@ApiParam(value = "Lista de sitios turisticos", required = true) LinkedList<SitioTuristico> sitiosTuristicos) throws Exception {
 		
 		if(!servicio.getRestaurante(id).getIdGestor().equals(this.securityContext.getUserPrincipal().getName()))
 			throw new GestorNoAutorizado("No eres un gestor autoizado:" + this.securityContext.getUserPrincipal().getName());

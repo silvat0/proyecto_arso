@@ -1,5 +1,6 @@
 package arso.restaurantes.retrofit;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import arso.restaurantes.modelo.Plato;
@@ -54,7 +55,7 @@ public interface RestauranteRestCliente {
 	// (8)
 	
 	@GET("restaurantes/{id}/sitiosTuristicos")
-	Call<List<SitioTuristico>> getSitiosTuristicos(@Path("id") String id);
+	Call<LinkedList<SitioTuristico>> getSitiosTuristicos(@Path("id") String id);
 	
 	// (9)
 	

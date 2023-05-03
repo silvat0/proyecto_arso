@@ -1,5 +1,6 @@
 package arso.restaurantes.servicios;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import arso.repositorio.memoria.EntidadEncontrada;
@@ -21,7 +22,7 @@ public interface IServicioRestaurante {
 	List<SitioTuristico> getSitiosTuristicos(String idRestaurante) throws RepositorioException, EntidadNoEncontrada;
 	
 	// Establecer sitios turísticos destacados
-	void establecerSitiosTuristicos(String idRestaurante, List<SitioTuristico> sitiosTuristicos) throws RepositorioException, EntidadNoEncontrada;
+	void establecerSitiosTuristicos(String idRestaurante, LinkedList<SitioTuristico> sitiosTuristicos) throws RepositorioException, EntidadNoEncontrada;
 	
 	// Añadir plato a un restaurante
 	boolean addPlato(String idRestaurante, Plato plato) throws RepositorioException, EntidadNoEncontrada, EntidadEncontrada;
