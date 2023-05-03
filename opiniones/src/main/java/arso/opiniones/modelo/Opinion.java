@@ -51,9 +51,13 @@ public class Opinion implements Identificable{
 		return suma/getNumValoraciones();
 	}
 	
-	public void addValoracion(Valoracion valoracion) {
-		boolean band = false;
-		for(Valoracion v : valoraciones) {
+	public boolean addValoracion(Valoracion valoracion) {
+		
+		valoraciones.removeIf(v -> v.getCorreo().equals(valoracion.getCorreo()));
+		
+		return valoraciones.add(valoracion);
+		
+		/*for(Valoracion v : valoraciones) {
 			if(v.getCorreo().equals(valoracion.getCorreo())) {
 				band = true;
 				valoraciones.remove(v);
@@ -63,7 +67,7 @@ public class Opinion implements Identificable{
 		
 		if(band == false) {
 			valoraciones.add(valoracion);
-		}
+		}*/
 	}
 
 	// Metodo toString

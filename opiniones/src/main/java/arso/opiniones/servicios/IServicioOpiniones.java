@@ -13,13 +13,13 @@ public interface IServicioOpiniones {
 	String create(Opinion restaurente) throws RepositorioException;
 	
 	// Añadir una valoración sobre un recurso
-	void addValoracion(String idOpinion, Valoracion valoracion) throws RepositorioException, EntidadNoEncontrada;
+	boolean addValoracion(String idOpinion, Valoracion valoracion) throws RepositorioException, EntidadNoEncontrada;
 	
 	// Recuperar la opinión de un recurso.
 	Opinion getOpinion(String idOpinion) throws RepositorioException, EntidadNoEncontrada;
 	
 	// Eliminar una opinión del servicio
-	void removeOpinion(String idOpinion) throws RepositorioException, EntidadNoEncontrada;
+	boolean removeOpinion(String idOpinion) throws RepositorioException, EntidadNoEncontrada;
 
 	// Dar un listado con un resumen de las opiniones
 	List<OpinionResumen> getListadoOpiniones() throws RepositorioException;

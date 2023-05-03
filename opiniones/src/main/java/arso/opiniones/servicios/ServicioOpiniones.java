@@ -20,9 +20,9 @@ public class ServicioOpiniones implements IServicioOpiniones {
 	}
 	
 	@Override
-	public void addValoracion(String idOpinion, Valoracion valoracion) throws RepositorioException, EntidadNoEncontrada {
+	public boolean addValoracion(String idOpinion, Valoracion valoracion) throws RepositorioException, EntidadNoEncontrada {
 		Opinion opinion = repositorio.getById(idOpinion);
-		opinion.addValoracion(valoracion);
+		return opinion.addValoracion(valoracion);
 	}
 		
 	@Override	
@@ -31,10 +31,14 @@ public class ServicioOpiniones implements IServicioOpiniones {
 	}
 	
 	@Override
-	public void removeOpinion(String idOpinion) throws RepositorioException, EntidadNoEncontrada{
+	public boolean removeOpinion(String idOpinion) throws RepositorioException, EntidadNoEncontrada{
 		Opinion opinion = repositorio.getById(idOpinion);
 		
-		repositorio.delete(opinion);
+		Opinion oDelete =  repositorio.delete(opinion);
+		
+		if (oDelete != null)
+			return true;
+		return false;
 	}
 	
 	@Override

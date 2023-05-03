@@ -10,7 +10,7 @@ public interface IRepositorioMemoria<T, K> {
 
 	void update(T entity) throws RepositorioException, EntidadNoEncontrada;
 
-	void delete(T entity) throws RepositorioException, EntidadNoEncontrada;
+	T delete(T entity) throws RepositorioException, EntidadNoEncontrada;
 
 	T getById(K id) throws RepositorioException, EntidadNoEncontrada;
 

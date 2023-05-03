@@ -11,23 +11,14 @@ type Valoracion {
 	comentario: String
 }
 
-input OpinionInput {
-	id: String!
-	recurso: String!
-	valoraciones: [Valoracion]!
-
-}
-
-
 type Query {
-	getOpinion(idOpinion: String!): Opinion!
+	getOpinion(idOpinion: String!): Opinion
 }
-
-
-
 
 type Mutation {
-	
+  create(recurso: String!): String
+  addValoracion(idOpinion: String!, correo: String!, calificacion: Int!, comentario: String!): Boolean
+  removeOpinion(idOpinion: String!): Boolean
 }
 
 schema {

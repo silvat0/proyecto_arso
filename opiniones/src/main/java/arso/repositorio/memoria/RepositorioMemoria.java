@@ -31,12 +31,12 @@ public class RepositorioMemoria<T extends Identificable> implements RepositorioS
 	}
 
 	@Override
-	public void delete(T entity) throws RepositorioException, EntidadNoEncontrada {
+	public T delete(T entity) throws RepositorioException, EntidadNoEncontrada {
 		
 		if (! this.entidades.containsKey(entity.getId()))
 			throw new EntidadNoEncontrada(entity.getId() + " no existe en el repositorio");
 		
-		this.entidades.remove(entity.getId());
+		return this.entidades.remove(entity.getId());
 	}
 
 	@Override

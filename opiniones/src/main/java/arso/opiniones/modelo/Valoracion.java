@@ -6,7 +6,7 @@ public class Valoracion {
 
 	private String correo;
 	private LocalDate fecha;
-	private float calificacion;
+	private int calificacion;
 	private String comentario;
 	
 	public String getCorreo() {
@@ -25,11 +25,11 @@ public class Valoracion {
 		this.fecha = fecha;
 	}
 	
-	public float getCalificacion() {
+	public int getCalificacion() {
 		return calificacion;
 	}
 	
-	public void setCalificacion(float calificacion) {
+	public void setCalificacion(int calificacion) {
 		this.calificacion = calificacion;
 	}
 	
