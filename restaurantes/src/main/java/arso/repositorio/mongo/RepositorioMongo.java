@@ -20,8 +20,6 @@ import arso.utils.Utils;
 
 public class RepositorioMongo implements IRepositorioMongo{
 	
-	
-	
 	ConnectionString connectionString = new ConnectionString("mongodb+srv://arso:<password>@cluch.2l0gzgu.mongodb.net/?retryWrites=true&w=majority");
 	MongoClientSettings settings = MongoClientSettings.builder()
 	        .applyConnectionString(connectionString)

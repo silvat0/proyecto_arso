@@ -11,8 +11,17 @@ public class Restaurante implements Identificable{
 	private String coordenadas;
 	private LinkedList<SitioTuristico> sitiosTuristicos = new LinkedList<>();
 	private LinkedList<Plato> platos = new LinkedList<>();
+	private String idGestor;
 
 	// Getters y setters.
+
+	public String getIdGestor() {
+		return idGestor;
+	}
+
+	public void setIdGestor(String idGestor) {
+		this.idGestor = idGestor;
+	}
 
 	public String getId() {
 		return id;

@@ -16,11 +16,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.UriInfo;
 
 import arso.repositorio.memoria.EntidadEncontrada;
 import arso.repositorio.memoria.EntidadNoEncontrada;
+import arso.repositorio.memoria.GestorNoAutorizado;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;
@@ -56,9 +57,11 @@ public class RestauranteControladorRest {
 	@Secured(AvailableRoles.GESTOR)
 	@ApiOperation(value = "Crea un restaurante", notes = "Retorna el codigo 201 indicando que ha creado el recurso")
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_CREATED, message = "")})
-	public Response create(@ApiParam(value = "Restaurante a crear", required = true) Restaurante restaurente) throws Exception {
+	public Response create(@ApiParam(value = "Restaurante a crear", required = true) Restaurante restaurante) throws Exception {
 
-		String id = servicio.create(restaurente);
+		String id = servicio.create(restaurante);
+		
+		restaurante.setIdGestor(this.securityContext.getUserPrincipal().getName()); 
 		
 		URI nuevaURL = uriInfo.getAbsolutePathBuilder().path(id).build();
 
@@ -81,6 +84,9 @@ public class RestauranteControladorRest {
 
 		if (!id1.equals(restaurante.getId()))
 			throw new IllegalArgumentException("El identificador no coincide: " + id1);
+		
+		if(!servicio.getRestaurante(id1).getIdGestor().equals(this.securityContext.getUserPrincipal().getName()))
+			throw new GestorNoAutorizado("No eres un gestor autoizado:" + this.securityContext.getUserPrincipal().getName());
 
 		servicio.update(restaurante.getId(), restaurante.getNombre(), restaurante.getCoordenadas());
 		
@@ -105,14 +111,15 @@ public class RestauranteControladorRest {
 	
 	public Response addPlato( @ApiParam(value = "id del restaurante", required = true) @PathParam("id") String idRestaurante, 
 			@ApiParam(value = "Plato a añadir", required = true) Plato plato) throws Exception{
+		
+		if(!servicio.getRestaurante(idRestaurante).getIdGestor().equals(this.securityContext.getUserPrincipal().getName()))
+			throw new GestorNoAutorizado("No eres un gestor autoizado:" + this.securityContext.getUserPrincipal().getName());
 
 		boolean existe = servicio.addPlato(idRestaurante, plato);
 		
 		if (!existe) 
 			throw new EntidadEncontrada("El plato con nombre " + plato.getNombre() + "ya existe");
 			
-		
-		
 		return Response.status(Response.Status.NO_CONTENT).build();
 	}
 	
@@ -129,6 +136,9 @@ public class RestauranteControladorRest {
 			@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "Plato no encontrado") })
 	public Response removePlato(@ApiParam(value = "id del restaurante", required = true) @PathParam("id") String idRestaurante, 
 			@ApiParam(value = "nombre del plato", required = true) @PathParam("nombre") String nombrePlato) throws Exception {
+		
+		if(!servicio.getRestaurante(idRestaurante).getIdGestor().equals(this.securityContext.getUserPrincipal().getName()))
+			throw new GestorNoAutorizado("No eres un gestor autoizado:" + this.securityContext.getUserPrincipal().getName());
 		
 		boolean existe = servicio.removePlato(idRestaurante, nombrePlato);
 		
@@ -154,8 +164,9 @@ public class RestauranteControladorRest {
 								@ApiParam(value = "nombre del plato", required = true) @PathParam("nombre") String nombrePlato, 
 								@ApiParam(value = "Plato a actualizar", required = true) Plato plato) throws Exception {
 		
+		if(!servicio.getRestaurante(idRestaurante).getIdGestor().equals(this.securityContext.getUserPrincipal().getName()))
+			throw new GestorNoAutorizado("No eres un gestor autoizado:" + this.securityContext.getUserPrincipal().getName());
 		
-		// TODO se compara con ese nombre o con lo que hay en la lista de platos.
 		if (!nombrePlato.equals(plato.getNombre()))
 			throw new IllegalArgumentException("El nombre del plato no coincide: " + nombrePlato);
 
@@ -192,6 +203,9 @@ public class RestauranteControladorRest {
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = ""),
 			@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "Restaurante no encontrado") })
 	public Response removeRestaurante(@ApiParam(value = "id del restaurante", required = true) @PathParam("id") String id ) throws Exception {
+		
+		if(!servicio.getRestaurante(id).getIdGestor().equals(this.securityContext.getUserPrincipal().getName()))
+			throw new GestorNoAutorizado("No eres un gestor autoizado:" + this.securityContext.getUserPrincipal().getName());
 		
 		servicio.removeRestaurante(id);
 		
@@ -230,6 +244,9 @@ public class RestauranteControladorRest {
 	public Response establecerSitiosTuristicos(@ApiParam(value = "id del restaurante", required = true) @PathParam("id") String id, 
 												@ApiParam(value = "Lista de sitios turisticos", required = true) List<SitioTuristico> sitiosTuristicos) throws Exception {
 		
+		if(!servicio.getRestaurante(id).getIdGestor().equals(this.securityContext.getUserPrincipal().getName()))
+			throw new GestorNoAutorizado("No eres un gestor autoizado:" + this.securityContext.getUserPrincipal().getName());
+		
 		servicio.establecerSitiosTuristicos(id, sitiosTuristicos);
 		
 		return Response.status(Response.Status.NO_CONTENT).build();
@@ -244,6 +261,8 @@ public class RestauranteControladorRest {
 	@ApiOperation(value = "Obtener los restaurantes", notes = "Retorna la lista de todos los restaurantes", response = Restaurante.class)
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_OK, message = "") })
 	public Response getListadoRestaurantes() throws Exception {
+		
+		//System.out.println(this.securityContext.getUserPrincipal().getName());
 
 		List<RestauranteResumen> resultado = servicio.getListadoRestaurantes();
 

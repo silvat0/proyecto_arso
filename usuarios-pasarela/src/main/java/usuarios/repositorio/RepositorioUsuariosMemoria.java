@@ -15,10 +15,10 @@ public class RepositorioUsuariosMemoria extends RepositorioMemoria<Usuario> {
 			Usuario usuario1 = new Usuario("Marcos", "marcos@um.es", "MarcosMenarguez", Rol.GESTOR);
 			this.add(usuario1);
 			
-			Usuario usuario2 = new Usuario("Silvia", "silvia.perezr@um.es", "silvat0", Rol.CLIENTE);
+			Usuario usuario2 = new Usuario("Silvia", "silvia.perezr@um.es", "silvat0", Rol.GESTOR);
 			this.add(usuario2);
 			
-			Usuario usuario3 = new Usuario("Raul", "raul.hernandezm@um.es", "raul-umu", Rol.CLIENTE);
+			Usuario usuario3 = new Usuario("Raul", "raul.hernandezm@um.es", "raul-umu", Rol.GESTOR);
 			this.add(usuario3);
 			
 		} catch (RepositorioException e) {

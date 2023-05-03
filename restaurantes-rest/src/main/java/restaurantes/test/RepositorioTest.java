@@ -27,6 +27,7 @@ public class RepositorioTest extends RepositorioMemoria<Restaurante> {
 				+ "contine huevo");
 		
 		restaurante1.addPlato(plato1);
+		restaurante1.setIdGestor("raul.hernandezm@um.es");
 		
 		try {
 			add(restaurante1);
