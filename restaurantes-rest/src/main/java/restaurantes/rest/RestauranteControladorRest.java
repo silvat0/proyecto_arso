@@ -113,7 +113,7 @@ public class RestauranteControladorRest {
 			@ApiParam(value = "Plato a añadir", required = true) Plato plato) throws Exception{
 		
 		if(!servicio.getRestaurante(idRestaurante).getIdGestor().equals(this.securityContext.getUserPrincipal().getName()))
-			throw new GestorNoAutorizado("No eres un gestor autoizado:" + this.securityContext.getUserPrincipal().getName());
+			throw new GestorNoAutorizado("No eres un gestor autoizado: " + this.securityContext.getUserPrincipal().getName());
 
 		boolean existe = servicio.addPlato(idRestaurante, plato);
 		
