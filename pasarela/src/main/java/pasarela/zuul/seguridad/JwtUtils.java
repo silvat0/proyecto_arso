@@ -19,7 +19,7 @@ import io.jsonwebtoken.UnsupportedJwtException;
 public class JwtUtils {
 	
 	private static final String SECRET = "01u3J81mMk";
-	public static final int EXPIRATION_TIME = 60; // 1 día, en segundos
+	public static final int EXPIRATION_TIME = 86400; // 1 día, en segundos
 	private static final String ISSUER = "Pasarela Zuul";
 	
 	public static String createJWT(String userId, Map<String, String> userInfo) {		
