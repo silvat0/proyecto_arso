@@ -63,6 +63,8 @@ public class RestauranteControladorRest {
 		
 		restaurante.setIdGestor(this.securityContext.getUserPrincipal().getName()); 
 		
+		System.out.println(this.securityContext);
+		
 		URI nuevaURL = uriInfo.getAbsolutePathBuilder().path(id).build();
 
 		return Response.created(nuevaURL).build();
