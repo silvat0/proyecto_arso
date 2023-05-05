@@ -1,9 +1,12 @@
 package restaurantes.rest;
 
 import java.net.URI;
+import java.net.http.HttpHeaders;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -53,22 +56,32 @@ public class RestauranteControladorRest {
 	// curl -i -X POST -H "Content-type: application/json" --data "{\"nombre\":\"pizza\",  \"coordenadas\":\"-5541784, 54484544\"}" http://localhost:8080/api/restaurantes/
 
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Secured(AvailableRoles.GESTOR)
-	@ApiOperation(value = "Crea un restaurante", notes = "Retorna el codigo 201 indicando que ha creado el recurso")
-	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_CREATED, message = "")})
-	public Response create(@ApiParam(value = "Restaurante a crear", required = true) Restaurante restaurante) throws Exception {
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Secured(AvailableRoles.GESTOR)
+    @ApiOperation(value = "Crea un restaurante", notes = "Retorna el codigo 201 indicando que ha creado el recurso")
+    @ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_CREATED, message = "")})
+    public Response create(@ApiParam(value = "Restaurante a crear", required = true) Restaurante restaurante,  @Context HttpServletRequest request) throws Exception {
+        
+        // Obtener todas las cabeceras en la petición
+      
+        String headerValue = request.getHeader("X-Forwarded-Host");
+        
+        String[] cabeceras = headerValue.split(":");
+        String host = cabeceras[0];
+        String portS = cabeceras[1];
+        Integer port = Integer.parseInt(portS);
+        
 
-		String id = servicio.create(restaurante);
-		
-		restaurante.setIdGestor(this.securityContext.getUserPrincipal().getName()); 
-		
-		System.out.println(this.securityContext);
-		
-		URI nuevaURL = uriInfo.getAbsolutePathBuilder().path(id).build();
+        String id = servicio.create(restaurante);
+        
+        restaurante.setIdGestor(this.securityContext.getUserPrincipal().getName()); 
+        
+        System.out.println(this.securityContext);
+        
+        URI nuevaURL = uriInfo.getAbsolutePathBuilder().host(host).port(port).path(id).build();
 
-		return Response.created(nuevaURL).build();
-	}
+        return Response.created(nuevaURL).build();
+    }
 	
 	// (2) **
 	
@@ -269,7 +282,7 @@ public class RestauranteControladorRest {
 		List<RestauranteResumen> resultado = servicio.getListadoRestaurantes();
 
 		List<ResumenExtendido> extendido = new LinkedList<ResumenExtendido>();
-
+		
 		for (RestauranteResumen restauranteResumen : resultado) {
 
 			ResumenExtendido resumenExtendido = new ResumenExtendido();
