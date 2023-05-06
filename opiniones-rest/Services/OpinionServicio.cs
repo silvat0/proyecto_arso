@@ -37,6 +37,10 @@ namespace Opiniones.Servicio
         {
             Opinion opinion = repositorio.GetById(idOpinion);
 
+            List<Valoracion> valoraciones = opinion.Valoraciones;
+
+            valoraciones.RemoveAll(v => v.Correo == valoracion.Correo);
+
             opinion.Valoraciones.Add(valoracion);
 
             repositorio.Update(opinion);
