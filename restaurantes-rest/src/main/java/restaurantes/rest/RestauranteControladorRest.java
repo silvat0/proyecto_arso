@@ -1,12 +1,10 @@
 package restaurantes.rest;
 
 import java.net.URI;
-import java.net.http.HttpHeaders;
-import java.util.Enumeration;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -18,9 +16,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.HttpHeaders;
 
 import arso.repositorio.memoria.EntidadEncontrada;
 import arso.repositorio.memoria.EntidadNoEncontrada;
@@ -60,16 +60,25 @@ public class RestauranteControladorRest {
     @Secured(AvailableRoles.GESTOR)
     @ApiOperation(value = "Crea un restaurante", notes = "Retorna el codigo 201 indicando que ha creado el recurso")
     @ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_CREATED, message = "")})
-    public Response create(@ApiParam(value = "Restaurante a crear", required = true) Restaurante restaurante,  @Context HttpServletRequest request) throws Exception {
+    public Response create(@ApiParam(value = "Restaurante a crear", required = true) Restaurante restaurante,  @Context HttpHeaders headers) throws Exception {
         
         // Obtener todas las cabeceras en la petición
       
-        String headerValue = request.getHeader("X-Forwarded-Host");
+		 MultivaluedMap<String, String> allHeaders = headers.getRequestHeaders();
+		 
+		 for (String headerName : allHeaders.keySet()) {
+		        List<String> headerValues = allHeaders.get(headerName);
+		        for(String hv: headerValues) {
+		        	System.out.println(headerName + ": " + hv);
+		        }
+		    }
+		
+        /*String headerValue = request.getHeader("X-Forwarded-Host");
         
         String[] cabeceras = headerValue.split(":");
         String host = cabeceras[0];
         String portS = cabeceras[1];
-        Integer port = Integer.parseInt(portS);
+        Integer port = Integer.parseInt(portS);*/
         
 
         String id = servicio.create(restaurante);
@@ -78,9 +87,10 @@ public class RestauranteControladorRest {
         
         System.out.println(this.securityContext);
         
-        URI nuevaURL = uriInfo.getAbsolutePathBuilder().host(host).port(port).path(id).build();
+        //URI nuevaURL = uriInfo.getAbsolutePathBuilder().host(host).port(port).path(id).build();
 
-        return Response.created(nuevaURL).build();
+        //return Response.created(nuevaURL).build();
+        return null;
     }
 	
 	// (2) **
