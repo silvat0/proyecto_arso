@@ -68,20 +68,7 @@ public class RestauranteControladorRest {
 		// Obtener todas las cabeceras en la petición
 
 		MultivaluedMap<String, String> allHeaders = headers.getRequestHeaders();
-
-		/*
-		 * for (String headerName : allHeaders.keySet()) { List<String> headerValues =
-		 * allHeaders.get(headerName); for(String hv: headerValues) {
-		 * System.out.println(headerName + ": " + hv); } }
-		 */
-
-		/*
-		 * String headerValue = request.getHeader("X-Forwarded-Host");
-		 * 
-		 * String[] cabeceras = headerValue.split(":"); String host = cabeceras[0];
-		 * String portS = cabeceras[1]; Integer port = Integer.parseInt(portS);
-		 */
-
+		
 		allHeaders.get("X-Forwarded-Port");
 
 		String id = servicio.create(restaurante);
@@ -91,7 +78,7 @@ public class RestauranteControladorRest {
 		String url = allHeaders.get("X-Forwarded-Proto").get(0) + "://" + allHeaders.get("X-Forwarded-Host").get(0)
 				+ allHeaders.get("x-forwarded-prefix").get(0) + "/" + id;
 
-		System.out.println(url);
+		//System.out.println(url);
 
 		URI nuevaURL = new URI(url);
 
