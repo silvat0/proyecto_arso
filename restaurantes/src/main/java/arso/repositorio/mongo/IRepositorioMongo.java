@@ -1,10 +1,12 @@
 package arso.repositorio.mongo;
 
 import java.util.List;
-
+import arso.repositorio.memoria.RepositorioException;
+import arso.repositorio.memoria.RepositorioString;
+import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.restaurantes.modelo.Restaurante;
 
-public interface IRepositorioMongo {
+public interface IRepositorioMongo extends RepositorioString<Restaurante>{
 	
 	String add(Restaurante restaurante) throws RepositorioException;
 

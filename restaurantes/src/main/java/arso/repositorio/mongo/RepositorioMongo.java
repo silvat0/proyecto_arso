@@ -5,28 +5,20 @@ import java.util.List;
 
 import org.bson.conversions.Bson;
 
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
 import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 
-
+import arso.repositorio.memoria.RepositorioException;
+import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.restaurantes.modelo.Restaurante;
 import arso.utils.Utils;
 
 public class RepositorioMongo implements IRepositorioMongo{
 	
-	ConnectionString connectionString = new ConnectionString("mongodb+srv://arso:<password>@cluch.2l0gzgu.mongodb.net/?retryWrites=true&w=majority");
-	MongoClientSettings settings = MongoClientSettings.builder()
-	        .applyConnectionString(connectionString)
-	        .build();
-	MongoClient mongoClient = MongoClients.create(settings);
-	MongoDatabase database = mongoClient.getDatabase("test");
-	MongoCollection<Restaurante> coleccion = database.getCollection("restaurantes", Restaurante.class);
+	MongoPojo pojo = new MongoPojo();
+	
+	MongoCollection<Restaurante> coleccion = pojo.getColeccion();
 	
 	
 	@Override

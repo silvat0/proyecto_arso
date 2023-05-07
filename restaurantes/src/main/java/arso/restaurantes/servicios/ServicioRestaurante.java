@@ -6,7 +6,7 @@ import java.util.List;
 import arso.repositorio.memoria.EntidadEncontrada;
 import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.repositorio.memoria.FactoriaRepositorios;
-import arso.repositorio.memoria.IRepositorioMemoria;
+import arso.repositorio.memoria.IRepositorio;
 import arso.repositorio.memoria.RepositorioException;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
@@ -14,7 +14,7 @@ import arso.restaurantes.modelo.SitioTuristico;
 
 public class ServicioRestaurante implements IServicioRestaurante {
 
-	private IRepositorioMemoria<Restaurante, String> repositorio = FactoriaRepositorios.getRepositorio(Restaurante.class);
+	private IRepositorio<Restaurante, String> repositorio = FactoriaRepositorios.getRepositorio(Restaurante.class);
 
 	@Override
 	public String create(Restaurante restaurente) throws RepositorioException {
