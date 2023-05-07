@@ -1,4 +1,4 @@
-package arso.repositorio.mongo;
+package arso.repositorio.memoria;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,11 +10,12 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 
 import arso.repositorio.memoria.RepositorioException;
+import arso.repositorio.memoria.RepositorioString;
 import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.restaurantes.modelo.Restaurante;
 import arso.utils.Utils;
 
-public class RepositorioMongo implements IRepositorioMongo{
+public class RepositorioMongo implements RepositorioString<Restaurante>{
 	
 	MongoPojo pojo = new MongoPojo();
 	

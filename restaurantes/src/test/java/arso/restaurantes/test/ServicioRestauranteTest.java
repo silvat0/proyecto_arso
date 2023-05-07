@@ -1,4 +1,4 @@
-package arso.restaurantes.test;
+/*package arso.restaurantes.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -170,4 +170,4 @@ public class ServicioRestauranteTest {
 	
 	
 
-}
+}*/

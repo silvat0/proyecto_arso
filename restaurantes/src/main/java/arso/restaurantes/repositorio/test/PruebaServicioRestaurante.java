@@ -3,7 +3,6 @@ package arso.restaurantes.repositorio.test;
 import arso.repositorio.memoria.EntidadEncontrada;
 import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.repositorio.memoria.FactoriaRepositorios;
-import arso.repositorio.memoria.IRepositorioMemoria;
 import arso.repositorio.memoria.RepositorioException;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;

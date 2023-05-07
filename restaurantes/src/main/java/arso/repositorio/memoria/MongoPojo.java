@@ -1,4 +1,4 @@
-package arso.repositorio.mongo;
+package arso.repositorio.memoria;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
