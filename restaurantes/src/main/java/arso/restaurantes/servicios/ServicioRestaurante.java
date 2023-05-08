@@ -32,6 +32,8 @@ public class ServicioRestaurante implements IServicioRestaurante {
 	public boolean addPlato(String idRestaurante, Plato plato) throws RepositorioException, EntidadNoEncontrada, EntidadEncontrada {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 
+		System.out.println(restaurante);
+		
 		return restaurante.addPlato(plato);
 	}
 
