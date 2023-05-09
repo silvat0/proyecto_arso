@@ -19,26 +19,23 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 
-import arso.repositorio.memoria.RepositorioException;
-import arso.repositorio.memoria.RepositorioString;
-import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.restaurantes.modelo.Restaurante;
 import arso.utils.Utils;
 
-public class RepositorioMongo implements RepositorioString<Restaurante>{
+public class RepositorioMongo <T extends Identificable> implements RepositorioString<T>{
 	
 	//MongoPojo pojo = new MongoPojo();
 	
 	//MongoCollection<Restaurante> coleccion = pojo.getColeccion();
 	
-	private MongoCollection<Restaurante> coleccion;
+	private MongoCollection<T> coleccion;
 	
-	public RepositorioMongo() {
+	public RepositorioMongo(Class<T> clazz) {
 		
-		coleccion = getColeccion();
+		coleccion = getColeccion(clazz);
 	}
 	
-	public MongoCollection<Restaurante> getColeccion() {
+	public MongoCollection<T> getColeccion(Class<T> clazz) {
 	
 		ConnectionString connectionString = new ConnectionString("mongodb+srv://arso:UPHcABdBP1YhNZSq@cluch.2l0gzgu.mongodb.net/?retryWrites=true&w=majority");
 		CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build());
@@ -51,7 +48,7 @@ public class RepositorioMongo implements RepositorioString<Restaurante>{
 		
 		MongoClient mongoClient = MongoClients.create(clientSettings);
 		MongoDatabase database = mongoClient.getDatabase("test");
-		coleccion = database.getCollection("restaurantes", Restaurante.class);
+		coleccion = database.getCollection("restaurantes", clazz);
 		
 		return coleccion;
 	}
@@ -59,35 +56,35 @@ public class RepositorioMongo implements RepositorioString<Restaurante>{
 	
 	
 	@Override
-	public String add(Restaurante restaurante) throws RepositorioException {
+	public String add(T entity) throws RepositorioException {
 		
 		String id = Utils.createId();
-		restaurante.setId(id);
-		coleccion.insertOne(restaurante);
+		entity.setId(id);
+		coleccion.insertOne((T) entity);
 		
 		
 		return id;
 	}
 
 	@Override
-	public void update(Restaurante restaurante) throws RepositorioException, EntidadNoEncontrada {
+	public void update(T entity) throws RepositorioException, EntidadNoEncontrada {
 		
-		Bson query = Filters.eq("_id", restaurante.getId());
+		Bson query = Filters.eq("_id", entity.getId());
 		
 		if (query == null) {
-			throw new EntidadNoEncontrada(restaurante.getId() + " no existe en el repositorio");
+			throw new EntidadNoEncontrada(entity.getId() + " no existe en el repositorio");
 		}
 		
-		coleccion.findOneAndReplace(query, restaurante);
+		coleccion.findOneAndReplace(query, (T) entity);
 	
 	}
 
 	@Override
-	public void delete(Restaurante restaurante) throws RepositorioException, EntidadNoEncontrada {
-		Bson query = Filters.eq("_id", restaurante.getId());
+	public void delete(T entity) throws RepositorioException, EntidadNoEncontrada {
+		Bson query = Filters.eq("_id", entity.getId());
 
 		if (query == null) {
-			throw new EntidadNoEncontrada(restaurante.getId() + " no existe en el repositorio");
+			throw new EntidadNoEncontrada(entity.getId() + " no existe en el repositorio");
 		}
 		
 		coleccion.deleteOne(query);
@@ -95,7 +92,7 @@ public class RepositorioMongo implements RepositorioString<Restaurante>{
 	}
 
 	@Override
-	public Restaurante getById(String id) throws RepositorioException, EntidadNoEncontrada {
+	public T getById(String id) throws RepositorioException, EntidadNoEncontrada {
 		
 		Bson query = Filters.eq("_id", id);
 		
@@ -103,29 +100,29 @@ public class RepositorioMongo implements RepositorioString<Restaurante>{
 //			throw new EntidadNoEncontrada("El restaurante con id " + id + " no existe en el repositorio");
 //		}
 		
-		Restaurante restaurante = coleccion.find(query).first();
+		T entity = (T) coleccion.find(query).first();
 		
-		if (restaurante == null) {
+		if (entity == null) {
 		    throw new EntidadNoEncontrada("El restaurante con id " + id + " no existe en el repositorio");
 		}
 
 		
-		return restaurante;
+		return entity;
 		
 	}
 
 	@Override
-	public List<Restaurante> getAll() throws RepositorioException {
+	public List<T> getAll() throws RepositorioException {
 		
-		List<Restaurante> restaurantes = new LinkedList<>();
+		List<T> entitites = new LinkedList<>();
 		
-		FindIterable<Restaurante> rests = coleccion.find();
+		FindIterable<T> rests = (FindIterable<T>) coleccion.find();
 		
-		for (Restaurante r : rests) {
-			restaurantes.add(r);
+		for (T e : rests) {
+			entitites.add(e);
 		}
 		
-		return restaurantes;
+		return (List<T>) entitites;
 		
 	}
 
@@ -134,9 +131,9 @@ public class RepositorioMongo implements RepositorioString<Restaurante>{
 		
 		List<String> ids = new LinkedList<>();
 
-		FindIterable<Restaurante> rests = coleccion.find();
+		FindIterable<T> rests = (FindIterable<T>) coleccion.find();
 
-		for (Restaurante r : rests) {
+		for (T r : rests) {
 			ids.add(r.getId());
 		}
 

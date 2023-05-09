@@ -11,6 +11,10 @@ public class RepositorioMemoria<T extends Identificable> implements RepositorioS
 
 	private HashMap<String, T> entidades = new HashMap<>();
 	
+	public RepositorioMemoria(Class<T> clazz) {
+			
+	}
+	
 	@Override
 	public String add(T entity) throws RepositorioException {
 		
