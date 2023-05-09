@@ -1,6 +1,7 @@
 package arso.restaurantes.modelo;
 
 import java.util.LinkedList;
+import java.util.Objects;
 
 import org.bson.codecs.pojo.annotations.BsonId;
 
@@ -115,5 +116,26 @@ public class Restaurante implements Identificable{
 		return "Restaurante [ Identificador = " + id + ", Nombre = " + nombre + ", Coordenadas = " + coordenadas
 				+ ", Sitios turisticos = " + sitiosTuristicos + ", Platos = " + platos + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(coordenadas, id, idGestor, nombre, platos, sitiosTuristicos);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Restaurante other = (Restaurante) obj;
+		return Objects.equals(coordenadas, other.coordenadas) && Objects.equals(id, other.id)
+				&& Objects.equals(idGestor, other.idGestor) && Objects.equals(nombre, other.nombre)
+				&& Objects.equals(platos, other.platos) && Objects.equals(sitiosTuristicos, other.sitiosTuristicos);
+	}
+	
+	
 
 }

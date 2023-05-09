@@ -99,11 +99,16 @@ public class RepositorioMongo implements RepositorioString<Restaurante>{
 		
 		Bson query = Filters.eq("_id", id);
 		
-		if (query == null) {
-			throw new EntidadNoEncontrada("El restaurante con id " + id + " no existe en el repositorio");
-		}
+//		if (query == null) {
+//			throw new EntidadNoEncontrada("El restaurante con id " + id + " no existe en el repositorio");
+//		}
 		
 		Restaurante restaurante = coleccion.find(query).first();
+		
+		if (restaurante == null) {
+		    throw new EntidadNoEncontrada("El restaurante con id " + id + " no existe en el repositorio");
+		}
+
 		
 		return restaurante;
 		

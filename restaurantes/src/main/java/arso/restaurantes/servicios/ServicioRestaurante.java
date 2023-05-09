@@ -26,22 +26,25 @@ public class ServicioRestaurante implements IServicioRestaurante {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 		restaurante.setNombre(nombre);
 		restaurante.setCoordenadas(coordenadas);
+		
+		repositorio.update(restaurante);
 	}
 
 	@Override
 	public boolean addPlato(String idRestaurante, Plato plato) throws RepositorioException, EntidadNoEncontrada, EntidadEncontrada {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
-
-		System.out.println(restaurante);
-		
-		return restaurante.addPlato(plato);
+		//System.out.println(restaurante);
+		boolean bool = restaurante.addPlato(plato);
+		repositorio.update(restaurante);
+		return bool;
 	}
 
 	@Override
 	public boolean removePlato(String idRestaurante, String plato) throws RepositorioException, EntidadNoEncontrada {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
-
-		return restaurante.removePlato(plato);
+		boolean bool = restaurante.removePlato(plato);
+		repositorio.update(restaurante);
+		return bool;
 	}
 
 	@Override
@@ -49,6 +52,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 
 		restaurante.updatePlato(plato);
+		repositorio.update(restaurante);
 	}
 
 	@Override
@@ -76,6 +80,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 
 		restaurante.setSitiosTuristicos((LinkedList<SitioTuristico>) sitiosTuristicos);
+		repositorio.update(restaurante);
 	}
 
 	@Override
