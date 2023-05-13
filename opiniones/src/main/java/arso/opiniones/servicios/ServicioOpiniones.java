@@ -7,12 +7,12 @@ import arso.opiniones.modelo.Opinion;
 import arso.opiniones.modelo.Valoracion;
 import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.repositorio.memoria.FactoriaRepositorios;
-import arso.repositorio.memoria.IRepositorioMemoria;
+import arso.repositorio.memoria.IRepositorio;
 import arso.repositorio.memoria.RepositorioException;
 
 public class ServicioOpiniones implements IServicioOpiniones {
 
-	private IRepositorioMemoria<Opinion, String> repositorio = FactoriaRepositorios.getRepositorio(Opinion.class);
+	private IRepositorio<Opinion, String> repositorio = FactoriaRepositorios.getRepositorio(Opinion.class);
 	
 	@Override
 	public String create(Opinion opinion) throws RepositorioException {
@@ -22,7 +22,11 @@ public class ServicioOpiniones implements IServicioOpiniones {
 	@Override
 	public boolean addValoracion(String idOpinion, Valoracion valoracion) throws RepositorioException, EntidadNoEncontrada {
 		Opinion opinion = repositorio.getById(idOpinion);
-		return opinion.addValoracion(valoracion);
+		boolean resul = opinion.addValoracion(valoracion);
+		repositorio.update(opinion);
+		
+		return resul;
+			
 	}
 		
 	@Override	
@@ -34,9 +38,11 @@ public class ServicioOpiniones implements IServicioOpiniones {
 	public boolean removeOpinion(String idOpinion) throws RepositorioException, EntidadNoEncontrada{
 		Opinion opinion = repositorio.getById(idOpinion);
 		
-		Opinion oDelete =  repositorio.delete(opinion);
+		boolean oDelete =  repositorio.delete(opinion);
 		
-		if (oDelete != null)
+		repositorio.update(opinion);
+		
+		if (oDelete)
 			return true;
 		return false;
 	}

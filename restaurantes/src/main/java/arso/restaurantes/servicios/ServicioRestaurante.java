@@ -33,7 +33,6 @@ public class ServicioRestaurante implements IServicioRestaurante {
 	@Override
 	public boolean addPlato(String idRestaurante, Plato plato) throws RepositorioException, EntidadNoEncontrada, EntidadEncontrada {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
-		//System.out.println(restaurante);
 		boolean bool = restaurante.addPlato(plato);
 		repositorio.update(restaurante);
 		return bool;

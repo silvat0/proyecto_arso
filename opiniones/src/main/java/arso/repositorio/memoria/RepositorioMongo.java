@@ -22,9 +22,10 @@ import com.mongodb.client.result.DeleteResult;
 
 import arso.utils.Utils;
 
-public class RepositorioMongo <T extends Identificable> implements RepositorioString<T> {
-	
-	private MongoCollection<T> coleccion;
+
+public class RepositorioMongo<T extends Identificable> implements RepositorioString<T> {
+
+private MongoCollection<T> coleccion;
 	
 	public RepositorioMongo(Class<T> clazz) {
 		
@@ -43,21 +44,18 @@ public class RepositorioMongo <T extends Identificable> implements RepositorioSt
 	            .build();
 		
 		MongoClient mongoClient = MongoClients.create(clientSettings);
-		MongoDatabase database = mongoClient.getDatabase("restaurantes");
-		coleccion = database.getCollection("Restaurantes", clazz);
+		MongoDatabase database = mongoClient.getDatabase("opiniones");
+		coleccion = database.getCollection("Opiniones", clazz);
 		
 		return coleccion;
 	}
-	
-	
 	
 	@Override
 	public String add(T entity) throws RepositorioException {
 		
 		String id = Utils.createId();
 		entity.setId(id);
-		coleccion.insertOne((T) entity);
-		
+		coleccion.insertOne((T) entity);	
 		
 		return id;
 	}
@@ -71,12 +69,13 @@ public class RepositorioMongo <T extends Identificable> implements RepositorioSt
 		
 		if (resul == null) {
 			throw new EntidadNoEncontrada(entity.getId() + " no existe en el repositorio");
-		}
-	
+		}	
+		
 	}
 
 	@Override
-	public void delete(T entity) throws RepositorioException, EntidadNoEncontrada {
+	public boolean delete(T entity) throws RepositorioException, EntidadNoEncontrada {
+		
 		Bson query = Filters.eq("_id", entity.getId());
 
 		DeleteResult resul = coleccion.deleteOne(query);
@@ -84,7 +83,10 @@ public class RepositorioMongo <T extends Identificable> implements RepositorioSt
 		if (resul == null) {
 			throw new EntidadNoEncontrada(entity.getId() + " no existe en el repositorio");
 		}
-
+		
+		return true;
+		
+		
 	}
 
 	@Override
@@ -97,10 +99,8 @@ public class RepositorioMongo <T extends Identificable> implements RepositorioSt
 		if (entity == null) {
 		    throw new EntidadNoEncontrada("El restaurante con id " + id + " no existe en el repositorio");
 		}
-
 		
 		return entity;
-		
 	}
 
 	@Override
@@ -115,7 +115,6 @@ public class RepositorioMongo <T extends Identificable> implements RepositorioSt
 		}
 		
 		return (List<T>) entitites;
-		
 	}
 
 	@Override
@@ -130,10 +129,6 @@ public class RepositorioMongo <T extends Identificable> implements RepositorioSt
 		}
 
 		return ids;
-
-
 	}
-	
-	
 
 }
