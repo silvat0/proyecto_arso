@@ -4,13 +4,13 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 import org.bson.codecs.pojo.annotations.BsonId;
-
 import arso.repositorio.memoria.Identificable;
 
 public class Restaurante implements Identificable{
 
 	@BsonId
 	private String id;
+	private String idOpinion;
 	private String nombre;
 	private String coordenadas;
 	private LinkedList<SitioTuristico> sitiosTuristicos = new LinkedList<>();
@@ -67,8 +67,18 @@ public class Restaurante implements Identificable{
 		this.platos = platos;
 	}
 	
+	public String getIdOpinion() {
+		return idOpinion;
+	}
+
+	public void setIdOpinion(String idOpinion) {
+		this.idOpinion = idOpinion;
+	}
+	
 	// Metodos 
 	
+	
+
 	public boolean addPlato(Plato plato) {
 		if(platos.contains(plato)) {
 			return false;
