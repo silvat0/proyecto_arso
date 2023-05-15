@@ -13,6 +13,27 @@ namespace Opiniones.Modelo
 
         public List<Valoracion> Valoraciones {get; set; } = new List<Valoracion>();
 
+
+        public int NumValoraciones
+        {
+            get { return Valoraciones.Count; }
+        }
+
+        public float MediaValoraciones
+        {
+            get
+            {
+                float suma = 0;
+
+                foreach (Valoracion v in Valoraciones)
+                {
+                    suma += v.Calificacion;
+                }
+
+                return suma / NumValoraciones;
+            }
+        }
+
     }
 
     public class Valoracion
@@ -21,7 +42,7 @@ namespace Opiniones.Modelo
 
         public DateTime Fecha {get; set; }
 
-        public float Calificacion {get; set; }
+        public int Calificacion {get; set; }
 
         public string Comentario {get; set; }
 

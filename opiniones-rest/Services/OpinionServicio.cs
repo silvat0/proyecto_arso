@@ -1,14 +1,15 @@
 using Opiniones.Modelo;
 using Repositorio;
+using Opiniones.Evento;
 
 namespace Opiniones.Servicio
 {
     
     public class OpinionResumen
     {
-        public string Id {get; set; }
+        public int NumeroValoraciones {get; set; }
 
-        public string Recurso {get; set; }
+        public float MediaValoraciones {get; set;}
     }
 
     public interface IServicioOpinion
@@ -60,8 +61,8 @@ namespace Opiniones.Servicio
                 var opinion = GetOpinion(id);
                 var resumen = new OpinionResumen
                 {
-                    Id = opinion.Id,
-                    Recurso = opinion.Recurso
+                    NumeroValoraciones = opinion.NumValoraciones,
+                    MediaValoraciones = opinion.MediaValoraciones
                 };
                 resultado.Add(resumen);
            }
@@ -79,6 +80,12 @@ namespace Opiniones.Servicio
             Opinion opinion = repositorio.GetById(idOpinion);
 
             repositorio.Delete(opinion);
+        }
+
+
+        protected void notificarValoracion(EventoNuevaValoracion evento)
+        {
+
         }
     }
 }

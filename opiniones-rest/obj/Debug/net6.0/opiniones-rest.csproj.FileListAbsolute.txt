@@ -41,3 +41,5 @@ C:\Users\Silvia\git\proyecto_arso\opiniones-rest\obj\Debug\net6.0\refint\opinion
 C:\Users\Silvia\git\proyecto_arso\opiniones-rest\obj\Debug\net6.0\opiniones-rest.pdb
 C:\Users\Silvia\git\proyecto_arso\opiniones-rest\obj\Debug\net6.0\opiniones-rest.genruntimeconfig.cache
 C:\Users\Silvia\git\proyecto_arso\opiniones-rest\obj\Debug\net6.0\ref\opiniones-rest.dll
+C:\Users\Silvia\git\proyecto_arso\opiniones-rest\bin\Debug\net6.0\RabbitMQ.Client.dll
+C:\Users\Silvia\git\proyecto_arso\opiniones-rest\bin\Debug\net6.0\System.Threading.Channels.dll
