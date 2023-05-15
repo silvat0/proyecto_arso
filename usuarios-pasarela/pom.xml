@@ -36,10 +36,6 @@
 			<artifactId>restaurantes</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
 		<!-- test lib -->
     <dependency>
       <groupId>
@@ -93,13 +89,7 @@
         <version>2.7</version>
 			</dependency>
 			<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-      <dependency>
-        <groupId>
-					org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>
-					${dep.slf4j.version}</version>
-			</dependency>
+    
 			<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
       <dependency>
         <groupId>
