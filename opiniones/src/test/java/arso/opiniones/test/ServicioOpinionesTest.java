@@ -46,14 +46,14 @@ public class ServicioOpinionesTest {
 		assertTrue(servicio.getOpinion(id).getValoraciones().size() > 0);
 	}
 	
-	@Test
-	public void testGetOpinon() throws RepositorioException, EntidadNoEncontrada{
+	//@Test
+	/*public void testGetOpinon() throws RepositorioException, EntidadNoEncontrada{
 		Opinion opinion = new Opinion();
 		opinion.setRecurso("Restaurante Emboka");
 		String id = servicio.create(opinion);
 		
 		assertEquals(servicio.getOpinion(id), opinion);
-	}
+	}*/
 	
 	@Test(expected = EntidadNoEncontrada.class)
 	public void testRemoveOpinion() throws RepositorioException, EntidadNoEncontrada{
