@@ -1,6 +1,9 @@
 using Opiniones.Modelo;
 using Repositorio;
 using Opiniones.Evento;
+using RabbitMQ.Client;
+using System.Text.Json;
+using System.Text;
 
 namespace Opiniones.Servicio
 {
@@ -23,6 +26,8 @@ namespace Opiniones.Servicio
         void RemoveOpinion(string idOpinion);
 
         List<OpinionResumen> GetListadoOpiniones();
+
+        void notificarValoracion(EventoNuevaValoracion evento);
     }
 
     public class ServicioOpinion : IServicioOpinion
@@ -83,8 +88,33 @@ namespace Opiniones.Servicio
         }
 
 
-        protected void notificarValoracion(EventoNuevaValoracion evento)
+        public void notificarValoracion(EventoNuevaValoracion evento)
         {
+            var factory = new ConnectionFactory { Uri = new Uri("amqps://xsiunxnj:LHgwaWUo5_Lqv6IlGfGo-GBFYU7vIBuW@whale.rmq.cloudamqp.com/xsiunxnj") };
+            using var connection = factory.CreateConnection();
+            using var channel = connection.CreateModel();
+
+
+            string exchangeName = "Nueva-Valoracion";
+            bool durable = true;
+
+            channel.ExchangeDeclare(exchangeName, ExchangeType.Fanout, durable: durable);
+
+            /** Envío del mensaje **/
+
+           string mensaje = JsonSerializer.Serialize(evento);
+           Console.WriteLine(mensaje);
+
+           var properties = channel.CreateBasicProperties();
+           properties.Persistent = true;
+            properties.ContentType = "application/json";
+
+           var body = Encoding.UTF8.GetBytes(mensaje);
+
+           channel.BasicPublish(exchange: exchangeName,
+                     routingKey: "arso",
+                     basicProperties: properties,
+                     body: body);
 
         }
     }

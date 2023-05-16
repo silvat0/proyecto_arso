@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Opiniones.Modelo;
 using Opiniones.Servicio;
+using Opiniones.Evento;
 
 namespace Opiniones.Controllers
 {
@@ -61,14 +62,28 @@ namespace Opiniones.Controllers
         [HttpPost("{id}")]
         public IActionResult AddValoracion(string id, Valoracion valoracion)
         {
-            var opinion = _servicio.GetOpinion(id);
+            var opinion1 = _servicio.GetOpinion(id);
 
-            if (opinion == null)
+            if (opinion1 == null)
             {
                 return NotFound();
             }
 
             _servicio.AddValoracion(id, valoracion);
+
+            var opinion2 = _servicio.GetOpinion(id);
+
+            OpinionResumen opR = new OpinionResumen();
+            opR.MediaValoraciones = opinion2.MediaValoraciones;
+            opR.NumeroValoraciones = opinion2.NumValoraciones;
+
+            EventoNuevaValoracion evento = new EventoNuevaValoracion();
+            evento.idOpinion = id;
+            evento.opinionR = opR;
+            evento.valoracion = valoracion;
+
+
+            _servicio.notificarValoracion(evento);
 
             return NoContent();
         }
