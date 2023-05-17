@@ -1,23 +1,30 @@
 package arso.eventos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class OpinionResumen {
 	
+	
+	@JsonProperty("NumeroValoraciones")
 	private int NumeroValoraciones;
+	@JsonProperty("MediaValoraciones")
 	private float MediaValoraciones;
 	
-	
-	public int getNumValoraciones() {
+	public int getNumeroValoraciones() {
 		return NumeroValoraciones;
 	}
-	public void setNumValoraciones(int numValoraciones) {
-		NumeroValoraciones = numValoraciones;
+	public void setNumeroValoraciones(int NumeroValoraciones) {
+		this.NumeroValoraciones = NumeroValoraciones;
 	}
 	public float getMediaValoraciones() {
 		return MediaValoraciones;
 	}
-	public void setMediaValoraciones(float mediaValoraciones) {
-		MediaValoraciones = mediaValoraciones;
+	public void setMediaValoraciones(float MediaValoraciones) {
+		this.MediaValoraciones = MediaValoraciones;
 	}
+	
+	
+
 
 
 }

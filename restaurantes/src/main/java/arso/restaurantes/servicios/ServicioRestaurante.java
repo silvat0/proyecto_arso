@@ -160,7 +160,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 					        long deliveryTag = envelope.getDeliveryTag();
 
 					        String contenido = new String(body);
-					        System.out.println(contenido);
+					        //System.out.println(contenido);
 					        
 					        ObjectMapper mapper = new ObjectMapper();
 					        
@@ -170,18 +170,18 @@ public class ServicioRestaurante implements IServicioRestaurante {
 					        
 					        try {
 					        	for (Restaurante r : repositorio.getAll()) {
-					        		if (r.getValoraciones().getIdOpinion().equals(evento.getIdOpinion())) {
-					        			r.getValoraciones().setCalificacionMedia(evento.getOpinionR().getMediaValoraciones());
-					        			r.getValoraciones().setNumValoraciones(evento.getOpinionR().getNumValoraciones());
-					        		}
-					        		
-					        		System.out.println(r.getValoraciones().getIdOpinion());
-					        		System.out.println(r.getValoraciones().getCalificacionMedia());
-					        		System.out.println(r.getValoraciones().getNumValoraciones());
+					        		if (r.getValoraciones() != null) {
+					        			if (r.getValoraciones().getIdOpinion().equals(evento.getIdOpinion())) {
+						        			r.getValoraciones().setCalificacionMedia(evento.getOpinionR().getMediaValoraciones());
+						        			r.getValoraciones().setNumValoraciones(evento.getOpinionR().getNumeroValoraciones());
+						        		}
 					        			
-					        	}
-					        	
-					        	
+					        			System.out.println(r.getValoraciones().getIdOpinion());
+						        		System.out.println(r.getValoraciones().getCalificacionMedia());
+						        		System.out.println(r.getValoraciones().getNumValoraciones());
+					        		}	
+					        			
+					        	}	
 								
 							} catch (RepositorioException e) {
 								e.printStackTrace();

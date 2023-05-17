@@ -32,7 +32,7 @@ public class Restaurante implements Identificable{
 	private LinkedList<SitioTuristico> sitiosTuristicos = new LinkedList<>();
 	private LinkedList<Plato> platos = new LinkedList<>();
 	private String idGestor;
-
+	
 	// Getters y setters.
 
 	public String getIdGestor() {

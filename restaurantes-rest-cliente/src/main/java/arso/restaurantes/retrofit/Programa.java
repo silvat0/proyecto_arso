@@ -1,12 +1,16 @@
 package arso.restaurantes.retrofit;
 
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.Response;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -14,8 +18,21 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class Programa {
 	
 	public static void main(String[] args) throws Exception {
-	
-		Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost:8080/api/")
+
+		OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+		httpClientBuilder.addInterceptor(new Interceptor() {
+		    @Override
+		    public okhttp3.Response intercept(Chain chain) throws IOException {
+		        Request.Builder requestBuilder = chain.request().newBuilder();
+		        requestBuilder.header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlZWM0MTFjNy0xYWFhLTQxNTItODYzYi1kNWI2NWQxZDc1MGUiLCJpc3MiOiJQYXNhcmVsYSBadXVsIiwiZXhwIjoxNjg0MzYyNTc1LCJzdWIiOiJzaWx2YXQwIiwidXN1YXJpbyI6InNpbHZpYS5wZXJlenJAdW0uZXMiLCJyb2wiOiJHRVNUT1IifQ.uxzfb3OJ2ov4EE1yXGx8N-neeAqeMQY_rH_meSZND3E");
+		        return chain.proceed(requestBuilder.build());
+		    }
+		});
+		OkHttpClient httpClient = httpClientBuilder.build();
+
+		Retrofit retrofit = new Retrofit.Builder()
+				.baseUrl("http://localhost:8090")
+				.client(httpClient)
 				.addConverterFactory(JacksonConverterFactory.create()).build();
 		
 		RestauranteRestCliente service = retrofit.create(RestauranteRestCliente.class);

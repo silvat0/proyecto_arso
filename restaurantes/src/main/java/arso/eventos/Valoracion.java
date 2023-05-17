@@ -1,12 +1,17 @@
 package arso.eventos;
 
-import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Valoracion {
 	
+	@JsonProperty("Correo")
 	private String correo;
-	private LocalDate fecha;
+	@JsonProperty("Fecha")
+	private String fecha;
+	@JsonProperty("Calificacion")
 	private int calificacion;
+	@JsonProperty("Comentario")
 	private String comentario;
 	
 	public String getCorreo() {
@@ -17,14 +22,16 @@ public class Valoracion {
 		this.correo = correo;
 	}
 	
-	public LocalDate getFecha() {
+	
+	
+	public String getFecha() {
 		return fecha;
 	}
-	
-	public void setFecha(LocalDate fecha) {
+
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-	
+
 	public int getCalificacion() {
 		return calificacion;
 	}
