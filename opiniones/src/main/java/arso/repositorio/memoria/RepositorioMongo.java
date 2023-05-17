@@ -34,7 +34,7 @@ private MongoCollection<T> coleccion;
 	
 	public MongoCollection<T> getColeccion(Class<T> clazz) {
 	
-		ConnectionString connectionString = new ConnectionString("mongodb+srv://arso:UPHcABdBP1YhNZSq@cluch.2l0gzgu.mongodb.net/?retryWrites=true&w=majority");
+		ConnectionString connectionString = new ConnectionString("mongodb://arso:dSttrG0xMgQz0utM@ac-ydw58ag-shard-00-00.2l0gzgu.mongodb.net:27017,ac-ydw58ag-shard-00-01.2l0gzgu.mongodb.net:27017,ac-ydw58ag-shard-00-02.2l0gzgu.mongodb.net:27017/?ssl=true&replicaSet=atlas-6ph0y9-shard-0&authSource=admin&retryWrites=true&w=majority");
 		CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build());
 		CodecRegistry codecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), pojoCodecRegistry);
 		

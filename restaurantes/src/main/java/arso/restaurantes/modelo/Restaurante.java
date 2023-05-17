@@ -26,8 +26,8 @@ public class Restaurante implements Identificable{
 
 	@BsonId
 	private String id;
-	private String idOpinion;
 	private String nombre;
+	private ResumenValoracion valoraciones;
 	private String coordenadas;
 	private LinkedList<SitioTuristico> sitiosTuristicos = new LinkedList<>();
 	private LinkedList<Plato> platos = new LinkedList<>();
@@ -83,18 +83,17 @@ public class Restaurante implements Identificable{
 		this.platos = platos;
 	}
 	
-	public String getIdOpinion() {
-		return idOpinion;
+	public ResumenValoracion getValoraciones() {
+		return valoraciones;
 	}
 
-	public void setIdOpinion(String idOpinion) {
-		this.idOpinion = idOpinion;
+	public void setValoraciones(ResumenValoracion valoraciones) {
+		this.valoraciones = valoraciones;
 	}
+	
 	
 	// Metodos 
 	
-	
-
 	public boolean addPlato(Plato plato) {
 		if(platos.contains(plato)) {
 			return false;

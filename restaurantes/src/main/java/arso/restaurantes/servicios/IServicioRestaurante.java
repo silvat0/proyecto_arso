@@ -19,7 +19,7 @@ public interface IServicioRestaurante {
 	void update(String restaurante, String nombre, String coordenadas) throws RepositorioException, EntidadNoEncontrada;
 	
 	// Obtener sitios turísticos próximos de un restaurante
-	List<SitioTuristico> getSitiosTuristicos(String idRestaurante) throws RepositorioException, EntidadNoEncontrada;
+	List<SitioTuristico> getSitiosTuristicos(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, Exception;
 	
 	// Establecer sitios turísticos destacados
 	void establecerSitiosTuristicos(String idRestaurante, LinkedList<SitioTuristico> sitiosTuristicos) throws RepositorioException, EntidadNoEncontrada;

@@ -69,10 +69,10 @@ public class RestauranteControladorRest {
 		MultivaluedMap<String, String> allHeaders = headers.getRequestHeaders();
 		
 		allHeaders.get("X-Forwarded-Port");
+		
+		restaurante.setIdGestor(this.securityContext.getUserPrincipal().getName());
 
 		String id = servicio.create(restaurante);
-
-		restaurante.setIdGestor(this.securityContext.getUserPrincipal().getName());
 
 		String url = allHeaders.get("X-Forwarded-Proto").get(0) + "://" + allHeaders.get("X-Forwarded-Host").get(0)
 				+ allHeaders.get("x-forwarded-prefix").get(0) + "/" + id;
