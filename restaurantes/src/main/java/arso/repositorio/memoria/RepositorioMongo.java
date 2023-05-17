@@ -26,14 +26,19 @@ public class RepositorioMongo <T extends Identificable> implements RepositorioSt
 	
 	private MongoCollection<T> coleccion;
 	
+	
+	
 	public RepositorioMongo(Class<T> clazz) {
 		
 		coleccion = getColeccion(clazz);
 	}
 	
 	public MongoCollection<T> getColeccion(Class<T> clazz) {
+		
+		System.out.println("mongolo");
 	
-		ConnectionString connectionString = new ConnectionString("mongodb+srv://arso:UPHcABdBP1YhNZSq@cluch.2l0gzgu.mongodb.net/?retryWrites=true&w=majority");
+		ConnectionString connectionString = new ConnectionString("mongodb+srv://arso:dSttrG0xMgQz0utM@cluch.2l0gzgu.mongodb.net/?retryWrites=true&w=majority");
+		System.out.println("mongolo2");
 		CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build());
 		CodecRegistry codecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), pojoCodecRegistry);
 		
@@ -42,10 +47,12 @@ public class RepositorioMongo <T extends Identificable> implements RepositorioSt
 	            .codecRegistry(codecRegistry)
 	            .build();
 		
+		
 		MongoClient mongoClient = MongoClients.create(clientSettings);
 		MongoDatabase database = mongoClient.getDatabase("restaurantes");
 		coleccion = database.getCollection("Restaurantes", clazz);
 		
+
 		return coleccion;
 	}
 	

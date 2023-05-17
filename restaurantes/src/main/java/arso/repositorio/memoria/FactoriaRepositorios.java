@@ -15,6 +15,7 @@ private static final String PROPERTIES = "repositorios.properties";
 	@SuppressWarnings("unchecked")
 	public static <T, K, R extends IRepositorio<T, K>> R getRepositorio(Class<?> entidad) {
 				
+		
 			
 			try {
 				if (repositorios.containsKey(entidad)) {
@@ -22,11 +23,16 @@ private static final String PROPERTIES = "repositorios.properties";
 				}
 				else {
 					 PropertiesReader properties = new PropertiesReader(PROPERTIES);
+					 System.out.println("holaaa");
+					 
 			            String clase = properties.getProperty(entidad.getName());
+			            System.out.println(clase);
 			            Class<R> repositorioClass = (Class<R>) Class.forName(clase);
+			            System.out.println("adioos");
 			            Constructor<R> constructor = repositorioClass.getConstructor(Class.class);
 			            R repositorio = constructor.newInstance(entidad);
 			            repositorios.put(entidad, repositorio);
+			           
 			            return repositorio;
 				}
 			}

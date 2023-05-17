@@ -6,9 +6,9 @@ import arso.repositorio.memoria.RepositorioMemoria;
 import arso.repositorio.memoria.RepositorioException;
 
 
-public class RepositorioTest extends RepositorioMemoria<Restaurante> {
+///public class RepositorioTest extends RepositorioMemoria<Restaurante> {
 
-	public RepositorioTest() {
+	/*public RepositorioTest() {
 		
 		 // Restaurante 1
         
@@ -35,6 +35,6 @@ public class RepositorioTest extends RepositorioMemoria<Restaurante> {
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 	
-}
+//}
