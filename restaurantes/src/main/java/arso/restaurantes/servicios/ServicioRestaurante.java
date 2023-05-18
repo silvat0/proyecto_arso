@@ -89,7 +89,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 			throws Exception {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 
-		return restaurante.getSitio();
+		return restaurante.getSitiosTuristicos();
 	}
 
 	@Override
@@ -165,7 +165,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 					        ObjectMapper mapper = new ObjectMapper();
 					        
 					        EventoNuevaValoracion evento = mapper.readValue(contenido, EventoNuevaValoracion.class);
-					        //No pasa de aqui
+					        
 					        
 					        
 					        try {

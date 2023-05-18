@@ -124,7 +124,7 @@ public class Restaurante implements Identificable{
 		}
 	}
 	
-public LinkedList<SitioTuristico> getSitio() throws Exception {
+/*public LinkedList<SitioTuristico> getSitio() throws Exception {
 		
 		LinkedList<SitioTuristico> sitios = new LinkedList<>();
 		
@@ -228,7 +228,7 @@ public LinkedList<SitioTuristico> getSitio() throws Exception {
 		}
 		
 		return sitios;
-	}
+	}*/
 
 	// Metodo toString
 
