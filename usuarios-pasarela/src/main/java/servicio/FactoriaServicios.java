@@ -23,7 +23,6 @@ public class FactoriaServicios {
 			
 			try {
 				if (servicios.containsKey(servicio)) {
-					System.out.println("Aqui entra 1");
 					return (T) servicios.get(servicio);
 				}
 				else {

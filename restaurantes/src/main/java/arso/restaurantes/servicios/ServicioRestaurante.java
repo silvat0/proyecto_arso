@@ -165,7 +165,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 					        ObjectMapper mapper = new ObjectMapper();
 					        
 					        EventoNuevaValoracion evento = mapper.readValue(contenido, EventoNuevaValoracion.class);
-					        //No pasa de aqui
+					        
 					        
 					        
 					        try {
