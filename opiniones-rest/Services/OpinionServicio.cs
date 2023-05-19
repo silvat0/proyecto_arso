@@ -54,7 +54,6 @@ namespace Opiniones.Servicio
 
         public string Create(Opinion opinion)
         {
-            Console.WriteLine("hola");
             return repositorio.Add(opinion);
         }
 
