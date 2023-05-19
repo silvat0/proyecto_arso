@@ -210,7 +210,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 
 	}
 
-	public void crearOpinion(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException{
+	/*public void crearOpinion(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException{
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 		
 		Opinion opinion = new Opinion();
@@ -223,6 +223,6 @@ public class ServicioRestaurante implements IServicioRestaurante {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 		Opinion o = opinionesRest.getOpinion(restaurante.getValoraciones().getIdOpinion()).execute().body();
 		return o.getValoraciones();
-	}
+	}*/
 
 }

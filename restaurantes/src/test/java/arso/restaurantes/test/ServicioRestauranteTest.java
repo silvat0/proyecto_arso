@@ -179,7 +179,7 @@ public class ServicioRestauranteTest {
         servicio.getRestaurante("id");
     }
 	
-	@Test
+	/*@Test
     public void testCrearOpinion() throws RepositorioException, EntidadNoEncontrada, IOException{
 		Restaurante restaurante = new Restaurante();
 		restaurante.setNombre("Restaurante Emboka");
@@ -188,7 +188,7 @@ public class ServicioRestauranteTest {
 		servicio.crearOpinion(id);
 		
     }
-	
+	*/
 	
 
 }

@@ -2,17 +2,13 @@ package arso.restaurantes.retrofit;
 
 import java.io.IOException;
 
-import arso.opiniones.modelo.Opinion;
 import arso.repositorio.memoria.RepositorioException;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.servicios.ServicioRestaurante;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Interceptor.Chain;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
+import arso.eventos.Opinion;
 
 public class Prueba {
 
