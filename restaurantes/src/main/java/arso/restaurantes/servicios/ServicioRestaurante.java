@@ -35,11 +35,10 @@ public class ServicioRestaurante implements IServicioRestaurante {
 	private OpinionesRest opinionesRest;
 
 	public ServicioRestaurante() {
-		Retrofit retrofit = new Retrofit.Builder()
-				.baseUrl("http://localhost:8090")
-				.addConverterFactory(JacksonConverterFactory.create()).build();
-
-		opinionesRest = retrofit.create(OpinionesRest.class);
+//		Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost:8090")
+//				.addConverterFactory(JacksonConverterFactory.create()).build();
+//
+//		opinionesRest = retrofit.create(OpinionesRest.class);
 
 		this.suscribirse();
 
