@@ -25,11 +25,12 @@ public class ServicioRestauranteTest {
 	
 	
 	@Test
-	public void testCreateRestaurante() throws RepositorioException{
+	public void testCreateRestaurante() throws RepositorioException, EntidadNoEncontrada{
 		Restaurante restaurante = new Restaurante();
 		restaurante.setNombre("Restaurante Emboka");
 		restaurante.setCoordenadas("JUAN DE BORBON, 29, 30007 Murcia");
 		assertNotNull(servicio.create(restaurante));
+		servicio.removeRestaurante(restaurante.getId());
 	}
 	
 	@Test
@@ -41,6 +42,7 @@ public class ServicioRestauranteTest {
 		
 		servicio.update(idRestaurante, "Restaurante Emboka Actualizada", "JUAN DE BORBON, 29, 30007 Murcia");
 		assertEquals("Restaurante Emboka Actualizada", servicio.getRestaurante(idRestaurante).getNombre());
+		servicio.removeRestaurante(restaurante.getId());
 	}
 	
 	
@@ -73,6 +75,7 @@ public class ServicioRestauranteTest {
 		servicio.addPlato(idRestaurante, plato);
 		
 		assertTrue(servicio.getRestaurante(idRestaurante).getPlatos().size() > 0);
+		servicio.removeRestaurante(restaurante.getId());
 	}
 	
 	@Test
@@ -95,6 +98,7 @@ public class ServicioRestauranteTest {
 		servicio.removePlato(idRestaurante, "VIOLETA POCHE");
 		
 		assertTrue(servicio.getRestaurante(idRestaurante).getPlatos().size() == 0);
+		servicio.removeRestaurante(restaurante.getId());
 	}
 	
 	@Test
@@ -126,6 +130,7 @@ public class ServicioRestauranteTest {
 		servicio.updatePlato(idRestaurante, plato2);
 		
 		assertTrue(servicio.getRestaurante(idRestaurante).getPlatos().get(0).getPrecio() == 12);
+		servicio.removeRestaurante(restaurante.getId());
 	}
 	
 	@Test
@@ -136,6 +141,7 @@ public class ServicioRestauranteTest {
 		String idRestaurante = servicio.create(restaurante);
 		
 		assertEquals(servicio.getRestaurante(idRestaurante), restaurante);
+		servicio.removeRestaurante(restaurante.getId());
 	}
 	
 	@Test(expected = EntidadNoEncontrada.class)
@@ -148,6 +154,7 @@ public class ServicioRestauranteTest {
 		servicio.removeRestaurante(idRestaurante);
 		
 		servicio.getRestaurante(idRestaurante);
+		servicio.removeRestaurante(restaurante.getId());
 	}
 	
 	@Test
@@ -161,6 +168,8 @@ public class ServicioRestauranteTest {
 		servicio.create(restaurante1);
 		servicio.create(restaurante2);
 		assertNotNull(servicio.getListadoRestaurantes());
+		servicio.removeRestaurante(restaurante1.getId());
+		servicio.removeRestaurante(restaurante2.getId());
 	}
 	
 	@Test(expected = EntidadNoEncontrada.class)

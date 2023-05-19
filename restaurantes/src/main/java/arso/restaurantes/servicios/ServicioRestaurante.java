@@ -89,7 +89,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 			throws Exception {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 
-		return restaurante.getSitio();
+		return restaurante.getSitiosTuristicos();
 	}
 
 	@Override
