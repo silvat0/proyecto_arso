@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -175,6 +177,16 @@ public class ServicioRestauranteTest {
 	@Test(expected = EntidadNoEncontrada.class)
     public void testEntidadNoEncontrada() throws RepositorioException, EntidadNoEncontrada{
         servicio.getRestaurante("id");
+    }
+	
+	@Test
+    public void testCrearOpinion() throws RepositorioException, EntidadNoEncontrada, IOException{
+		Restaurante restaurante = new Restaurante();
+		restaurante.setNombre("Restaurante Emboka");
+		restaurante.setCoordenadas("JUAN DE BORBON, 29, 30007 Murcia");
+		String id = servicio.create(restaurante);
+		servicio.crearOpinion(id);
+		
     }
 	
 	
