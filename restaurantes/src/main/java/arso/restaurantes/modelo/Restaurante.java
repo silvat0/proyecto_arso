@@ -20,6 +20,10 @@ public class Restaurante implements Identificable{
 	private LinkedList<Plato> platos = new LinkedList<>();
 	private String idGestor;
 	
+	public Restaurante() {
+		valoraciones = new ResumenValoracion();
+	}
+	
 	// Getters y setters.
 
 	public String getIdGestor() {

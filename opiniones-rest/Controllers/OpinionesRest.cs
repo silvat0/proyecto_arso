@@ -37,9 +37,8 @@ namespace Opiniones.Controllers
         }
 
         [HttpPost]
-        public ActionResult<string> Create(string recurso)
+        public ActionResult<string> Create([FromBody] string recurso)
         {
-            Console.WriteLine("Entro al REST");
             string identificador = _servicio.Create(recurso);
 
             return CreatedAtRoute("GetOpinion", new { id = identificador }, identificador);

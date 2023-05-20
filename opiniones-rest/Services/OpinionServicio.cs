@@ -17,7 +17,7 @@ namespace Opiniones.Servicio
 
     public interface IServicioOpinion
     {
-        string Create(String recurso);
+        string Create(string recurso);
 
         void AddValoracion(string idOpinion, Valoracion valoracion);
 
@@ -32,9 +32,9 @@ namespace Opiniones.Servicio
 
     public class ServicioOpinion : IServicioOpinion
     {
-        private Repositorio<Opinion, String> repositorio;
+        private Repositorio<Opinion, string> repositorio;
 
-        public ServicioOpinion(Repositorio<Opinion, String> repositorio) 
+        public ServicioOpinion(Repositorio<Opinion, string> repositorio) 
         {
             this.repositorio = repositorio;
         }
