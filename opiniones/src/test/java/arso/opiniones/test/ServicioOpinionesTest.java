@@ -28,14 +28,14 @@ public class ServicioOpinionesTest {
 	public void testCreateOpinion() throws RepositorioException{
 		Opinion opinion = new Opinion();
 		opinion.setRecurso("Restaurante Emboka");
-		assertNotNull(servicio.create(opinion));
+		assertNotNull(servicio.create("Restaurante Emboka"));
 	}
 	
 	@Test
 	public void testAddValoracion() throws RepositorioException, EntidadNoEncontrada{
 		Opinion opinion = new Opinion();
 		opinion.setRecurso("Restaurante Emboka");
-		String id = servicio.create(opinion);
+		String id = servicio.create("Restaurante Emboka");
 		
 		Valoracion valoracion = new Valoracion();
 		valoracion.setCorreo("pedro@um.es");
@@ -59,7 +59,7 @@ public class ServicioOpinionesTest {
 	public void testRemoveOpinion() throws RepositorioException, EntidadNoEncontrada{
 		Opinion opinion = new Opinion();
 		opinion.setRecurso("Restaurante Emboka");
-		String id = servicio.create(opinion);
+		String id = servicio.create("Restaurante Emboka");
 		
 		servicio.removeOpinion(id);
 		

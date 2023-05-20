@@ -17,7 +17,7 @@ namespace Opiniones.Servicio
 
     public interface IServicioOpinion
     {
-        string Create(Opinion opinion);
+        string Create(String recurso);
 
         void AddValoracion(string idOpinion, Valoracion valoracion);
 
@@ -52,14 +52,19 @@ namespace Opiniones.Servicio
             repositorio.Update(opinion);
         }
 
-        public string Create(Opinion opinion)
+        public string Create(string recurso)
         {
+            Console.WriteLine("Entro");
+
+            Opinion opinion = new Opinion();
+            opinion.Recurso = recurso;
+
             return repositorio.Add(opinion);
         }
 
         public List<OpinionResumen> GetListadoOpiniones()
         {
-           var resultado = new List<OpinionResumen>();
+            var resultado = new List<OpinionResumen>();
 
            foreach (String id in repositorio.GetIds())
            {

@@ -53,8 +53,8 @@ public class Programa {
 		valoracion4.setCorreo("gon@um.es");
 		valoracion4.setFecha(LocalDate.now());
 		
-		String id1 = servicio.create(opinion1);
-		String id2 = servicio.create(opinion2);
+		String id1 = servicio.create("@pieroti");
+		String id2 = servicio.create("@burguer");
 		
 		servicio.addValoracion(id1, valoracion1);
 		servicio.addValoracion(id1, valoracion2);

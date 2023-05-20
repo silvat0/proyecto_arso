@@ -37,11 +37,12 @@ namespace Opiniones.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Opinion> Create(Opinion opinion)
+        public ActionResult<string> Create(string recurso)
         {
-            _servicio.Create(opinion);
+            Console.WriteLine("Entro al REST");
+            string identificador = _servicio.Create(recurso);
 
-            return CreatedAtRoute("GetOpinion", new { id = opinion.Id }, opinion);
+            return CreatedAtRoute("GetOpinion", new { id = identificador }, identificador);
         }
 
         [HttpDelete("{id}")]

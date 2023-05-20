@@ -15,7 +15,9 @@ public class ServicioOpiniones implements IServicioOpiniones {
 	private IRepositorio<Opinion, String> repositorio = FactoriaRepositorios.getRepositorio(Opinion.class);
 	
 	@Override
-	public String create(Opinion opinion) throws RepositorioException {
+	public String create(String recurso) throws RepositorioException {
+		Opinion opinion = new Opinion();
+		opinion.setRecurso(recurso);
 		return repositorio.add(opinion);
 	}
 	

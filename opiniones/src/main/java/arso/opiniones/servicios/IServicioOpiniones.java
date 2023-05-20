@@ -10,7 +10,7 @@ import arso.repositorio.memoria.RepositorioException;
 public interface IServicioOpiniones {
 
 	// Metodo para crear una opinion
-	String create(Opinion restaurente) throws RepositorioException;
+	String create(String recurso) throws RepositorioException;
 	
 	// Añadir una valoración sobre un recurso
 	boolean addValoracion(String idOpinion, Valoracion valoracion) throws RepositorioException, EntidadNoEncontrada;

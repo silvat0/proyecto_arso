@@ -30,21 +30,25 @@ public class Prueba {
 
 		String id = servicio.create(restaurante);
 		
-		LinkedList<Valoracion> valoraciones = new LinkedList<>();
+		//LinkedList<Valoracion> valoraciones = new LinkedList<>();
 		
 		
-		Opinion opinion = new Opinion();
-		opinion.setRecurso("HOLA");
-		
-		
-		opinion.setValoraciones(valoraciones);
+//		Opinion opinion = new Opinion();
+//		opinion.setRecurso("HOLA");
+//		
+//		
+//		opinion.setValoraciones(valoraciones);
 		
 
 		// (1) --> Creacion de una opinion.
 
-		opinion.setRecurso(restaurante.getNombre());
-
-		Response<Void> resultado = opinionesRest.create(opinion).execute();
+		//opinion.setRecurso(restaurante.getNombre());
+		String recurso = "Restaurante Emboka";
+		
+		Response<Void> resultado = opinionesRest.create(recurso).execute();
+		
+		System.out.println(resultado.code());
+		System.out.println(resultado.message());
 
 		String url1 = resultado.headers().get("Location");
 

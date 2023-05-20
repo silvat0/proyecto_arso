@@ -17,11 +17,11 @@ public class Mutation implements GraphQLRootResolver {
 	
 	public String create(String recurso) throws RepositorioException {
 		
-		Opinion opinion = new Opinion();
+//		Opinion opinion = new Opinion();
+//		
+//		opinion.setRecurso(recurso);
 		
-		opinion.setRecurso(recurso);
-		
-		return servicio.create(opinion);
+		return servicio.create(recurso);
 	}
 	
 	
