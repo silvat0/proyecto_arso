@@ -1,14 +1,17 @@
 package arso.restaurantes.retrofit;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.LinkedList;
 
+import arso.eventos.modelo.Opinion;
 import arso.repositorio.memoria.RepositorioException;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.servicios.ServicioRestaurante;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-import arso.eventos.Opinion;
+import arso.eventos.modelo.Valoracion;
 
 public class Prueba {
 
@@ -26,8 +29,16 @@ public class Prueba {
 		restaurante.setCoordenadas("JUAN DE BORBON, 29, 30007 Murcia");
 
 		String id = servicio.create(restaurante);
-
+		
+		LinkedList<Valoracion> valoraciones = new LinkedList<>();
+		
+		
 		Opinion opinion = new Opinion();
+		opinion.setRecurso("HOLA");
+		
+		
+		opinion.setValoraciones(valoraciones);
+		
 
 		// (1) --> Creacion de una opinion.
 

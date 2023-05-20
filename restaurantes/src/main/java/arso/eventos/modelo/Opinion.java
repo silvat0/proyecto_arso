@@ -1,7 +1,7 @@
-package arso.eventos;
+package arso.eventos.modelo;
 
 import java.util.LinkedList;
-import arso.eventos.Valoracion;
+
 
 
 public class Opinion {
@@ -9,7 +9,23 @@ public class Opinion {
 	private String recurso;
 	private LinkedList<Valoracion> valoraciones = new LinkedList<>();
 	
+	private int numValoraciones;
+	private float mediaValoraciones;
 	
+
+	
+	public int getNumValoraciones() {
+		return numValoraciones;
+	}
+	public void setNumValoraciones(int numValoraciones) {
+		this.numValoraciones = numValoraciones;
+	}
+	public float getMediaValoraciones() {
+		return mediaValoraciones;
+	}
+	public void setMediaValoraciones(float mediaValoraciones) {
+		this.mediaValoraciones = mediaValoraciones;
+	}
 	public String getId() {
 		return id;
 	}

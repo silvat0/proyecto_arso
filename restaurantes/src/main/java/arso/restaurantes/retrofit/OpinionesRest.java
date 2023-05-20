@@ -1,6 +1,6 @@
 package arso.restaurantes.retrofit;
 
-import arso.eventos.Opinion;
+import arso.eventos.modelo.Opinion;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

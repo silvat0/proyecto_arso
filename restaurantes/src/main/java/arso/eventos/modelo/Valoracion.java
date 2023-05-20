@@ -1,17 +1,17 @@
-package arso.eventos;
+package arso.eventos.modelo;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Valoracion {
 	
-	@JsonProperty("Correo")
+	//@JsonProperty("correo")
 	private String correo;
-	@JsonProperty("Fecha")
+	//@JsonProperty("fecha")
 	private String fecha;
-	@JsonProperty("Calificacion")
+	//@JsonProperty("calificacion")
 	private int calificacion;
-	@JsonProperty("Comentario")
+	//@JsonProperty("comentario")
 	private String comentario;
 	
 	public String getCorreo() {

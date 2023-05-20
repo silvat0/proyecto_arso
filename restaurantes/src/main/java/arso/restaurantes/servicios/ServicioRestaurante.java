@@ -13,7 +13,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
-import arso.eventos.EventoNuevaValoracion;
+import arso.eventos.modelo.EventoNuevaValoracion;
 import arso.opiniones.modelo.Opinion;
 import arso.opiniones.modelo.Valoracion;
 import arso.repositorio.memoria.EntidadEncontrada;
@@ -210,16 +210,16 @@ public class ServicioRestaurante implements IServicioRestaurante {
 
 	}
 
-	/*public void crearOpinion(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException{
+	/*public Opinion crearOpinion(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException{
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 		
 		Opinion opinion = new Opinion();
 		opinion.setRecurso(restaurante.getNombre());
 		
-		opinionesRest.create(opinion).execute();
-	}
+		return opinion;
+	}*/
 
-	public List<Valoracion> getValoraciones(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException{
+	/*public List<Valoracion> getValoraciones(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException{
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 		Opinion o = opinionesRest.getOpinion(restaurante.getValoraciones().getIdOpinion()).execute().body();
 		return o.getValoraciones();

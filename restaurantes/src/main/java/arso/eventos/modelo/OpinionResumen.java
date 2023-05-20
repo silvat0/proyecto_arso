@@ -1,4 +1,4 @@
-package arso.eventos;
+package arso.eventos.modelo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
