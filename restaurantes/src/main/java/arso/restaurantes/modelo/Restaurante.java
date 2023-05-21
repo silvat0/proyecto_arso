@@ -3,7 +3,9 @@ package arso.restaurantes.modelo;
 import java.util.LinkedList;
 import java.util.Objects;
 
+import org.bson.BsonType;
 import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.codecs.pojo.annotations.BsonRepresentation;
 
 import arso.repositorio.Identificable;
 
@@ -12,6 +14,7 @@ import arso.restaurantes.servicios.ObtenerSitiosTuristicos;
 public class Restaurante implements Identificable{
 
 	@BsonId
+	@BsonRepresentation(BsonType.OBJECT_ID)
 	private String id;
 	
 	private String nombre;

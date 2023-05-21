@@ -175,7 +175,7 @@ public class ServicioRestauranteTest {
 	
 	@Test(expected = EntidadNoEncontrada.class)
     public void testEntidadNoEncontrada() throws RepositorioException, EntidadNoEncontrada{
-        servicio.getRestaurante("id");
+        servicio.getRestaurante("6469fe8f2137801e144d2450");
     }
 	
 	/*@Test

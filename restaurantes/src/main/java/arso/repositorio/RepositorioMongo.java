@@ -6,7 +6,6 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.bson.BsonValue;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
@@ -20,7 +19,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
-import com.mongodb.client.result.InsertOneResult;
+import org.bson.types.ObjectId;
 
 public class RepositorioMongo <T extends Identificable> implements RepositorioString<T> {
 	
@@ -56,20 +55,16 @@ public class RepositorioMongo <T extends Identificable> implements RepositorioSt
 	
 	
 	@Override
-    public String add(T entity) throws RepositorioException {
+	public String add(T entity) throws RepositorioException {
 		
-        coleccion.insertOne(entity);
-        BsonValue v = r.getInsertedId();
-        if(v.isNull())
-            return null;
-
-        return v.toString();
-    }
+	    return coleccion.insertOne(entity).getInsertedId().asObjectId().getValue().toString();
+	}
 
 	@Override
 	public void update(T entity) throws RepositorioException, EntidadNoEncontrada {
 		
-		Bson query = Filters.eq("_id", entity.getId());
+		ObjectId objectId = new ObjectId( entity.getId());
+		Bson query = Filters.eq("_id", objectId);
 		
 		T resul = coleccion.findOneAndReplace(query, (T) entity);
 		
@@ -81,7 +76,8 @@ public class RepositorioMongo <T extends Identificable> implements RepositorioSt
 
 	@Override
 	public void delete(T entity) throws RepositorioException, EntidadNoEncontrada {
-		Bson query = Filters.eq("_id", entity.getId());
+		ObjectId objectId = new ObjectId( entity.getId());
+		Bson query = Filters.eq("_id", objectId);
 
 		DeleteResult resul = coleccion.deleteOne(query);
 		
@@ -94,7 +90,8 @@ public class RepositorioMongo <T extends Identificable> implements RepositorioSt
 	@Override
 	public T getById(String id) throws RepositorioException, EntidadNoEncontrada {
 		
-		Bson query = Filters.eq("_id", id);
+		ObjectId objectId = new ObjectId(id);
+		Bson query = Filters.eq("_id", objectId);
 		
 		T entity = (T) coleccion.find(query).first();
 		
