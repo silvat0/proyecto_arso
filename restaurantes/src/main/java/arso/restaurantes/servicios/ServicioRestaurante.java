@@ -14,8 +14,6 @@ import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
 import arso.eventos.modelo.EventoNuevaValoracion;
-import arso.opiniones.modelo.Opinion;
-import arso.opiniones.modelo.Valoracion;
 import arso.repositorio.memoria.EntidadEncontrada;
 import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.repositorio.memoria.FactoriaRepositorios;
