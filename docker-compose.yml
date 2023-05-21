@@ -13,4 +13,8 @@ services:
 
   mongo:
     build: mongo
-    
+
+  pasarela:
+    build: pasarela-base
+    ports:
+      - 8090:8090
