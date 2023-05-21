@@ -1,8 +1,10 @@
 package arso.restaurantes.servicios;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import arso.eventos.modelo.Valoracion;
 import arso.repositorio.memoria.EntidadEncontrada;
 import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.repositorio.memoria.RepositorioException;
@@ -41,6 +43,10 @@ public interface IServicioRestaurante {
 	
 	// Listado de restaurantes
 	List<RestauranteResumen> getListadoRestaurantes() throws RepositorioException;
+	
+	String crearOpinion(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException;
+	
+	List<Valoracion> getValoraciones(String idRestaurante)throws RepositorioException, EntidadNoEncontrada, IOException;
 	
 	
 	

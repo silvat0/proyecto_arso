@@ -57,9 +57,9 @@ public class Prueba {
 		System.out.println("Opinion creada: " + url1);
 		System.out.println("Id: " + id1);
 
-		Opinion opinion2 = opinionesRest.getOpinion(id1).execute().body();
+		Response<Opinion> opinion2 = opinionesRest.getOpinion(id1).execute();
 		
-		System.out.println("Opinion: " + opinion2.getRecurso());
+		System.out.println("Opinion: " + opinion2.code());
 
 	}
 

@@ -54,8 +54,6 @@ namespace Opiniones.Servicio
 
         public string Create(string recurso)
         {
-            Console.WriteLine("Entro");
-
             Opinion opinion = new Opinion();
             opinion.Recurso = recurso;
 
@@ -82,6 +80,7 @@ namespace Opiniones.Servicio
 
         public Opinion GetOpinion(string idOpinion)
         {
+            Console.WriteLine("Entro");
             return repositorio.GetById(idOpinion);
         }
 

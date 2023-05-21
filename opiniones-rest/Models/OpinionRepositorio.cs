@@ -41,9 +41,8 @@ namespace Opiniones.Repositorio
 
         public Opinion GetById(String id)
         {
-            return opiniones
-                    .Find(opinion => opinion.Id == id)
-                    .FirstOrDefault();
+            Console.WriteLine($"El id en  GetById es : {id}");
+            return opiniones.Find(opinion => opinion.Id == id).FirstOrDefault();
         }
 
         public List<string> GetIds()

@@ -14,6 +14,8 @@ import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
 import arso.eventos.modelo.EventoNuevaValoracion;
+import arso.eventos.modelo.Opinion;
+import arso.eventos.modelo.Valoracion;
 import arso.repositorio.memoria.EntidadEncontrada;
 import arso.repositorio.memoria.EntidadNoEncontrada;
 import arso.repositorio.memoria.FactoriaRepositorios;
@@ -23,6 +25,7 @@ import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;
 import arso.restaurantes.retrofit.OpinionesRest;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -33,10 +36,10 @@ public class ServicioRestaurante implements IServicioRestaurante {
 	private OpinionesRest opinionesRest;
 
 	public ServicioRestaurante() {
-//		Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost:8090")
-//				.addConverterFactory(JacksonConverterFactory.create()).build();
-//
-//		opinionesRest = retrofit.create(OpinionesRest.class);
+		Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost:8090")
+				.addConverterFactory(JacksonConverterFactory.create()).build();
+
+		opinionesRest = retrofit.create(OpinionesRest.class);
 
 		this.suscribirse();
 
@@ -208,19 +211,25 @@ public class ServicioRestaurante implements IServicioRestaurante {
 
 	}
 
-	/*public Opinion crearOpinion(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException{
+	@Override
+	public String crearOpinion(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException{
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 		
-		Opinion opinion = new Opinion();
-		opinion.setRecurso(restaurante.getNombre());
+		Response<Void> resultado = opinionesRest.create(restaurante.getNombre()).execute();
 		
-		return opinion;
-	}*/
+		String url1 = resultado.headers().get("Location");
 
-	/*public List<Valoracion> getValoraciones(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException{
+		String id1 = url1.substring(url1.lastIndexOf("/") + 1);
+		
+		return id1;
+	}
+
+	@Override
+	public List<Valoracion> getValoraciones(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException{
 		Restaurante restaurante = repositorio.getById(idRestaurante);
-		Opinion o = opinionesRest.getOpinion(restaurante.getValoraciones().getIdOpinion()).execute().body();
-		return o.getValoraciones();
-	}*/
+		Response<Opinion> o = opinionesRest.getOpinion(restaurante.getValoraciones().getIdOpinion()).execute();
+		Opinion opinion = o.body();
+		return opinion.getValoraciones();
+	}
 
 }

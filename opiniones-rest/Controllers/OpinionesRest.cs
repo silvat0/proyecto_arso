@@ -26,13 +26,18 @@ namespace Opiniones.Controllers
         [HttpGet("{id}", Name = "GetOpinion")]
         public ActionResult<Opinion> GetOpinion(string id)
         {
+
+            Console.WriteLine($"El id es: {id}");
+
             var entidad = _servicio.GetOpinion(id);
 
             if (entidad == null) 
             {
+                Console.WriteLine("Es null");
                 return NotFound();
             }
-
+            Console.WriteLine("No es null");
+            Console.WriteLine($"Recurso de la opinion que se devuelve : {entidad.Recurso}");
             return entidad;
         }
 
