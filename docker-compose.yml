@@ -12,7 +12,9 @@ services:
        - 5110:5110
 
   mongo:
-    build: mongo
+    image: mongo
+    ports:
+      - 27017:27017
 
   pasarela:
     build: pasarela-base
