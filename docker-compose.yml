@@ -10,3 +10,7 @@ services:
     build: opiniones-rest-base
     ports:
        - 5110:5110
+
+  mongo:
+    build: mongo
+    
