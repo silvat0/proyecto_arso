@@ -345,11 +345,16 @@ public class RestauranteControladorRest {
 
 	@POST
 	@Path("/{id}/opinion")
+	@Secured(AvailableRoles.GESTOR)
 	@ApiOperation(value = "Crea una opinion", notes = "Retorna el codigo 204 si todo ha ido bien")
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = ""),
 			@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "Restaurante no encontrado") })
 	public Response crearOpinion(@ApiParam(value = "id del restaurante", required = true) @PathParam("id") String id)
 			throws Exception {
+		
+		if (!servicio.getRestaurante(id).getIdGestor().equals(this.securityContext.getUserPrincipal().getName()))
+			throw new GestorNoAutorizado(
+					"No eres un gestor autoizado:" + this.securityContext.getUserPrincipal().getName());
 
 		servicio.crearOpinion(id);
 
