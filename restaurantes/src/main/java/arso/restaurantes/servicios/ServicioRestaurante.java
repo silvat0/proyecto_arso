@@ -43,6 +43,8 @@ public class ServicioRestaurante implements IServicioRestaurante {
 				.addConverterFactory(GsonConverterFactory.create()).build();
 
 		opinionesRest = retrofit.create(OpinionesRest.class);
+		
+		this.suscribirse();
 
 	}
 
@@ -102,7 +104,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 	public List<SitioTuristico> getSitiosTuristicos(String idRestaurante) throws Exception {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 
-		return restaurante.getSitiosTuristicos();
+		return restaurante.obtenerSitiosTuristicosCerca();
 	}
 
 	@Override
@@ -136,7 +138,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 		return resultado;
 	}
 
-	public void suscribirse() {
+	protected void suscribirse() {
 
 		try {
 			ConnectionFactory factory = new ConnectionFactory();
@@ -172,7 +174,6 @@ public class ServicioRestaurante implements IServicioRestaurante {
 							long deliveryTag = envelope.getDeliveryTag();
 
 							String contenido = new String(body);
-							// System.out.println(contenido);
 
 							ObjectMapper mapper = new ObjectMapper();
 
@@ -188,10 +189,6 @@ public class ServicioRestaurante implements IServicioRestaurante {
 													.setNumValoraciones(evento.getOpinionR().getNumeroValoraciones());
 											repositorio.update(r);
 										}
-
-										System.out.println(r.getValoraciones().getIdOpinion());
-										System.out.println(r.getValoraciones().getCalificacionMedia());
-										System.out.println(r.getValoraciones().getNumValoraciones());
 									}
 
 								}
@@ -199,7 +196,6 @@ public class ServicioRestaurante implements IServicioRestaurante {
 							} catch (RepositorioException e) {
 								e.printStackTrace();
 							} catch (EntidadNoEncontrada e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 
@@ -208,7 +204,6 @@ public class ServicioRestaurante implements IServicioRestaurante {
 						}
 					});
 
-			System.out.println("consumidor esperando ...");
 
 		} catch (Exception e) {
 			e.printStackTrace();

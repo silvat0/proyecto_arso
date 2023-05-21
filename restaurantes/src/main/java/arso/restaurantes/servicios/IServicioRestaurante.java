@@ -48,7 +48,6 @@ public interface IServicioRestaurante {
 	
 	List<Valoracion> getValoraciones(String idRestaurante)throws RepositorioException, EntidadNoEncontrada, IOException;
 	
-	void suscribirse();
 	
 	
 	

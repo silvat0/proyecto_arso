@@ -80,7 +80,6 @@ namespace Opiniones.Servicio
 
         public Opinion GetOpinion(string idOpinion)
         {
-            Console.WriteLine("Entro");
             return repositorio.GetById(idOpinion);
         }
 
@@ -106,8 +105,9 @@ namespace Opiniones.Servicio
 
             /** Envío del mensaje **/
 
+
+
            string mensaje = JsonSerializer.Serialize(evento);
-           Console.WriteLine(mensaje);
 
            var properties = channel.CreateBasicProperties();
            properties.Persistent = true;
