@@ -30,6 +30,9 @@ namespace Opiniones.Modelo
                     suma += v.Calificacion;
                 }
 
+                if (NumValoraciones == 0)
+                    return 0;
+
                 return suma / (float) NumValoraciones;
             }
         }
