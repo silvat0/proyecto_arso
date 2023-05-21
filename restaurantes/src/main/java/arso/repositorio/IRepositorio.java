@@ -1,6 +1,7 @@
-package arso.repositorio.memoria;
+package arso.repositorio;
 
 import java.util.List;
+
 
 public interface IRepositorio<T, K> {
 	K add(T entity) throws RepositorioException;

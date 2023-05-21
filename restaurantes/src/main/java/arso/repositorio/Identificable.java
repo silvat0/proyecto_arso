@@ -1,4 +1,6 @@
-package arso.repositorio.memoria;
+package arso.repositorio;
+
+import org.bson.types.ObjectId;
 
 public interface Identificable {
 

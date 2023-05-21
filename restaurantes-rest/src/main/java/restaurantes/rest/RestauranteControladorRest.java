@@ -21,9 +21,9 @@ import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.HttpHeaders;
 
-import arso.repositorio.memoria.EntidadEncontrada;
-import arso.repositorio.memoria.EntidadNoEncontrada;
-import arso.repositorio.memoria.GestorNoAutorizado;
+import arso.repositorio.EntidadEncontrada;
+import arso.repositorio.EntidadNoEncontrada;
+import arso.repositorio.GestorNoAutorizado;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;

@@ -1,4 +1,4 @@
-package arso.repositorio.memoria;
+package arso.repositorio;
 
 /*
  *  Excepción notificada si no existe el identificador de la entidad.

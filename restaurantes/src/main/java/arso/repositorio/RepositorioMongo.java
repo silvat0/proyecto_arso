@@ -1,4 +1,4 @@
-package arso.repositorio.memoria;
+package arso.repositorio;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -6,6 +6,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bson.BsonValue;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
@@ -19,8 +20,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
-
-import arso.utils.Utils;
+import com.mongodb.client.result.InsertOneResult;
 
 public class RepositorioMongo <T extends Identificable> implements RepositorioString<T> {
 	
@@ -56,15 +56,15 @@ public class RepositorioMongo <T extends Identificable> implements RepositorioSt
 	
 	
 	@Override
-	public String add(T entity) throws RepositorioException {
+    public String add(T entity) throws RepositorioException {
 		
-		String id = Utils.createId();
-		entity.setId(id);
-		coleccion.insertOne((T) entity);
-		
-		
-		return id;
-	}
+        coleccion.insertOne(entity);
+        BsonValue v = r.getInsertedId();
+        if(v.isNull())
+            return null;
+
+        return v.toString();
+    }
 
 	@Override
 	public void update(T entity) throws RepositorioException, EntidadNoEncontrada {

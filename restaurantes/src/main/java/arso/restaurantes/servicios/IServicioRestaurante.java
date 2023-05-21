@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import arso.eventos.modelo.Valoracion;
-import arso.repositorio.memoria.EntidadEncontrada;
-import arso.repositorio.memoria.EntidadNoEncontrada;
-import arso.repositorio.memoria.RepositorioException;
+import arso.repositorio.EntidadEncontrada;
+import arso.repositorio.EntidadNoEncontrada;
+import arso.repositorio.RepositorioException;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;
@@ -47,6 +47,8 @@ public interface IServicioRestaurante {
 	String crearOpinion(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException;
 	
 	List<Valoracion> getValoraciones(String idRestaurante)throws RepositorioException, EntidadNoEncontrada, IOException;
+	
+	void suscribirse();
 	
 	
 	

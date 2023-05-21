@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import org.bson.codecs.pojo.annotations.BsonId;
 
-import arso.repositorio.memoria.Identificable;
+import arso.repositorio.Identificable;
 
 import arso.restaurantes.servicios.ObtenerSitiosTuristicos;
 
@@ -13,16 +13,13 @@ public class Restaurante implements Identificable{
 
 	@BsonId
 	private String id;
+	
 	private String nombre;
 	private ResumenValoracion valoraciones;
 	private String coordenadas;
 	private LinkedList<SitioTuristico> sitiosTuristicos = new LinkedList<>();
 	private LinkedList<Plato> platos = new LinkedList<>();
 	private String idGestor;
-	
-	public Restaurante() {
-		valoraciones = new ResumenValoracion();
-	}
 	
 	// Getters y setters.
 
@@ -37,7 +34,7 @@ public class Restaurante implements Identificable{
 	public String getId() {
 		return id;
 	}
-
+	
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -145,6 +142,8 @@ public class Restaurante implements Identificable{
 				&& Objects.equals(idGestor, other.idGestor) && Objects.equals(nombre, other.nombre)
 				&& Objects.equals(platos, other.platos) && Objects.equals(sitiosTuristicos, other.sitiosTuristicos);
 	}
+
+
 	
 	
 

@@ -1,6 +1,6 @@
 package arso.restaurantes.retrofit;
 
-import arso.eventos.modelo.Opinion;
+
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -14,6 +14,6 @@ public interface OpinionesRest {
 	@POST("opiniones")
     Call<Void> create(@Body String recurso);
 
-    @GET("opiniones/{id}")
-    Call<Opinion> getOpinion(@Path("id") String id);
+    /*@GET("opiniones/{id}")
+    Call<Opinion> getOpinion(@Path("id") String id);*/
 }

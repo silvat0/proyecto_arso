@@ -23,6 +23,12 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet>
+    <servlet-name>ServletCola</servlet-name>
+    <servlet-class>servlet.ServletCola</servlet-class>
+    <load-on-startup>0</load-on-startup>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>Jersey2Config</servlet-name>
 		<servlet-class>io.swagger.jaxrs.config.DefaultJaxrsConfig</servlet-class>
 		<init-param>
@@ -40,4 +46,6 @@
 		<servlet-name>jersey-servlet</servlet-name>
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
+	
+	
 </web-app>

@@ -4,14 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import arso.repositorio.memoria.EntidadEncontrada;
-import arso.repositorio.memoria.EntidadNoEncontrada;
-import arso.repositorio.memoria.RepositorioException;
+import arso.repositorio.EntidadEncontrada;
+import arso.repositorio.EntidadNoEncontrada;
+import arso.repositorio.RepositorioException;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.servicios.ServicioRestaurante;

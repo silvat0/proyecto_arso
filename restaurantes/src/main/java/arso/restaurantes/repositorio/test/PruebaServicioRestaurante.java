@@ -1,8 +1,8 @@
 package arso.restaurantes.repositorio.test;
 
-import arso.repositorio.memoria.EntidadEncontrada;
-import arso.repositorio.memoria.EntidadNoEncontrada;
-import arso.repositorio.memoria.RepositorioException;
+import arso.repositorio.EntidadEncontrada;
+import arso.repositorio.EntidadNoEncontrada;
+import arso.repositorio.RepositorioException;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.servicios.ServicioRestaurante;

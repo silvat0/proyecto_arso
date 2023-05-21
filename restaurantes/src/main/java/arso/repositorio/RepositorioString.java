@@ -1,4 +1,6 @@
-package arso.repositorio.memoria;
+package arso.repositorio;
+
+import arso.repositorio.IRepositorio;
 
 /*
  * Extensión de la interfaz repositorio para concretar

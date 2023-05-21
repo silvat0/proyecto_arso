@@ -14,13 +14,12 @@ import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
 import arso.eventos.modelo.EventoNuevaValoracion;
-import arso.eventos.modelo.Opinion;
 import arso.eventos.modelo.Valoracion;
-import arso.repositorio.memoria.EntidadEncontrada;
-import arso.repositorio.memoria.EntidadNoEncontrada;
-import arso.repositorio.memoria.FactoriaRepositorios;
-import arso.repositorio.memoria.IRepositorio;
-import arso.repositorio.memoria.RepositorioException;
+import arso.repositorio.EntidadEncontrada;
+import arso.repositorio.EntidadNoEncontrada;
+import arso.repositorio.FactoriaRepositorios;
+import arso.repositorio.IRepositorio;
+import arso.repositorio.RepositorioException;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;
@@ -40,8 +39,6 @@ public class ServicioRestaurante implements IServicioRestaurante {
 				.addConverterFactory(JacksonConverterFactory.create()).build();
 
 		opinionesRest = retrofit.create(OpinionesRest.class);
-
-		this.suscribirse();
 
 	}
 
@@ -135,7 +132,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 		return resultado;
 	}
 
-	protected void suscribirse() {
+	public void suscribirse() {
 
 		try {
 			ConnectionFactory factory = new ConnectionFactory();
@@ -179,7 +176,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 
 							try {
 								for (Restaurante r : repositorio.getAll()) {
-									if (r.getValoraciones() != null) {
+									if (r.getValoraciones() != null && r.getValoraciones().getIdOpinion() !=null) {
 										if (r.getValoraciones().getIdOpinion().equals(evento.getIdOpinion())) {
 											r.getValoraciones()
 													.setCalificacionMedia(evento.getOpinionR().getMediaValoraciones());
@@ -226,10 +223,12 @@ public class ServicioRestaurante implements IServicioRestaurante {
 
 	@Override
 	public List<Valoracion> getValoraciones(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException{
-		Restaurante restaurante = repositorio.getById(idRestaurante);
+		/*Restaurante restaurante = repositorio.getById(idRestaurante);
 		Response<Opinion> o = opinionesRest.getOpinion(restaurante.getValoraciones().getIdOpinion()).execute();
 		Opinion opinion = o.body();
-		return opinion.getValoraciones();
+		return opinion.getValoraciones();*/
+		
+		return null;
 	}
 
 }
