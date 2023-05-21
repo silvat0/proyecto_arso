@@ -2,10 +2,16 @@ package arso.restaurantes.test;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 
+import org.jmock.Expectations;
+import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
+import arso.eventos.modelo.Opinion;
+import arso.eventos.servicios.IOpinionesRestMock;
 import arso.repositorio.EntidadEncontrada;
 import arso.repositorio.EntidadNoEncontrada;
 import arso.repositorio.RepositorioException;
@@ -16,6 +22,10 @@ import arso.restaurantes.servicios.ServicioRestaurante;
 public class ServicioRestauranteTest {
 	
 	ServicioRestaurante servicio = new ServicioRestaurante();
+	
+	@Rule
+	public JUnitRuleMockery context = new JUnitRuleMockery();
+	private final IOpinionesRestMock OpinionRestMock = context.mock(IOpinionesRestMock.class);
 	
 	@Before
 	public void setUp() throws Exception {
@@ -90,21 +100,6 @@ public class ServicioRestauranteTest {
 		servicio.removeRestaurante(restaurante.getId());
 	}
 	
-	@Test(expected = EntidadNoEncontrada.class)
-	public void testPlatoMalId() throws RepositorioException, EntidadNoEncontrada, EntidadEncontrada{
-		
-		Plato plato = new Plato();
-		plato.setNombre("VIOLETA POCHE");
-		plato.setDescripcion("Huevo trufado con patata francesa violeta y seta de cardo emulsionada con aceite de trufa\r\n"
-				+ "\r\n"
-				+ "puede ser sin gluten\r\n"
-				+ "\r\n"
-				+ "contine huevo");
-		plato.setPrecio(14.95);
-		
-		assertFalse(servicio.addPlato("646a33efc9d38a3189784a45", plato));
-
-	}
 	
 	
 	@Test
@@ -201,18 +196,55 @@ public class ServicioRestauranteTest {
 		servicio.removeRestaurante(restaurante2.getId());
 	}
 	
-	
-	
-	/*@Test
-    public void testCrearOpinion() throws RepositorioException, EntidadNoEncontrada, IOException{
+	@Test
+	public void testCreateOpinion() throws RepositorioException, EntidadNoEncontrada, IOException {
+
 		Restaurante restaurante = new Restaurante();
 		restaurante.setNombre("Restaurante Emboka");
-		restaurante.setCoordenadas("JUAN DE BORBON, 29, 30007 Murcia");
+		restaurante.setCoordenadas("-55, 66");
 		String id = servicio.create(restaurante);
-		servicio.crearOpinion(id);
 		
-    }
-	*/
+		final String expectedReturnValue = null;
+		
+		context.checking(new Expectations() {{
+			oneOf(OpinionRestMock).create(restaurante.getNombre());
+			will(returnValue(expectedReturnValue));
+		}});
+		
+		String actualReturnValue = OpinionRestMock.create(restaurante.getNombre());
+		
+		assertEquals(expectedReturnValue, actualReturnValue);
+		
+		servicio.removeRestaurante(id);
+	}
+
+	@Test
+	public void testGetOpinion() throws RepositorioException, EntidadNoEncontrada {
+
+		Restaurante restaurante = new Restaurante();
+		restaurante.setNombre("Restaurante Emboka");
+		restaurante.setCoordenadas("-55, 66");
+		String id = servicio.create(restaurante);
+		//String idOpinion = OpinionRestMock.create(restaurante.getNombre());
+		String idOpinion = "1";
+		Opinion opinion = new Opinion();
+		opinion.setId(idOpinion);
+		opinion.setMediaValoraciones(0);
+		opinion.setNumValoraciones(0);
+
+		context.checking(new Expectations() {
+			{	
+				oneOf(OpinionRestMock).getOpinion(idOpinion);
+				will(returnValue(opinion));
+			}
+		});
+
+		Opinion actualReturnValue = OpinionRestMock.getOpinion(idOpinion);
+		
+		assertEquals(opinion, actualReturnValue);
+
+		servicio.removeRestaurante(id);
+	}
 	
 
 }

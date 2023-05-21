@@ -28,7 +28,6 @@ import arso.restaurantes.modelo.SitioTuristico;
 import arso.restaurantes.retrofit.OpinionesRest;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -37,6 +36,10 @@ public class ServicioRestaurante implements IServicioRestaurante {
 	private IRepositorio<Restaurante, String> repositorio = FactoriaRepositorios.getRepositorio(Restaurante.class);
 
 	private OpinionesRest opinionesRest;
+	
+	
+	private Connection connection;
+	private Channel channel;
 
 	public ServicioRestaurante() {
 		Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost:8090")
@@ -145,8 +148,8 @@ public class ServicioRestaurante implements IServicioRestaurante {
 
 			factory.setUri("amqps://xsiunxnj:LHgwaWUo5_Lqv6IlGfGo-GBFYU7vIBuW@whale.rmq.cloudamqp.com/xsiunxnj");
 
-			Connection connection = factory.newConnection();
-			Channel channel = connection.createChannel();
+			this.connection =  factory.newConnection();
+			this.channel = connection.createChannel();
 
 			final String exchangeName = "Nueva-Valoracion";
 			final String queueName = "Nueva-Valoracion";
