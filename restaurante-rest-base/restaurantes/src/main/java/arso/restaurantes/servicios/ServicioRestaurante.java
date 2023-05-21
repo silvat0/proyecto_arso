@@ -42,7 +42,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 	private Channel channel;
 
 	public ServicioRestaurante() {
-		Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost:8090")
+		Retrofit retrofit = new Retrofit.Builder().baseUrl("http://opiniones:8090")
 				.addConverterFactory(GsonConverterFactory.create()).build();
 
 		opinionesRest = retrofit.create(OpinionesRest.class);

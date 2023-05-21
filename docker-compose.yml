@@ -12,7 +12,7 @@ services:
        - 5110:5110
 
   mongo:
-    image: mongo
+    build: mongo
     ports:
       - 27017:27017
 
@@ -20,3 +20,8 @@ services:
     build: pasarela-base
     ports:
       - 8090:8090
+    environment:
+      zuul.routes.restaurantes.path: /restaurantes/**
+      zuul.routes.restaurantes.url: http://restaurante:8080/api/restaurantes
+      zuul.routes.opiniones.path: /opiniones/**
+      zuul.routes.opiniones.url: http://opiniones:5110/api/opiniones

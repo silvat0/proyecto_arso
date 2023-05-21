@@ -32,7 +32,7 @@ public class Programa {
 		OkHttpClient httpClient = httpClientBuilder.build();
 
 		Retrofit retrofit = new Retrofit.Builder()
-				.baseUrl("http://localhost:8090")
+				.baseUrl("http://restaurante:8090")
 				.client(httpClient)
 				.addConverterFactory(JacksonConverterFactory.create()).build();
 		

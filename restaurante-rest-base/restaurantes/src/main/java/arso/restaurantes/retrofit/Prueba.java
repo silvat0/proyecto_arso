@@ -21,7 +21,7 @@ public class Prueba {
 
 	public static void main(String[] args) throws RepositorioException, IOException, EntidadNoEncontrada {
 
-		Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost:8090")
+		Retrofit retrofit = new Retrofit.Builder().baseUrl("http://opiniones:8090")
 				.addConverterFactory(JacksonConverterFactory.create()).build();
 
 		OpinionesRest opinionesRest = retrofit.create(OpinionesRest.class);
