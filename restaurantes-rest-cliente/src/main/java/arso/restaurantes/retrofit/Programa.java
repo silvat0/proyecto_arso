@@ -8,6 +8,7 @@ import java.util.List;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.modelo.SitioTuristico;
+import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -24,7 +25,7 @@ public class Programa {
 		    @Override
 		    public okhttp3.Response intercept(Chain chain) throws IOException {
 		        Request.Builder requestBuilder = chain.request().newBuilder();
-		        requestBuilder.header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlZWM0MTFjNy0xYWFhLTQxNTItODYzYi1kNWI2NWQxZDc1MGUiLCJpc3MiOiJQYXNhcmVsYSBadXVsIiwiZXhwIjoxNjg0MzYyNTc1LCJzdWIiOiJzaWx2YXQwIiwidXN1YXJpbyI6InNpbHZpYS5wZXJlenJAdW0uZXMiLCJyb2wiOiJHRVNUT1IifQ.uxzfb3OJ2ov4EE1yXGx8N-neeAqeMQY_rH_meSZND3E");
+		        requestBuilder.header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzYjY1NGUzNC1iZjhlLTRiYTYtODg3ZC02NDg4YTczOThlMGIiLCJpc3MiOiJQYXNhcmVsYSBadXVsIiwiZXhwIjoxNjg0NzY2MzI4LCJzdWIiOiJzaWx2YXQwIiwidXN1YXJpbyI6InNpbHZpYS5wZXJlenJAdW0uZXMiLCJyb2wiOiJHRVNUT1IifQ._Y7Alt_t2CyneWR8GXbhd7X7pNx61akbbN9G_jQYBGs");
 		        return chain.proceed(requestBuilder.build());
 		    }
 		});
@@ -348,6 +349,10 @@ public class Programa {
 		
 		// Recuperamos el restaurante y la respuesta
 		
+		String contentType = respuesta12.headers().get("Content-Type");
+		
+		System.out.println("Formato: " + contentType);
+		
 		Restaurante restaurante14 = service.getRestaurante(id1).execute().body();
 		
 		System.out.println("Restaurante: " + restaurante14.getNombre() + " - " + restaurante14.getCoordenadas());
@@ -484,6 +489,10 @@ public class Programa {
 		System.out.println("Obtener todos los restaurantes");
 		
 		// Recuperamos.
+		
+		String contentType1 = respuesta21.headers().get("Content-Type");
+		
+		System.out.println("Formato: " + contentType1);
 		
 		List<ResumenExtendido> resta = service.getListadoRestaurantes().execute().body();
 		

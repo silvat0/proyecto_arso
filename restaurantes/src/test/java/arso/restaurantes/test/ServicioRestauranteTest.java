@@ -1,8 +1,6 @@
 package arso.restaurantes.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 import org.junit.Before;
@@ -47,6 +45,19 @@ public class ServicioRestauranteTest {
 	}
 	
 	
+	@Test(expected = EntidadNoEncontrada.class)
+    public void testEntidadNoEncontrada() throws RepositorioException, EntidadNoEncontrada{
+		Restaurante restaurante = new Restaurante();
+		restaurante.setNombre("Restaurante Emboka");
+		restaurante.setCoordenadas("JUAN DE BORBON, 29, 30007 Murcia");
+		String idRestaurante = servicio.create(restaurante);
+		
+		servicio.update(idRestaurante, "Restaurante Emboka Actualizada", "JUAN DE BORBON, 29, 30007 Murcia");
+		servicio.getRestaurante("646a33efc9d38a3189784a45").getNombre();
+		
+    }
+	
+	
 //	@Test
 //	public void testGetSitiosTuristidos() throws RepositorioException, EntidadNoEncontrada{
 //		
@@ -78,6 +89,23 @@ public class ServicioRestauranteTest {
 		assertTrue(servicio.getRestaurante(idRestaurante).getPlatos().size() > 0);
 		servicio.removeRestaurante(restaurante.getId());
 	}
+	
+	@Test(expected = EntidadNoEncontrada.class)
+	public void testPlatoMalId() throws RepositorioException, EntidadNoEncontrada, EntidadEncontrada{
+		
+		Plato plato = new Plato();
+		plato.setNombre("VIOLETA POCHE");
+		plato.setDescripcion("Huevo trufado con patata francesa violeta y seta de cardo emulsionada con aceite de trufa\r\n"
+				+ "\r\n"
+				+ "puede ser sin gluten\r\n"
+				+ "\r\n"
+				+ "contine huevo");
+		plato.setPrecio(14.95);
+		
+		assertFalse(servicio.addPlato("646a33efc9d38a3189784a45", plato));
+
+	}
+	
 	
 	@Test
 	public void tesRemovePlato() throws RepositorioException, EntidadNoEncontrada, EntidadEncontrada{
@@ -173,10 +201,7 @@ public class ServicioRestauranteTest {
 		servicio.removeRestaurante(restaurante2.getId());
 	}
 	
-	@Test(expected = EntidadNoEncontrada.class)
-    public void testEntidadNoEncontrada() throws RepositorioException, EntidadNoEncontrada{
-        servicio.getRestaurante("6469fe8f2137801e144d2450");
-    }
+	
 	
 	/*@Test
     public void testCrearOpinion() throws RepositorioException, EntidadNoEncontrada, IOException{
