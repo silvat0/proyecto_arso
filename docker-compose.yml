@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  restaurante: 
+    build: restaurante-rest-base
+    ports:
+      - 8080:8080
