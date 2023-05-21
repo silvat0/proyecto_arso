@@ -5,3 +5,8 @@ services:
     build: restaurante-rest-base
     ports:
       - 8080:8080
+
+  opiniones:
+    build: opiniones-rest-base
+    ports:
+       - 5110:5110
