@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
+import org.bson.types.ObjectId;
+
 import arso.restaurantes.modelo.Restaurante;
 import arso.restaurantes.servicios.ServicioRestaurante;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 import arso.eventos.modelo.Valoracion;
+import arso.eventos.modelo.Opinion;
 import arso.repositorio.RepositorioException;
 
 public class Prueba {
@@ -56,9 +59,9 @@ public class Prueba {
 		System.out.println("Opinion creada: " + url1);
 		System.out.println("Id: " + id1);
 
-		/*Response<Opinion> opinion2 = opinionesRest.getOpinion(id1).execute();
+		Response<Opinion> opinion2 = opinionesRest.getOpinion(id1).execute();
 		
-		System.out.println("Opinion: " + opinion2.code());*/
+		System.out.println("Opinion: " + opinion2.code());
 
 	}
 
