@@ -67,9 +67,9 @@ public class RestauranteControladorRest {
 		// Obtener todas las cabeceras en la petición
 
 		MultivaluedMap<String, String> allHeaders = headers.getRequestHeaders();
-		
+
 		allHeaders.get("X-Forwarded-Port");
-		
+
 		restaurante.setIdGestor(this.securityContext.getUserPrincipal().getName());
 
 		String id = servicio.create(restaurante);
@@ -77,7 +77,7 @@ public class RestauranteControladorRest {
 		String url = allHeaders.get("X-Forwarded-Proto").get(0) + "://" + allHeaders.get("X-Forwarded-Host").get(0)
 				+ allHeaders.get("x-forwarded-prefix").get(0) + "/" + id;
 
-		//System.out.println(url);
+		// System.out.println(url);
 
 		URI nuevaURL = new URI(url);
 
@@ -309,7 +309,6 @@ public class RestauranteControladorRest {
 	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_OK, message = "") })
 	public Response getListadoRestaurantes(@Context HttpHeaders headers) throws Exception {
 
-		
 		MultivaluedMap<String, String> allHeaders = headers.getRequestHeaders();
 
 		// System.out.println(this.securityContext.getUserPrincipal().getName());
@@ -325,14 +324,14 @@ public class RestauranteControladorRest {
 			resumenExtendido.setResumen(restauranteResumen);
 
 			String id = restauranteResumen.getId();
-			//URI nuevaURL = uriInfo.getAbsolutePathBuilder().path(id).build();
-			
+			// URI nuevaURL = uriInfo.getAbsolutePathBuilder().path(id).build();
+
 			String url = allHeaders.get("X-Forwarded-Proto").get(0) + "://" + allHeaders.get("X-Forwarded-Host").get(0)
 					+ allHeaders.get("x-forwarded-prefix").get(0) + "/" + id;
-			
+
 			URI nuevaURL = new URI(url);
-			
-			//System.out.println("NuevaURL : " + nuevaURL.toString());
+
+			// System.out.println("NuevaURL : " + nuevaURL.toString());
 
 			resumenExtendido.setUrl(nuevaURL.toString());
 
@@ -342,6 +341,31 @@ public class RestauranteControladorRest {
 
 		return Response.ok(extendido).build();
 
+	}
+
+	@POST
+	@Path("/{id}/opinion")
+	@ApiOperation(value = "Crea una opinion", notes = "Retorna el codigo 204 si todo ha ido bien")
+	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = ""),
+			@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "Restaurante no encontrado") })
+	public Response crearOpinion(@ApiParam(value = "id del restaurante", required = true) @PathParam("id") String id)
+			throws Exception {
+
+		servicio.crearOpinion(id);
+
+		return Response.status(Response.Status.NO_CONTENT).build();
+	}
+
+	@GET
+	@Path("/{id}/opinion")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@ApiOperation(value = "Obtener valoraciones del restaurante", notes = "Retorna el codigo 204 si todo ha ido bien")
+	@ApiResponses(value = { @ApiResponse(code = HttpServletResponse.SC_NO_CONTENT, message = ""),
+			@ApiResponse(code = HttpServletResponse.SC_NOT_FOUND, message = "Restaurante no encontrado") })
+	public Response getValoraciones(@ApiParam(value = "id del restaurante", required = true) @PathParam("id") String id)
+			throws Exception {
+
+		return Response.ok(servicio.getValoraciones(id)).build();
 	}
 
 }

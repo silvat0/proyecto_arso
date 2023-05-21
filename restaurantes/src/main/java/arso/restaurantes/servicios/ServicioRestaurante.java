@@ -14,6 +14,7 @@ import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
 import arso.eventos.modelo.EventoNuevaValoracion;
+import arso.eventos.modelo.Opinion;
 import arso.eventos.modelo.Valoracion;
 import arso.repositorio.EntidadEncontrada;
 import arso.repositorio.EntidadNoEncontrada;
@@ -22,11 +23,14 @@ import arso.repositorio.IRepositorio;
 import arso.repositorio.RepositorioException;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
+import arso.restaurantes.modelo.ResumenValoracion;
 import arso.restaurantes.modelo.SitioTuristico;
 import arso.restaurantes.retrofit.OpinionesRest;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
+
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServicioRestaurante implements IServicioRestaurante {
 
@@ -36,7 +40,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 
 	public ServicioRestaurante() {
 		Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost:8090")
-				.addConverterFactory(JacksonConverterFactory.create()).build();
+				.addConverterFactory(GsonConverterFactory.create()).build();
 
 		opinionesRest = retrofit.create(OpinionesRest.class);
 
@@ -182,6 +186,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 													.setCalificacionMedia(evento.getOpinionR().getMediaValoraciones());
 											r.getValoraciones()
 													.setNumValoraciones(evento.getOpinionR().getNumeroValoraciones());
+											repositorio.update(r);
 										}
 
 										System.out.println(r.getValoraciones().getIdOpinion());
@@ -192,6 +197,9 @@ public class ServicioRestaurante implements IServicioRestaurante {
 								}
 
 							} catch (RepositorioException e) {
+								e.printStackTrace();
+							} catch (EntidadNoEncontrada e) {
+								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 
@@ -211,24 +219,30 @@ public class ServicioRestaurante implements IServicioRestaurante {
 	@Override
 	public String crearOpinion(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException{
 		Restaurante restaurante = repositorio.getById(idRestaurante);
-		
 		Response<Void> resultado = opinionesRest.create(restaurante.getNombre()).execute();
 		
 		String url1 = resultado.headers().get("Location");
 
 		String id1 = url1.substring(url1.lastIndexOf("/") + 1);
+		ResumenValoracion rv = new ResumenValoracion();
+		rv.setIdOpinion(id1);
+		rv.setCalificacionMedia(0);
+		rv.setNumValoraciones(0);
+		
+		restaurante.setValoraciones(rv);
+		
+		repositorio.update(restaurante);
+		
 		
 		return id1;
 	}
 
 	@Override
 	public List<Valoracion> getValoraciones(String idRestaurante) throws RepositorioException, EntidadNoEncontrada, IOException{
-		/*Restaurante restaurante = repositorio.getById(idRestaurante);
+		Restaurante restaurante = repositorio.getById(idRestaurante);
 		Response<Opinion> o = opinionesRest.getOpinion(restaurante.getValoraciones().getIdOpinion()).execute();
 		Opinion opinion = o.body();
-		return opinion.getValoraciones();*/
-		
-		return null;
+		return opinion.getValoraciones();
 	}
 
 }

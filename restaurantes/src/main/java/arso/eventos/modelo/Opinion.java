@@ -45,5 +45,13 @@ public class Opinion {
 		this.valoraciones = valoraciones;
 	}
 	
+	@Override
+	public String toString() {
+		return "Opinion [id=" + id + ", recurso=" + recurso + ", valoraciones=" + valoraciones + ", numValoraciones="
+				+ numValoraciones + ", mediaValoraciones=" + mediaValoraciones + "]";
+	}
+	
+	
+	
 	
 }
