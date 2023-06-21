@@ -1,6 +1,8 @@
 package arso.restaurantes.servicios;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +52,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 		this.suscribirse();
 
 	}
+
 
 	@Override
 	public String create(Restaurante restaurente) throws RepositorioException {
@@ -117,6 +120,39 @@ public class ServicioRestaurante implements IServicioRestaurante {
 
 		restaurante.setSitiosTuristicos((LinkedList<SitioTuristico>) sitiosTuristicos);
 		repositorio.update(restaurante);
+	}
+	
+	
+	@Override
+	public List<ResumenRestauranteTop3> getTopTres()  throws RepositorioException {
+		
+		LinkedList<ResumenRestauranteTop3> restaurantes = new LinkedList<>();
+		
+		for (String id : repositorio.getIds()) {
+			try {
+				Restaurante restaurante = getRestaurante(id);
+				ResumenRestauranteTop3 resumen = new ResumenRestauranteTop3();
+				resumen.setNombre(restaurante.getNombre());
+				
+				if(restaurante.getValoraciones() == null)
+					continue;
+				
+				resumen.setValoraciones(restaurante.getValoraciones());
+				restaurantes.add(resumen);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		 Collections.sort(restaurantes, Comparator.comparingDouble(restaurante -> restaurante.getValoraciones().getCalificacionMedia()));
+		 
+		 List<ResumenRestauranteTop3> top3Restaurantes = restaurantes.subList(0, Math.min(3, restaurantes.size()));
+		
+		
+		return top3Restaurantes;
+		
+		
 	}
 
 	@Override

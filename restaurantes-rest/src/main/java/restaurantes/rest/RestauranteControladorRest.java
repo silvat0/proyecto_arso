@@ -30,6 +30,7 @@ import arso.restaurantes.modelo.SitioTuristico;
 import arso.restaurantes.servicios.FactoriaServicios;
 import arso.restaurantes.servicios.IServicioRestaurante;
 import arso.restaurantes.servicios.RestauranteResumen;
+import arso.restaurantes.servicios.ResumenRestauranteTop3;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -86,6 +87,7 @@ public class RestauranteControladorRest {
 
 		return Response.created(nuevaURL).build();
 	}
+	
 
 	// (2) **
 
@@ -297,6 +299,18 @@ public class RestauranteControladorRest {
 		servicio.establecerSitiosTuristicos(id, sitiosTuristicos);
 
 		return Response.status(Response.Status.NO_CONTENT).build();
+	}
+
+	// http://localhost:8090/toptres
+
+	@GET
+	@Path("/topTres")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getTopTres() throws Exception {
+
+		List<ResumenRestauranteTop3> resultado = servicio.getTopTres();
+
+		return Response.ok(resultado).build();
 	}
 
 	// (10) **

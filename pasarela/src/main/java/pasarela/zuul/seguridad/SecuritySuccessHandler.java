@@ -65,13 +65,20 @@ public class SecuritySuccessHandler implements AuthenticationSuccessHandler {
 			
 			response.addCookie(cookie);
 			
+			Cookie cookieNombre = new Cookie("nombre", login);
+			// cookie.setSecure(true);
+			cookieNombre.setHttpOnly(true);
+			cookieNombre.setPath("/");
+			
+			response.addCookie(cookieNombre);
+			
 			// Opción 1:depuración y pruebas del backend, muestra el token por la salida
 			
-			response.getOutputStream().write(responseBody.getBytes());
+			//response.getOutputStream().write(responseBody.getBytes());
 			
 			// Opción 2: redigire a una página de referencia
 			
-			// redirectStrategy.sendRedirect(request, response, "/home");
+			redirectStrategy.sendRedirect(request, response, "http://localhost:3000/");
 			
 		} else {
 			
