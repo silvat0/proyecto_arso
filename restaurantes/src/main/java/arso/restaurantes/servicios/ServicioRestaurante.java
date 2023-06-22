@@ -138,6 +138,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 					continue;
 				
 				resumen.setValoraciones(restaurante.getValoraciones());
+				resumen.setId(restaurante.getId());
 				restaurantes.add(resumen);
 
 			} catch (Exception e) {
