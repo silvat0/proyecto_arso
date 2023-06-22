@@ -60,14 +60,14 @@ public class SecuritySuccessHandler implements AuthenticationSuccessHandler {
 			Cookie cookie = new Cookie("jwt", jwt);
 			cookie.setMaxAge(JwtUtils.EXPIRATION_TIME); 
 			// cookie.setSecure(true);
-			cookie.setHttpOnly(true);
+			//cookie.setHttpOnly(true);
 			cookie.setPath("/");
 			
 			response.addCookie(cookie);
 			
 			Cookie cookieNombre = new Cookie("nombre", login);
 			// cookie.setSecure(true);
-			cookieNombre.setHttpOnly(true);
+			//cookieNombre.setHttpOnly(true);
 			cookieNombre.setPath("/");
 			
 			response.addCookie(cookieNombre);
