@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.AMQP;
@@ -183,7 +184,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 		try {
 			ConnectionFactory factory = new ConnectionFactory();
 
-			factory.setUri("amqps://lfwhhvno:v-Z58Nxjl5RkBz9M9PDcrj_wwVBlG87Q@stingray.rmq.cloudamqp.com/lfwhhvno");
+			factory.setUri("amqps://xsiunxnj:LHgwaWUo5_Lqv6IlGfGo-GBFYU7vIBuW@whale.rmq.cloudamqp.com/xsiunxnj");
 
 			this.connection =  factory.newConnection();
 			this.channel = connection.createChannel();
@@ -241,8 +242,14 @@ public class ServicioRestaurante implements IServicioRestaurante {
 
 							// Confirma el procesamiento
 							channel.basicAck(deliveryTag, false);
+						
 						}
 					});
+			
+			
+				channel.close();
+			 
+			connection.close();
 
 
 		} catch (Exception e) {
