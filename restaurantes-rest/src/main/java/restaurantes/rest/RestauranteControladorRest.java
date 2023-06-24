@@ -21,11 +21,13 @@ import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.HttpHeaders;
 
+import arso.eventos.modelo.Valoracion;
 import arso.repositorio.EntidadEncontrada;
 import arso.repositorio.EntidadNoEncontrada;
 import arso.repositorio.GestorNoAutorizado;
 import arso.restaurantes.modelo.Plato;
 import arso.restaurantes.modelo.Restaurante;
+import arso.restaurantes.modelo.ResumenValoracion;
 import arso.restaurantes.modelo.SitioTuristico;
 import arso.restaurantes.servicios.FactoriaServicios;
 import arso.restaurantes.servicios.IServicioRestaurante;
@@ -72,6 +74,9 @@ public class RestauranteControladorRest {
 		allHeaders.get("X-Forwarded-Port");
 
 		restaurante.setIdGestor(this.securityContext.getUserPrincipal().getName());
+		
+		ResumenValoracion valoraciones = new ResumenValoracion();
+		restaurante.setValoraciones(valoraciones);
 
 		String id = servicio.create(restaurante);
 
@@ -370,9 +375,8 @@ public class RestauranteControladorRest {
 			throw new GestorNoAutorizado(
 					"No eres un gestor autoizado:" + this.securityContext.getUserPrincipal().getName());
 
-		servicio.crearOpinion(id);
-
-		return Response.status(Response.Status.NO_CONTENT).build();
+		
+		return Response.ok(servicio.crearOpinion(id)).build();
 	}
 
 	@GET

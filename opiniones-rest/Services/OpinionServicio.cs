@@ -93,7 +93,7 @@ namespace Opiniones.Servicio
 
         public void notificarValoracion(EventoNuevaValoracion evento)
         {
-            var factory = new ConnectionFactory { Uri = new Uri("amqps://xsiunxnj:LHgwaWUo5_Lqv6IlGfGo-GBFYU7vIBuW@whale.rmq.cloudamqp.com/xsiunxnj") };
+            var factory = new ConnectionFactory { Uri = new Uri("amqps://lfwhhvno:v-Z58Nxjl5RkBz9M9PDcrj_wwVBlG87Q@stingray.rmq.cloudamqp.com/lfwhhvno") };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
 

@@ -183,7 +183,7 @@ public class ServicioRestaurante implements IServicioRestaurante {
 		try {
 			ConnectionFactory factory = new ConnectionFactory();
 
-			factory.setUri("amqps://xsiunxnj:LHgwaWUo5_Lqv6IlGfGo-GBFYU7vIBuW@whale.rmq.cloudamqp.com/xsiunxnj");
+			factory.setUri("amqps://lfwhhvno:v-Z58Nxjl5RkBz9M9PDcrj_wwVBlG87Q@stingray.rmq.cloudamqp.com/lfwhhvno");
 
 			this.connection =  factory.newConnection();
 			this.channel = connection.createChannel();
@@ -277,6 +277,12 @@ public class ServicioRestaurante implements IServicioRestaurante {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 		Response<Opinion> o = opinionesRest.getOpinion(restaurante.getValoraciones().getIdOpinion()).execute();
 		Opinion opinion = o.body();
+		
+		List<Valoracion> val = new LinkedList<>();
+		
+		if (opinion == null)
+			return val;
+		
 		return opinion.getValoraciones();
 	}
 
