@@ -21,11 +21,14 @@ import arso.restaurantes.modelo.SitioTuristico;
 
 public class ObtenerSitiosTuristicos {
 
-	public static LinkedList<SitioTuristico> getSitiosTuristicosCerca() throws Exception {
+	public static LinkedList<SitioTuristico> getSitiosTuristicosCerca(double lat, double lng) throws Exception {
+		
+		// http://api.geonames.org/findNearbyWikipedia?lat=40.4168&lng=-3.7038&lang=es&username=arso
+
 
 		LinkedList<SitioTuristico> sitios = new LinkedList<>();
 
-		String codigoPostal = "30007";
+		//String codigoPostal = "30007";
 
 		// 1. Obtener una factoría
 		DocumentBuilderFactory factoria = DocumentBuilderFactory.newInstance();
@@ -34,8 +37,11 @@ public class ObtenerSitiosTuristicos {
 
 		// 3. Analizar el documento
 		// documento es la raiz
-		Document documento = analizador.parse("http://api.geonames.org/findNearbyWikipedia?postalcode=" + codigoPostal
-				+ "&country=ES&lang=es&username=arso");
+		//Document documento = analizador.parse("http://api.geonames.org/findNearbyWikipedia?postalcode=" + codigoPostal
+			//	+ "&country=ES&lang=es&username=arso");
+		
+		Document documento = analizador.parse("http://api.geonames.org/findNearbyWikipedia?lat=" + lat + "&lng=" + lng
+			+ "&country=ES&lang=es&username=arso");
 
 		// Obtenemos todos los elementos del fichero .xml con el tag name "entry"
 		NodeList lugares = documento.getElementsByTagName("entry");
@@ -61,9 +67,12 @@ public class ObtenerSitiosTuristicos {
 			String result = java.net.URLDecoder.decode(nombreToDBPedia, StandardCharsets.UTF_8.name());
 
 			JsonObject resume = obj.getJsonObject("http://es.dbpedia.org/resource/" + result);
+		
 
 			SitioTuristico sitio = new SitioTuristico();
-
+			
+			sitio.setTitutlo(nombre.getTextContent());
+			
 			// Resumen
 
 			JsonArray resumen = resume.getJsonArray("http://dbpedia.org/ontology/abstract");
@@ -120,7 +129,7 @@ public class ObtenerSitiosTuristicos {
 
 				sitio.setImagen(imagenes);
 			}
-
+			
 			sitios.add(sitio);
 		}
 

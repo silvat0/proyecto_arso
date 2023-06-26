@@ -50,6 +50,8 @@ public interface IServicioRestaurante {
 	
 	//Top 3 restaurantes 
 	List<ResumenRestauranteTop3> getTopTres() throws RepositorioException;
+
+	List<SitioTuristico> getAllSitiosTuristicos(double x, double y) throws Exception;
 	
 	
 	

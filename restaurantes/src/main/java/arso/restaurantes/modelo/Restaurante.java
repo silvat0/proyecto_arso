@@ -116,7 +116,7 @@ public class Restaurante implements Identificable{
 	}
 	
 	public LinkedList<SitioTuristico> obtenerSitiosTuristicosCerca() throws Exception{
-		return ObtenerSitiosTuristicos.getSitiosTuristicosCerca();
+		return ObtenerSitiosTuristicos.getSitiosTuristicosCerca(37.620134, -1.021232);
 	}
 
 	// Metodo toString

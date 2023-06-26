@@ -317,6 +317,18 @@ public class RestauranteControladorRest {
 
 		return Response.ok(resultado).build();
 	}
+	
+	@GET
+	@Path("/sitiosTuristicos/{x}/{y}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getAllSitiosTuristicos(
+			@ApiParam(value = "x", required = true) @PathParam("x") double x,
+			@ApiParam(value = "y", required = true) @PathParam("y") double y) throws Exception {
+
+		List<SitioTuristico> resultado = servicio.getAllSitiosTuristicos(x,y);
+
+		return Response.ok(resultado).build();
+	}
 
 	// (10) **
 

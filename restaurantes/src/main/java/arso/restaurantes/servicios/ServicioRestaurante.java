@@ -111,7 +111,14 @@ public class ServicioRestaurante implements IServicioRestaurante {
 	public List<SitioTuristico> getSitiosTuristicos(String idRestaurante) throws Exception {
 		Restaurante restaurante = repositorio.getById(idRestaurante);
 
-		return restaurante.obtenerSitiosTuristicosCerca();
+		return restaurante.getSitiosTuristicos();
+	}
+	
+	@Override
+	public List<SitioTuristico> getAllSitiosTuristicos(double x, double y) throws Exception {
+		List<SitioTuristico> lista = ObtenerSitiosTuristicos.getSitiosTuristicosCerca(x, y);
+
+		return lista;
 	}
 
 	@Override

@@ -93,7 +93,7 @@ namespace Opiniones.Servicio
 
         public void notificarValoracion(EventoNuevaValoracion evento)
         {
-            var factory = new ConnectionFactory { Uri = new Uri("amqps://lfwhhvno:v-Z58Nxjl5RkBz9M9PDcrj_wwVBlG87Q@stingray.rmq.cloudamqp.com/lfwhhvno") };
+            var factory = new ConnectionFactory { Uri = new Uri("amqps://xsiunxnj:LHgwaWUo5_Lqv6IlGfGo-GBFYU7vIBuW@whale.rmq.cloudamqp.com/xsiunxnj") };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
 
@@ -102,8 +102,6 @@ namespace Opiniones.Servicio
             bool durable = true;
 
             channel.ExchangeDeclare(exchangeName, ExchangeType.Fanout, durable: durable);
-
-            /** Envío del mensaje **/
 
 
 
@@ -119,6 +117,9 @@ namespace Opiniones.Servicio
                      routingKey: "arso",
                      basicProperties: properties,
                      body: body);
+
+            channel.Close();
+            connection.Close();
 
         }
     }

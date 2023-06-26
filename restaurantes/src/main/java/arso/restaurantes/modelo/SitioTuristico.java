@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 public class SitioTuristico {
 
+		private String titutlo;
 		private String resumen;
 		private LinkedList<String> categorias;
 		private LinkedList<String> enlaces;
@@ -11,8 +12,16 @@ public class SitioTuristico {
 		
 		//Getters y setters.
 		
+		
+		
 		public String getResumen() {
 			return resumen;
+		}
+		public String getTitutlo() {
+			return titutlo;
+		}
+		public void setTitutlo(String titutlo) {
+			this.titutlo = titutlo;
 		}
 		public void setResumen(String resumen) {
 			this.resumen = resumen;
