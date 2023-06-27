@@ -23,11 +23,22 @@ public class Restaurante implements Identificable{
 	private LinkedList<SitioTuristico> sitiosTuristicos = new LinkedList<>();
 	private LinkedList<Plato> platos = new LinkedList<>();
 	private String idGestor;
+	private String ciudad;
 	
 	// Getters y setters.
 
+	
+	
 	public String getIdGestor() {
 		return idGestor;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 
 	public void setIdGestor(String idGestor) {

@@ -5,6 +5,16 @@ public class RestauranteResumen {
 	private String id;
 	private String nombre;
 	private String coordenadas;
+	private String ciudad;
+	
+	
+	
+	public String getCiudad() {
+		return ciudad;
+	}
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
 	public String getId() {
 		return id;
 	}
